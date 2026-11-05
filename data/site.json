@@ -5,7 +5,12 @@
   "eyebrow": "Engineering · Architecture · Leadership",
   "bio": "Paulo Leite — engenheiro de software com 20+ anos de experiência. Código, liderança e inovação.",
   "photo": {
-    "src": "assets/images/paulo-leite.jpg",
+    "base": "assets/images/paulo-leite",
+    "widths": [
+      480,
+      768,
+      960
+    ],
     "width": 960,
     "height": 960,
     "alt": "Retrato em preto e branco de Paulo Leite sorrindo"

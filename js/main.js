@@ -8,7 +8,7 @@
     nav.classList.toggle('is-open', open);
     toggle.setAttribute('aria-expanded', String(open));
     toggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
-    toggle.querySelector('use').setAttribute('href', toggle.dataset.base + (open ? '#i-x' : '#i-menu'));
+    toggle.querySelector('use').setAttribute('href', open ? '#i-x' : '#i-menu');
   }
 
   toggle.addEventListener('click', function () { setOpen(!nav.classList.contains('is-open')); });

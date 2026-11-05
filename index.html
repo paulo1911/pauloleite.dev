@@ -9,6 +9,10 @@
 <!-- robots controlado por "indexable" em data/site.json (Sprint 7 libera) -->
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#0b0d14">
+<meta name="color-scheme" content="dark">
+<meta name="author" content="Paulo Leite">
+<link rel="alternate" hreflang="pt-BR" href="https://pauloleite.dev/">
+<link rel="alternate" hreflang="x-default" href="https://pauloleite.dev/">
 <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
 <meta property="og:type" content="website">
@@ -18,6 +22,7 @@
 <meta property="og:description" content="Paulo Leite: engenheiro de software com 20+ anos de experiência. Livros, mentoria e projetos sobre código, liderança e inovação.">
 <meta property="og:url" content="https://pauloleite.dev/">
 <meta property="og:image" content="https://pauloleite.dev/assets/images/og-image.jpg">
+<meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Paulo Leite — Building technology. Developing people.">
@@ -25,12 +30,10 @@
 <meta name="twitter:title" content="Paulo Leite — Engineering, Architecture, Leadership">
 <meta name="twitter:description" content="Paulo Leite: engenheiro de software com 20+ anos de experiência. Livros, mentoria e projetos sobre código, liderança e inovação.">
 <meta name="twitter:image" content="https://pauloleite.dev/assets/images/og-image.jpg">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Person", "@id": "https://pauloleite.dev/#person", "name": "Paulo Leite", "url": "https://pauloleite.dev/", "jobTitle": "Engenheiro de Software", "description": "Paulo Leite — engenheiro de software com 20+ anos de experiência. Código, liderança e inovação.", "image": "https://pauloleite.dev/assets/images/paulo-leite.jpg", "sameAs": ["https://www.instagram.com/pauloleite.dev", "https://www.linkedin.com/in/paulorobertoleite"]}, {"@type": "WebSite", "@id": "https://pauloleite.dev/#website", "url": "https://pauloleite.dev/", "name": "Paulo Leite", "description": "Building technology. Developing people.", "inLanguage": "pt-BR", "publisher": {"@id": "https://pauloleite.dev/#person"}}]}</script><link rel="preload" href="assets/fonts/manrope-var.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Person", "@id": "https://pauloleite.dev/#person", "name": "Paulo Leite", "url": "https://pauloleite.dev/", "jobTitle": "Engenheiro de Software", "description": "Paulo Leite — engenheiro de software com 20+ anos de experiência. Código, liderança e inovação.", "image": "https://pauloleite.dev/assets/images/paulo-leite-960.jpg", "sameAs": ["https://www.instagram.com/pauloleite.dev", "https://www.linkedin.com/in/paulorobertoleite"]}, {"@type": "WebSite", "@id": "https://pauloleite.dev/#website", "url": "https://pauloleite.dev/", "name": "Paulo Leite", "description": "Building technology. Developing people.", "inLanguage": "pt-BR", "publisher": {"@id": "https://pauloleite.dev/#person"}}]}</script><link rel="preload" href="assets/fonts/manrope-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/fonts.css">
-<link rel="stylesheet" href="css/tokens.css">
-<link rel="stylesheet" href="css/base.css">
-<link rel="stylesheet" href="css/components.css">
+<link rel="preload" as="image" type="image/webp" fetchpriority="high" imagesrcset="assets/images/paulo-leite-480.webp 480w, assets/images/paulo-leite-768.webp 768w, assets/images/paulo-leite-960.webp 960w" imagesizes="(min-width: 64em) 384px, 240px">
+<link rel="stylesheet" href="css/site.min.css">
 </head>
 <body>
 <!-- GERADO por tools/build.py a partir de data/*.json — não edite à mão -->
@@ -41,21 +44,21 @@
     <nav class="nav" id="nav" aria-label="Principal">
       <ul><li><a href="" aria-current="page">Início</a></li><li><a href="conhecimento/">Conhecimento</a></li><li><a href="projetos/">Projetos</a></li><li><a href="conecte-se/">Conecte-se</a></li></ul>
     </nav>
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Abrir menu" data-base="assets/icons/sprite.svg"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-menu"/></svg></button>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Abrir menu"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-menu"/></svg></button>
   </div>
 </header>
 <main id="main">
 <section class="hero">
   <div class="container hero__inner">
-    <div class="hero__photo"><img src="assets/images/paulo-leite.jpg" width="960" height="960" alt="Retrato em preto e branco de Paulo Leite sorrindo" fetchpriority="high"></div>
+    <div class="hero__photo"><picture><source type="image/webp" srcset="assets/images/paulo-leite-480.webp 480w, assets/images/paulo-leite-768.webp 768w, assets/images/paulo-leite-960.webp 960w" sizes="(min-width: 64em) 384px, 240px"><img src="assets/images/paulo-leite-768.jpg" srcset="assets/images/paulo-leite-480.jpg 480w, assets/images/paulo-leite-768.jpg 768w, assets/images/paulo-leite-960.jpg 960w" sizes="(min-width: 64em) 384px, 240px" width="960" height="960" alt="Retrato em preto e branco de Paulo Leite sorrindo" fetchpriority="high" decoding="async"></picture></div>
     <div>
       <p class="eyebrow">Engineering · Architecture · Leadership</p>
       <h1>Building technology. <span class="gradient-text">Developing people.</span></h1>
       <p class="hero__lead">Paulo Leite — engenheiro de software com 20+ anos de experiência. Código, liderança e inovação.</p>
       <div class="hero__actions">
-        <a class="btn btn--primary" href="conhecimento/" data-event="hero_cta_click" data-cta-id="explorar-conhecimento">Explorar conhecimento <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-arrow-right"/></svg></a>
-        <a class="btn btn--secondary" href="https://www.instagram.com/pauloleite.dev" target="_blank" rel="noopener" data-event="social_click" data-network="instagram"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-instagram"/></svg> Instagram<span class="visually-hidden"> (abre em nova aba)</span></a>
-        <a class="btn btn--secondary" href="https://www.linkedin.com/in/paulorobertoleite" target="_blank" rel="noopener" data-event="social_click" data-network="linkedin"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-linkedin"/></svg> LinkedIn<span class="visually-hidden"> (abre em nova aba)</span></a>
+        <a class="btn btn--primary" href="conhecimento/" data-event="hero_cta_click" data-cta-id="explorar-conhecimento">Explorar conhecimento <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-right"/></svg></a>
+        <a class="btn btn--secondary" href="https://www.instagram.com/pauloleite.dev" target="_blank" rel="noopener" data-event="social_click" data-network="instagram"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-instagram"/></svg> Instagram<span class="visually-hidden"> (abre em nova aba)</span></a>
+        <a class="btn btn--secondary" href="https://www.linkedin.com/in/paulorobertoleite" target="_blank" rel="noopener" data-event="social_click" data-network="linkedin"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-linkedin"/></svg> LinkedIn<span class="visually-hidden"> (abre em nova aba)</span></a>
       </div>
     </div>
   </div>
@@ -63,21 +66,21 @@
 <section class="section container" aria-labelledby="livros-h">
   <div class="section-head"><p class="eyebrow">Livros</p><h2 id="livros-h">Escritos para quem constrói carreira em tecnologia</h2></div>
   <div class="grid grid--2"><article class="card card--interactive book">
-  <div class="book__cover" aria-hidden="true" style="display:grid;place-items:center;color:var(--color-text-muted)"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-book-open"/></svg></div>
+  <img class="book__cover" src="assets/images/covers/system-design.webp" width="320" height="480" alt="Capa de System Design para Desenvolvedores" loading="lazy" decoding="async" fetchpriority="low">
   <div class="book__body">
     <span class="badge">Livro</span>
     <h3 class="card__title" style="font-size:var(--fs-lg)"><a class="card__link" href="https://www.amazon.com.br/dp/B0F35ZZ6GW" target="_blank" rel="noopener" data-event="book_click" data-book-id="system-design" data-store="amazon">System Design para Desenvolvedores<span class="visually-hidden"> (abre em nova aba)</span></a></h3>
     <p class="card__text">Como Criar Arquiteturas Escaláveis e Performáticas</p>
   </div>
 </article><article class="card card--interactive book">
-  <div class="book__cover" aria-hidden="true" style="display:grid;place-items:center;color:var(--color-text-muted)"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-book-open"/></svg></div>
+  <img class="book__cover" src="assets/images/covers/arquiteto-carreira.webp" width="320" height="419" alt="Capa de O Arquiteto da Própria Carreira" loading="lazy" decoding="async" fetchpriority="low">
   <div class="book__body">
     <span class="badge">Livro</span>
     <h3 class="card__title" style="font-size:var(--fs-lg)"><a class="card__link" href="https://www.amazon.com.br/dp/B0G5JLT49N" target="_blank" rel="noopener" data-event="book_click" data-book-id="arquiteto-carreira" data-store="amazon">O Arquiteto da Própria Carreira<span class="visually-hidden"> (abre em nova aba)</span></a></h3>
     <p class="card__text">De Pleno a Sênior na Engenharia de Software</p>
   </div>
 </article></div>
-  <p style="margin-top:var(--space-5)"><a class="btn btn--ghost" href="conhecimento/" data-event="featured_click" data-item-id="conhecimento">Ver todo o conhecimento <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-arrow-right"/></svg></a></p>
+  <p style="margin-top:var(--space-5)"><a class="btn btn--ghost" href="conhecimento/" data-event="featured_click" data-item-id="conhecimento">Ver todo o conhecimento <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-right"/></svg></a></p>
 </section>
 <section class="section container" aria-label="Mentoring"><div class="band">
   <div class="band__text">
@@ -85,25 +88,25 @@
     <h2 style="font-size:var(--fs-xl)">Mentoria 1:1 pelo ADPList</h2>
     <p class="text-muted">Sessões de carreira e engenharia de software, sujeitas à disponibilidade de agenda.</p>
   </div>
-  <a class="btn btn--primary" href="https://adplist.org/mentors/paulo-roberto-a-s-leite" target="_blank" rel="noopener" data-event="mentoring_click" data-placement="home">Agendar no ADPList <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-arrow-up-right"/></svg><span class="visually-hidden"> (abre em nova aba)</span></a>
+  <a class="btn btn--primary" href="https://adplist.org/mentors/paulo-roberto-a-s-leite" target="_blank" rel="noopener" data-event="mentoring_click" data-placement="home">Agendar no ADPList <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg><span class="visually-hidden"> (abre em nova aba)</span></a>
 </div></section>
 <section class="section container" aria-labelledby="proj-h">
   <div class="section-head"><p class="eyebrow">Projetos</p><h2 id="proj-h">Things I've built</h2></div>
   <article class="card card--featured">
-  <span class="badge"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-sparkles"/></svg> Projeto</span>
+  <span class="badge"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-sparkles"/></svg> Projeto</span>
   <h3 class="card__title">DogNAS</h3>
   <p class="card__text">Transforme dispositivos Android em servidores NAS pessoais na sua rede local.</p>
-  <p><a class="btn btn--primary" href="https://dognas.app" target="_blank" rel="noopener" data-event="featured_click" data-project-id="dognas">Conhecer o DogNAS <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-arrow-up-right"/></svg><span class="visually-hidden"> (abre em nova aba)</span></a></p>
+  <p><a class="btn btn--primary" href="https://dognas.app" target="_blank" rel="noopener" data-event="featured_click" data-project-id="dognas">Conhecer o DogNAS <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg><span class="visually-hidden"> (abre em nova aba)</span></a></p>
 </article>
 </section>
 <section class="section container" aria-labelledby="contato-h">
   <div class="section-head"><h2 id="contato-h">Vamos conversar</h2></div>
   <div class="grid grid--2"><article class="card card--interactive social">
-  <span class="social__icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-message-circle"/></svg></span>
+  <span class="social__icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-message-circle"/></svg></span>
   <div class="social__body"><h3 class="social__label" style="font-size:var(--fs-base)"><a class="card__link" href="https://wa.me/5511998812487" target="_blank" rel="noopener" data-event="contact_click" data-method="whatsapp">WhatsApp<span class="visually-hidden"> (abre em nova aba)</span></a></h3><p class="social__meta">Conversar agora</p></div>
-  <svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-arrow-up-right"/></svg>
+  <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg>
 </article><article class="card card--interactive social">
-  <span class="social__icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-mail"/></svg></span>
+  <span class="social__icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg></span>
   <div class="social__body"><h3 class="social__label" style="font-size:var(--fs-base)"><a class="card__link" href="#contato" data-email-user="me.pauloleite.dev" data-email-domain="gmail.com" data-event="contact_click" data-method="email">E-mail</a></h3><p class="social__meta"><span data-email-text>me.pauloleite.dev [arroba] gmail.com</span></p></div>
   
 </article></div>
@@ -118,7 +121,21 @@
     </ul>
   </div>
 </footer>
-<script src="js/main.js" defer></script>
-<script src="js/analytics.js" defer></script>
+<script src="js/site.min.js" defer></script>
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true"><symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" /></symbol><symbol id="i-arrow-up-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10" />
+  <path d="M7 17 17 7" /></symbol><symbol id="i-instagram" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+  <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></symbol><symbol id="i-linkedin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+  <rect width="4" height="12" x="2" y="9" />
+  <circle cx="4" cy="4" r="2" /></symbol><symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2" />
+  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></symbol><symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12" />
+  <line x1="4" x2="20" y1="6" y2="6" />
+  <line x1="4" x2="20" y1="18" y2="18" /></symbol><symbol id="i-message-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" /></symbol><symbol id="i-sparkles" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
+  <path d="M20 3v4" />
+  <path d="M22 5h-4" />
+  <path d="M4 17v2" />
+  <path d="M5 18H3" /></symbol><symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18" />
+  <path d="m6 6 12 12" /></symbol></svg>
 </body>
 </html>

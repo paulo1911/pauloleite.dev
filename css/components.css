@@ -30,6 +30,7 @@
 /* Book card: cover + meta */
 .book { flex-direction: row; align-items: flex-start; gap: var(--space-4); }
 .book__cover { width: 5.5rem; flex: none; aspect-ratio: 2 / 3; border-radius: var(--radius-sm); background: var(--color-surface-2); object-fit: cover; box-shadow: 0 6px 16px rgb(0 0 0 / 0.5); }
+img.book__cover { aspect-ratio: auto; height: auto; }
 .book__body { display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; }
 
 /* Badge / chip */
@@ -115,3 +116,6 @@
 .reco__more summary { cursor: pointer; color: var(--color-accent); font-weight: 600; min-height: 44px; display: flex; align-items: center; }
 .reco__more[open] summary { margin-bottom: var(--space-2); }
 .reco__more summary:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 3px; border-radius: var(--radius-sm); }
+
+.card__media--contain { aspect-ratio: 3 / 2; }
+.card__media--contain img { object-fit: contain; }

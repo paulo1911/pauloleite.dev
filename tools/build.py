@@ -13,6 +13,37 @@ SITE = load('site')
 BOOKS, SMART = pub(load('books')), pub(load('smartbooks'))
 PROJECTS, SOCIALS = pub(load('projects')), pub(load('socials'))
 RECO = pub(load('recommendations'))
+PHOTO = SITE['photo']
+SIZES = '(min-width: 64em) 384px, 240px'
+def srcset(ext): return ', '.join(f"{{p}}{PHOTO['base']}-{w}.{ext} {w}w" for w in PHOTO['widths'])
+PRELOAD_HERO = f'<link rel="preload" as="image" type="image/webp" fetchpriority="high" imagesrcset="{srcset("webp").replace("{p}", "")}" imagesizes="{SIZES}">'
+
+def minify_css(t):
+    import re
+    t = re.sub(r'/\*.*?\*/', '', t, flags=re.S)
+    t = re.sub(r'\s+', ' ', t)
+    t = re.sub(r' ?([{};,]) ?', r'\1', t)
+    return t.replace(';}', '}').strip()
+
+def minify_js(t):
+    import re
+    t = re.sub(r'/\*.*?\*/', '', t, flags=re.S)
+    return '\n'.join(l.strip() for l in t.split('\n') if l.strip() and not l.strip().startswith('//'))
+
+def bundle_assets():
+    css = ''.join(open(os.path.join(ROOT, 'css', f), encoding='utf8').read() + '\n' for f in ('fonts.css', 'tokens.css', 'base.css', 'components.css'))
+    open(os.path.join(ROOT, 'css', 'site.min.css'), 'w', encoding='utf8').write(minify_css(css) + '\n')
+    js = '\n'.join(open(os.path.join(ROOT, 'js', f), encoding='utf8').read() for f in ('analytics.js', 'main.js'))
+    open(os.path.join(ROOT, 'js', 'site.min.js'), 'w', encoding='utf8').write(minify_js(js) + '\n')
+
+SPRITE = open(os.path.join(ROOT, 'assets', 'icons', 'sprite.svg'), encoding='utf8').read()
+def inline_sprite(html):
+    import re
+    used = set(re.findall(r'sprite\.svg#(i-[a-z0-9-]+)', html)) | {'i-menu', 'i-x'}
+    html = re.sub(r'href="[^"]*sprite\.svg#', 'href="#', html)
+    syms = ''.join(m.group(0) for m in re.finditer(r'<symbol id="(i-[a-z0-9-]+)".*?</symbol>', SPRITE, re.S) if m.group(1) in used)
+    return html.replace('</body>', f'<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">{syms}</svg>\n</body>')
+
 EXT = '<span class="visually-hidden"> (abre em nova aba)</span>'
 NAV = [('Início', '', 'home'), ('Conhecimento', 'conhecimento/', 'conhecimento'), ('Projetos', 'projetos/', 'projetos'), ('Conecte-se', 'conecte-se/', 'conecte-se')]
 
@@ -24,8 +55,9 @@ def social(kind): return [s for s in SOCIALS if s['kind'] == kind]
 def soc(id_): return next(s for s in SOCIALS if s['id'] == id_)
 
 def img_or_cover(p, item, cls):
-    if item.get('image'):
-        return f'<img class="{cls}" src="{p}{e(item["image"])}" alt="Capa de {e(item["title"])}" loading="lazy">'
+    im = item.get('image')
+    if im:
+        return f'<img class="{cls}" src="{p}{e(im["src"])}" width="{im["width"]}" height="{im["height"]}" alt="Capa de {e(item["title"])}" loading="lazy" decoding="async" fetchpriority="low">'
     return f'<div class="{cls}" aria-hidden="true" style="display:grid;place-items:center;color:var(--color-text-muted)">{ic(p, "book-open")}</div>'
 
 def book_card(p, b):
@@ -37,6 +69,16 @@ def book_card(p, b):
     <p class="card__text">{e(b['subtitle'])}</p>
   </div>
 </article>'''
+
+def smart_card(p, b):
+    return f'''<article class="card card--interactive">
+  <div class="card__media card__media--contain">{img_or_cover(p, b, '')}</div>
+  <span class="badge">{e(b['format'])}</span>
+  <h3 class="card__title" style="font-size:var(--fs-lg)"><a class="card__link" href="{e(b['url'])}" {ext_attrs()} data-event="book_click" data-book-id="{b['id']}" data-store="{b['store']}">{e(b['title'])}{EXT}</a></h3>
+  <p class="card__text">{e(b['subtitle'])}</p>
+</article>'''
+
+def smart_grid(p, items): return '<div class="grid grid--3">' + ''.join(smart_card(p, b) for b in items) + '</div>'
 
 def grid(p, items, cols=2): return f'<div class="grid grid--{cols}">' + ''.join(book_card(p, b) for b in items) + '</div>'
 
@@ -89,14 +131,14 @@ def reco_card(c, per=6):
 def head(eyebrow, h1, lead):
     return f'<section class="page-head"><div class="container"><p class="eyebrow">{e(eyebrow)}</p><h1>{h1}</h1><p>{e(lead)}</p></div></section>'
 
-def layout(key, depth, title, desc, body, path, jsonld='', index=True):
+def layout(key, depth, title, desc, body, path, jsonld='', index=True, head_extra=''):
     p = '../' * depth if isinstance(depth, int) else depth  # str = prefixo absoluto (404)
     nav = ''.join(f'<li><a href="{p}{h}"{" aria-current=&quot;page&quot;" if k == key else ""}>{t}</a></li>'.replace('&quot;', '"') for t, h, k in NAV)
     ig, li_ = soc('instagram'), soc('linkedin')
     url = f"{SITE['domain']}/{path}"
     robots = 'index, follow, max-image-preview:large' if (SITE['indexable'] and index) else 'noindex, nofollow'
     ga = f' data-ga4-id="{SITE["ga4_id"]}"' if SITE.get('ga4_id') else ''
-    return f'''<!doctype html>
+    html = f'''<!doctype html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
@@ -107,6 +149,10 @@ def layout(key, depth, title, desc, body, path, jsonld='', index=True):
 <!-- robots controlado por "indexable" em data/site.json (Sprint 7 libera) -->
 <meta name="robots" content="{robots}">
 <meta name="theme-color" content="#0b0d14">
+<meta name="color-scheme" content="dark">
+<meta name="author" content="{e(SITE['name'])}">
+<link rel="alternate" hreflang="pt-BR" href="{url}">
+<link rel="alternate" hreflang="x-default" href="{url}">
 <link rel="icon" href="{p}assets/images/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="{p}assets/images/apple-touch-icon.png">
 <meta property="og:type" content="website">
@@ -116,6 +162,7 @@ def layout(key, depth, title, desc, body, path, jsonld='', index=True):
 <meta property="og:description" content="{e(desc)}">
 <meta property="og:url" content="{url}">
 <meta property="og:image" content="{SITE['domain']}/{SITE['og_image']['src']}">
+<meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="{SITE['og_image']['width']}">
 <meta property="og:image:height" content="{SITE['og_image']['height']}">
 <meta property="og:image:alt" content="{e(SITE['og_image']['alt'])}">
@@ -125,10 +172,7 @@ def layout(key, depth, title, desc, body, path, jsonld='', index=True):
 <meta name="twitter:image" content="{SITE['domain']}/{SITE['og_image']['src']}">
 {jsonld}<link rel="preload" href="{p}assets/fonts/manrope-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{p}assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="{p}css/fonts.css">
-<link rel="stylesheet" href="{p}css/tokens.css">
-<link rel="stylesheet" href="{p}css/base.css">
-<link rel="stylesheet" href="{p}css/components.css">
+{head_extra}<link rel="stylesheet" href="{p}css/site.min.css">
 </head>
 <body>
 <!-- GERADO por tools/build.py a partir de data/*.json — não edite à mão -->
@@ -139,7 +183,7 @@ def layout(key, depth, title, desc, body, path, jsonld='', index=True):
     <nav class="nav" id="nav" aria-label="Principal">
       <ul>{nav}</ul>
     </nav>
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Abrir menu" data-base="{p}assets/icons/sprite.svg"><svg class="icon" aria-hidden="true" focusable="false"><use href="{p}assets/icons/sprite.svg#i-menu"/></svg></button>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Abrir menu"><svg class="icon" aria-hidden="true" focusable="false"><use href="{p}assets/icons/sprite.svg#i-menu"/></svg></button>
   </div>
 </header>
 <main id="main">
@@ -154,17 +198,17 @@ def layout(key, depth, title, desc, body, path, jsonld='', index=True):
     </ul>
   </div>
 </footer>
-<script src="{p}js/main.js" defer></script>
-<script src="{p}js/analytics.js" defer{ga}></script>
+<script src="{p}js/site.min.js" defer{ga}></script>
 </body>
 </html>
 '''
+    return inline_sprite(html)
 
 def home_jsonld():
     graph = [
         {"@type": "Person", "@id": SITE['domain'] + "/#person", "name": SITE['name'], "url": SITE['domain'] + "/",
          "jobTitle": SITE['job_title'], "description": SITE['bio'],
-         "image": SITE['domain'] + "/" + SITE['photo']['src'],
+         "image": SITE['domain'] + "/" + PHOTO['base'] + "-960.jpg",
          "sameAs": [soc('instagram')['url'], soc('linkedin')['url']]},
         {"@type": "WebSite", "@id": SITE['domain'] + "/#website", "url": SITE['domain'] + "/", "name": SITE['name'],
          "description": SITE['tagline'], "inLanguage": "pt-BR", "publisher": {"@id": SITE['domain'] + "/#person"}},
@@ -172,14 +216,14 @@ def home_jsonld():
     return '<script type="application/ld+json">' + json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False) + '</script>'
 
 def build():
+    bundle_assets()
     ig, li_ = soc('instagram'), soc('linkedin')
-    ph = SITE['photo']
     featured = [b for b in BOOKS if b.get('featured')]
     proj = next(x for x in PROJECTS if x.get('featured'))
     pages = {}
     home = f'''<section class="hero">
   <div class="container hero__inner">
-    <div class="hero__photo"><img src="{ph['src']}" width="{ph['width']}" height="{ph['height']}" alt="{e(ph['alt'])}" fetchpriority="high"></div>
+    <div class="hero__photo"><picture><source type="image/webp" srcset="{srcset('webp').replace('{p}', '')}" sizes="{SIZES}"><img src="{PHOTO['base']}-768.jpg" srcset="{srcset('jpg').replace('{p}', '')}" sizes="{SIZES}" width="{PHOTO['width']}" height="{PHOTO['height']}" alt="{e(PHOTO['alt'])}" fetchpriority="high" decoding="async"></picture></div>
     <div>
       <p class="eyebrow">{e(SITE['eyebrow'])}</p>
       <h1>Building technology. <span class="gradient-text">Developing people.</span></h1>
@@ -207,12 +251,12 @@ def build():
   <div class="grid grid--2">{''.join(link_card('', s) for s in social('contact'))}</div>
 </section>'''
     pages['index.html'] = layout('home', 0, 'Paulo Leite — Engineering, Architecture, Leadership',
-        'Paulo Leite: engenheiro de software com 20+ anos de experiência. Livros, mentoria e projetos sobre código, liderança e inovação.', home, '', jsonld=home_jsonld())
+        'Paulo Leite: engenheiro de software com 20+ anos de experiência. Livros, mentoria e projetos sobre código, liderança e inovação.', home, '', jsonld=home_jsonld(), head_extra=PRELOAD_HERO + '\n')
 
     know = head('Conhecimento', 'Conhecimento', 'Livros, materiais e recomendações para evoluir em engenharia de software.') + f'''
 <div class="container"><nav class="anchor-nav" aria-label="Seções"><a class="btn btn--secondary" href="#livros">Livros</a><a class="btn btn--secondary" href="#smartbooks">SmartBooks</a><a class="btn btn--secondary" href="#recomendacoes">Recomendações</a></nav></div>
 <section class="section container" id="livros" aria-labelledby="l-h"><div class="section-head"><h2 id="l-h">Livros</h2><p>Publicados por Paulo Leite.</p></div>{grid('../', BOOKS)}</section>
-<section class="section container" id="smartbooks" aria-labelledby="s-h"><div class="section-head"><h2 id="s-h">SmartBooks</h2><p>Guias práticos para destravar a carreira em tecnologia.</p></div>{grid('../', SMART, 3)}</section>
+<section class="section container" id="smartbooks" aria-labelledby="s-h"><div class="section-head"><h2 id="s-h">SmartBooks</h2><p>Guias práticos para destravar a carreira em tecnologia.</p></div>{smart_grid('../', SMART)}</section>
 <section class="section container" id="recomendacoes" aria-labelledby="r-h"><div class="section-head"><h2 id="r-h">Recomendações</h2><p>Leituras e materiais que indico.</p></div>
 <div class="grid grid--3">{''.join(reco_card(c) for c in RECO)}</div>
 <p class="note" style="margin-top:var(--space-5)">{e(SITE['affiliate_note'])}</p></section>'''
