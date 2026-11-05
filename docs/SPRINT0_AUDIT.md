@@ -58,8 +58,8 @@ Total: 38 links (7 topo, 1 projeto, 3 SmartBooks, 24 recomendações/afiliados, 
 
 ## 4. Pendências (decisões suas)
 1. **Mentoring (ADPList):** ✅ URL recebida; falta só confirmar tom/texto de disponibilidade (sessões gratuitas, sujeitas à agenda).
-2. **Podcast/Spotify:** URL real, ou remover do Conecte-se.
-3. **YouTube:** URL do canal (o Linktree só tem um vídeo de brown noise).
+2. **Podcast/Spotify:** ✅ decidido pelo Paulo (2026-11-05): ainda não há conteúdo publicado → **fora do site por enquanto**.
+3. **YouTube:** ✅ decidido pelo Paulo (2026-11-05): ainda não há conteúdo publicado → **fora do site por enquanto** (o vídeo de brown noise do Linktree não entra).
 4. **Contato:** WhatsApp (+55 11 99881-2487 já público no Linktree) e/ou e-mail — qual exibir?
 5. **Livro JR:** ✅ confirmado pelo Paulo (2026-11-05): à venda como **Kindle (eBook) na Amazon**. URL limpa: https://www.amazon.com.br/dp/B0FSYLTS6Y. Pendente: manter como destaque na home?
 6. **SmartBooks:** oferta de 50% ainda vale? Preços?
