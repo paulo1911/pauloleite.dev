@@ -65,7 +65,7 @@ Total: 38 links (7 topo, 1 projeto, 3 SmartBooks, 24 recomendações/afiliados, 
 6. **SmartBooks:** oferta de 50% ainda vale? Preços?
 7. **Neurodiversidade e Setup:** ✅ decidido pelo Paulo (2026-11-05): **ficam de fora por enquanto** (podem voltar numa versão futura; links preservados na seção 2 deste documento).
 8. **Foto e capas:** enviar originais (foto hero, 3 capas de livros, 3 capas SmartBooks, screenshots DogNAS).
-9. **GA4:** possui ID de medição (`G-…`)?
+9. **GA4:** ✅ decidido pelo Paulo (2026-11-05): **sem ID por enquanto**. O código de eventos entra na Sprint 5 como no-op (não carrega GA4 sem ID); ativar depois é só configurar o ID. Aviso de cookies (LGPD) fica para quando o GA4 for ativado.
 10. **Domínio:** pauloleite.dev está registrado com acesso ao DNS? Onde (registrar)?
 11. **Afiliados:** divulgar nota de afiliado nas recomendações (exigência da Amazon Associados).
 
