@@ -12,7 +12,7 @@ Eventos: hero_cta_click, book_click, mentoring_click, project_click, social_clic
 
 ## Sprints (status)
 - [x] 0. Discovery & Brand Audit (Linktree, links, conteúdos, imagens, ativos)
-- [ ] 1. Brand Identity & Design System
+- [x] 1. Brand Identity & Design System
 - [ ] 2. UX Architecture & Wireframes
 - [ ] 3. Core Development
 - [ ] 4. Content & Conversion

@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Design System — pauloleite.dev</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@700;800&display=swap">
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+<style>
+  .sw { display:grid; grid-template-columns:repeat(auto-fill,minmax(10rem,1fr)); gap:var(--space-4); }
+  .sw div { border-radius:var(--radius-md); border:1px solid var(--color-border); overflow:hidden; background:var(--color-surface); font-size:var(--fs-xs); }
+  .sw i { display:block; height:4.5rem; }
+  .sw b { display:block; padding:var(--space-2) var(--space-3) 0; font-size:var(--fs-sm); }
+  .sw span { display:block; padding:0 var(--space-3) var(--space-3); color:var(--color-text-muted); }
+  .row { display:flex; flex-wrap:wrap; gap:var(--space-3); align-items:center; }
+  .ph { display:grid; place-items:center; width:100%; height:100%; color:var(--color-text-muted); font-size:var(--fs-xs); }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Pular para o conteúdo</a>
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="#">Paulo Leite<span>.dev</span></a>
+    <nav class="nav" id="nav" aria-label="Principal">
+      <ul>
+        <li><a href="#" aria-current="page">Início</a></li>
+        <li><a href="#">Conhecimento</a></li>
+        <li><a href="#">Projetos</a></li>
+        <li><a href="#">Conecte-se</a></li>
+      </ul>
+    </nav>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Abrir menu"><i data-lucide="menu"></i></button>
+  </div>
+</header>
+
+<main id="main">
+<section class="section container">
+  <p class="eyebrow">Design System v1 · Sprint 1</p>
+  <h1>Building technology. <span class="gradient-text">Developing people.</span></h1>
+  <p class="text-muted" style="font-size:var(--fs-lg);max-width:40rem">Guia vivo dos tokens e componentes do pauloleite.dev. Textos de exemplo; nenhum conteúdo final.</p>
+</section>
+
+<section class="section container">
+  <div class="section-head"><p class="eyebrow">Cores</p><h2>Paleta Dark Premium</h2></div>
+  <div class="sw">
+    <div><i style="background:#0b0d14"></i><b>Background</b><span>#0B0D14</span></div>
+    <div><i style="background:#151827"></i><b>Surface</b><span>#151827</span></div>
+    <div><i style="background:#8b5cf6"></i><b>Primary</b><span>#8B5CF6</span></div>
+    <div><i style="background:#7c3aed"></i><b>Primary strong</b><span>#7C3AED · botão</span></div>
+    <div><i style="background:#c4b5fd"></i><b>Accent</b><span>#C4B5FD</span></div>
+    <div><i style="background:#f8fafc"></i><b>Text</b><span>#F8FAFC</span></div>
+    <div><i style="background:#9298aa"></i><b>Text muted</b><span>#9298AA</span></div>
+    <div><i style="background:#292e40"></i><b>Border</b><span>#292E40 · decorativa</span></div>
+    <div><i style="background:#5b6280"></i><b>Border strong</b><span>#5B6280 · UI</span></div>
+  </div>
+</section>
+
+<section class="section container">
+  <div class="section-head"><p class="eyebrow">Tipografia</p><h2>Manrope + Inter</h2></div>
+  <div class="stack">
+    <h1>Heading 1 — Manrope 800</h1>
+    <h2>Heading 2 — Manrope 800</h2>
+    <h3>Heading 3 — Manrope 700</h3>
+    <h4>Heading 4 — Manrope 700</h4>
+    <p>Corpo — Inter 400. Engenharia, arquitetura e liderança, com <a href="#">link em accent</a> sublinhado e foco visível.</p>
+    <p class="text-muted">Texto secundário — Inter 400 em #9298AA.</p>
+  </div>
+</section>
+
+<section class="section container">
+  <div class="section-head"><p class="eyebrow">Botões</p><h2>Ações</h2></div>
+  <div class="row">
+    <a class="btn btn--primary" href="#"><i data-lucide="arrow-right"></i>Primário</a>
+    <a class="btn btn--secondary" href="#"><i data-lucide="external-link"></i>Secundário</a>
+    <a class="btn btn--ghost" href="#">Ghost</a>
+    <span class="badge">Badge</span><span class="badge badge--muted">Muted</span>
+  </div>
+</section>
+
+<section class="section container">
+  <div class="section-head"><p class="eyebrow">Cards</p><h2>Livro, projeto e destaque</h2></div>
+  <div class="grid grid--3">
+    <article class="card card--interactive book">
+      <div class="book__cover"><div class="ph">capa</div></div>
+      <div class="book__body">
+        <span class="badge">Livro</span>
+        <h3 class="card__title" style="font-size:var(--fs-lg)"><a class="card__link" href="#">Título do livro</a></h3>
+        <p class="card__text">Descrição curta do livro, validada pelo autor.</p>
+      </div>
+    </article>
+    <article class="card card--interactive">
+      <div class="card__media"><div class="ph">screenshot</div></div>
+      <span class="badge badge--muted">Projeto</span>
+      <h3 class="card__title"><a class="card__link" href="#">Nome do projeto</a></h3>
+      <p class="card__text">Descrição curta do projeto autoral.</p>
+    </article>
+    <article class="card card--featured">
+      <span class="badge"><i data-lucide="sparkles" style="width:.9rem;height:.9rem"></i>Destaque</span>
+      <h3 class="card__title">Card em destaque</h3>
+      <p class="card__text">Borda e brilho em primary para o item principal da página.</p>
+      <a class="btn btn--primary" href="#">Saiba mais</a>
+    </article>
+  </div>
+</section>
+
+<section class="section container">
+  <div class="section-head"><p class="eyebrow">Conecte-se</p><h2>Links sociais</h2></div>
+  <div class="grid grid--2">
+    <article class="card card--interactive social">
+      <span class="social__icon"><i data-lucide="instagram"></i></span>
+      <div class="social__body"><h3 class="social__label" style="font-size:var(--fs-base)"><a class="card__link" href="#">Instagram</a></h3><p class="social__meta">@pauloleite.dev</p></div>
+      <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+    </article>
+    <article class="card card--interactive social">
+      <span class="social__icon"><i data-lucide="linkedin"></i></span>
+      <div class="social__body"><h3 class="social__label" style="font-size:var(--fs-base)"><a class="card__link" href="#">LinkedIn</a></h3><p class="social__meta">Paulo Leite</p></div>
+      <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+    </article>
+  </div>
+  <p class="note" style="margin-top:var(--space-5)">Nota de divulgação: alguns links são de afiliados.</p>
+</section>
+</main>
+
+<footer class="site-footer"><div class="container site-footer__inner"><span>© Paulo Leite</span><span>Building technology. Developing people.</span></div></footer>
+
+<script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+<script>
+  lucide.createIcons();
+  var t=document.querySelector('.nav-toggle'),n=document.getElementById('nav');
+  t.addEventListener('click',function(){var o=n.classList.toggle('is-open');t.setAttribute('aria-expanded',o);});
+</script>
+</body>
+</html>
