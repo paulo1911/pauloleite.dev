@@ -21,7 +21,7 @@ Status: ✅ responde 200 · 🔒 bloqueia verificação automática (405 a HEAD 
 | LinkedIn | https://br.linkedin.com/in/paulorobertoleite | 🔒 |
 | YouTube — "Energia Mental e Foco Máximo" (Brown Noise) | https://youtu.be/j9AryH7VKF4 | ✅ |
 | WhatsApp | https://wa.me/5511998812487 | ✅ |
-| Instagram | https://www.instagram.com/pauloleite.dev (com `igsh` e `utm_source=qr`) | ✅ |
+| Instagram (canal principal de conteúdo e mentoria) | https://www.instagram.com/pauloleite.dev (`igsh` e `utm_source=qr` serão removidos) | ✅ |
 
 ### Grupo "Meus Projetos"
 - DogNAS — https://dognas.app ✅
@@ -54,10 +54,10 @@ Total: 38 links (7 topo, 1 projeto, 3 SmartBooks, 24 recomendações/afiliados, 
 | Conhecimento › Recomendações | Tecnologia, Liderança, Produtividade | Neurodiversidade e Setup **não estão no escopo do plano** — decidir (manter/descartar) |
 | Projetos | DogNAS | screenshots reais |
 | Conecte-se | Instagram, LinkedIn, WhatsApp, YouTube | **Spotify/podcast: não existe no Linktree**; URL do canal YouTube (hoje só um vídeo); e-mail |
-| Mentoring | — | **Nada no Linktree.** Sem informação de oferta/disponibilidade |
+| Mentoring | Instagram (informado pelo Paulo em 2026-11-05) | Mentoria é divulgada no Instagram e agendada via **ADPList** (adplist.org). **URL do perfil ADPList pendente** — não inventar |
 
 ## 4. Pendências (decisões suas)
-1. **Mentoring:** existe? Disponibilidade, formato, link de contato. Sem confirmação, a seção fica fora.
+1. **Mentoring (ADPList):** informar a URL do perfil ADPList e confirmar disponibilidade/formato. Sem URL validada, o CTA não entra.
 2. **Podcast/Spotify:** URL real, ou remover do Conecte-se.
 3. **YouTube:** URL do canal (o Linktree só tem um vídeo de brown noise).
 4. **Contato:** WhatsApp (+55 11 99881-2487 já público no Linktree) e/ou e-mail — qual exibir?
