@@ -11,7 +11,7 @@ Metadados, canonical, Open Graph, sitemap.xml, robots.txt, JSON-LD Person/WebSit
 Eventos: hero_cta_click, book_click, mentoring_click, project_click, social_click, featured_click, contact_click. UTMs para Instagram.
 
 ## Sprints (status)
-- [ ] 0. Discovery & Brand Audit (Linktree, links, conteúdos, imagens, ativos)
+- [x] 0. Discovery & Brand Audit (Linktree, links, conteúdos, imagens, ativos)
 - [ ] 1. Brand Identity & Design System
 - [ ] 2. UX Architecture & Wireframes
 - [ ] 3. Core Development
