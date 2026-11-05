@@ -239,7 +239,7 @@ def build():
 <section class="section container" aria-labelledby="livros-h">
   <div class="section-head"><p class="eyebrow">Livros</p><h2 id="livros-h">Escritos para quem constrói carreira em tecnologia</h2></div>
   {grid('', featured)}
-  <p style="margin-top:var(--space-5)"><a class="btn btn--ghost" href="conhecimento/" data-event="featured_click" data-item-id="conhecimento">Ver todo o conhecimento {ic('', 'arrow-right')}</a></p>
+  <p class="section-cta" style="margin-top:var(--space-5)"><a class="btn btn--ghost" href="conhecimento/" data-event="featured_click" data-item-id="conhecimento">Ver todo o conhecimento {ic('', 'arrow-right')}</a></p>
 </section>
 <section class="section container" aria-label="Mentoring">{mentoring('', 'home')}</section>
 <section class="section container" aria-labelledby="proj-h">

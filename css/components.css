@@ -119,3 +119,27 @@ img.book__cover { aspect-ratio: auto; height: auto; }
 
 .card__media--contain { aspect-ratio: 3 / 2; }
 .card__media--contain img { object-fit: contain; }
+
+/* ---- Mobile-first: conteúdo de seção centralizado; desktop (>=64em) volta à esquerda ---- */
+.hero__inner, .page-head, .section-head, .band, .site-footer__inner, .section-cta { text-align: center; }
+.hero__photo { margin-inline: auto; }
+.hero__lead, .page-head p, .section-head { margin-inline: auto; }
+.hero__actions { justify-content: center; }
+.band { align-items: center; }
+.site-footer__inner { justify-content: center; }
+.site-footer__nav { justify-content: center; }
+.anchor-nav { justify-content: safe center; }
+.card--featured { align-items: center; text-align: center; }
+@media (min-width: 64em) {
+  .hero__inner, .page-head, .section-head, .section-cta { text-align: left; }
+  .hero__photo { margin-inline: 0; }
+  .hero__lead, .page-head p, .section-head { margin-inline: 0; }
+  .hero__actions { justify-content: flex-start; }
+  .anchor-nav { justify-content: flex-start; }
+  .card--featured { align-items: stretch; text-align: left; }
+}
+@media (min-width: 48em) {
+  .band { align-items: center; text-align: left; }
+  .site-footer__inner, .site-footer__nav { justify-content: space-between; }
+  .site-footer__inner { text-align: left; }
+}
