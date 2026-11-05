@@ -54,10 +54,10 @@ Total: 38 links (7 topo, 1 projeto, 3 SmartBooks, 24 recomendações/afiliados, 
 | Conhecimento › Recomendações | Tecnologia, Liderança, Produtividade | Neurodiversidade e Setup **não estão no escopo do plano** — decidir (manter/descartar) |
 | Projetos | DogNAS | screenshots reais |
 | Conecte-se | Instagram, LinkedIn, WhatsApp, YouTube | **Spotify/podcast: não existe no Linktree**; URL do canal YouTube (hoje só um vídeo); e-mail |
-| Mentoring | Instagram (informado pelo Paulo em 2026-11-05) | Mentoria é divulgada no Instagram e agendada via **ADPList** (adplist.org). **URL do perfil ADPList pendente** — não inventar |
+| Mentoring | Instagram (informado pelo Paulo em 2026-11-05) | Mentoria é divulgada no Instagram e agendada via **ADPList** (adplist.org). URL: https://adplist.org/mentors/paulo-roberto-a-s-leite (fornecida pelo Paulo) |
 
 ## 4. Pendências (decisões suas)
-1. **Mentoring (ADPList):** informar a URL do perfil ADPList e confirmar disponibilidade/formato. Sem URL validada, o CTA não entra.
+1. **Mentoring (ADPList):** ✅ URL recebida; falta só confirmar tom/texto de disponibilidade (sessões gratuitas, sujeitas à agenda).
 2. **Podcast/Spotify:** URL real, ou remover do Conecte-se.
 3. **YouTube:** URL do canal (o Linktree só tem um vídeo de brown noise).
 4. **Contato:** WhatsApp (+55 11 99881-2487 já público no Linktree) e/ou e-mail — qual exibir?
