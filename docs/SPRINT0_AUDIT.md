@@ -61,7 +61,7 @@ Total: 38 links (7 topo, 1 projeto, 3 SmartBooks, 24 recomendações/afiliados, 
 2. **Podcast/Spotify:** URL real, ou remover do Conecte-se.
 3. **YouTube:** URL do canal (o Linktree só tem um vídeo de brown noise).
 4. **Contato:** WhatsApp (+55 11 99881-2487 já público no Linktree) e/ou e-mail — qual exibir?
-5. **Livro JR:** disponível para venda? Manter como destaque?
+5. **Livro JR:** ✅ confirmado pelo Paulo (2026-11-05): à venda como **Kindle (eBook) na Amazon**. URL limpa: https://www.amazon.com.br/dp/B0FSYLTS6Y. Pendente: manter como destaque na home?
 6. **SmartBooks:** oferta de 50% ainda vale? Preços?
 7. **Neurodiversidade e Setup:** incluir ou descartar?
 8. **Foto e capas:** enviar originais (foto hero, 3 capas de livros, 3 capas SmartBooks, screenshots DogNAS).
