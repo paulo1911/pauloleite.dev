@@ -2,7 +2,7 @@
 """Gera as páginas estáticas a partir de data/*.json (somente stdlib).
 Uso: python3 tools/build.py   (rodar na raiz do repositório)
 Itens com "status": "draft" não são renderizados."""
-import json, os
+import json, os, datetime
 from html import escape as e
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -89,10 +89,13 @@ def reco_card(c, per=6):
 def head(eyebrow, h1, lead):
     return f'<section class="page-head"><div class="container"><p class="eyebrow">{e(eyebrow)}</p><h1>{h1}</h1><p>{e(lead)}</p></div></section>'
 
-def layout(key, depth, title, desc, body, path):
+def layout(key, depth, title, desc, body, path, jsonld='', index=True):
     p = '../' * depth if isinstance(depth, int) else depth  # str = prefixo absoluto (404)
     nav = ''.join(f'<li><a href="{p}{h}"{" aria-current=&quot;page&quot;" if k == key else ""}>{t}</a></li>'.replace('&quot;', '"') for t, h, k in NAV)
     ig, li_ = soc('instagram'), soc('linkedin')
+    url = f"{SITE['domain']}/{path}"
+    robots = 'index, follow, max-image-preview:large' if (SITE['indexable'] and index) else 'noindex, nofollow'
+    ga = f' data-ga4-id="{SITE["ga4_id"]}"' if SITE.get('ga4_id') else ''
     return f'''<!doctype html>
 <html lang="pt-BR">
 <head>
@@ -100,11 +103,27 @@ def layout(key, depth, title, desc, body, path):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{e(title)}</title>
 <meta name="description" content="{e(desc)}">
-<link rel="canonical" href="{SITE['domain']}/{path}">
-<!-- noindex: remover somente na Sprint 7 (lançamento aprovado) -->
-<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="{url}">
+<!-- robots controlado por "indexable" em data/site.json (Sprint 7 libera) -->
+<meta name="robots" content="{robots}">
 <meta name="theme-color" content="#0b0d14">
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="icon" href="{p}assets/images/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="{p}assets/images/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{e(SITE['name'])}">
+<meta property="og:locale" content="{SITE['locale']}">
+<meta property="og:title" content="{e(title)}">
+<meta property="og:description" content="{e(desc)}">
+<meta property="og:url" content="{url}">
+<meta property="og:image" content="{SITE['domain']}/{SITE['og_image']['src']}">
+<meta property="og:image:width" content="{SITE['og_image']['width']}">
+<meta property="og:image:height" content="{SITE['og_image']['height']}">
+<meta property="og:image:alt" content="{e(SITE['og_image']['alt'])}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{e(title)}">
+<meta name="twitter:description" content="{e(desc)}">
+<meta name="twitter:image" content="{SITE['domain']}/{SITE['og_image']['src']}">
+{jsonld}<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@700;800&display=swap">
 <link rel="stylesheet" href="{p}css/tokens.css">
@@ -136,9 +155,21 @@ def layout(key, depth, title, desc, body, path):
   </div>
 </footer>
 <script src="{p}js/main.js" defer></script>
+<script src="{p}js/analytics.js" defer{ga}></script>
 </body>
 </html>
 '''
+
+def home_jsonld():
+    graph = [
+        {"@type": "Person", "@id": SITE['domain'] + "/#person", "name": SITE['name'], "url": SITE['domain'] + "/",
+         "jobTitle": SITE['job_title'], "description": SITE['bio'],
+         "image": SITE['domain'] + "/" + SITE['photo']['src'],
+         "sameAs": [soc('instagram')['url'], soc('linkedin')['url']]},
+        {"@type": "WebSite", "@id": SITE['domain'] + "/#website", "url": SITE['domain'] + "/", "name": SITE['name'],
+         "description": SITE['tagline'], "inLanguage": "pt-BR", "publisher": {"@id": SITE['domain'] + "/#person"}},
+    ]
+    return '<script type="application/ld+json">' + json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False) + '</script>'
 
 def build():
     ig, li_ = soc('instagram'), soc('linkedin')
@@ -176,7 +207,7 @@ def build():
   <div class="grid grid--2">{''.join(link_card('', s) for s in social('contact'))}</div>
 </section>'''
     pages['index.html'] = layout('home', 0, 'Paulo Leite — Engineering, Architecture, Leadership',
-        'Paulo Leite: engenheiro de software com 20+ anos de experiência. Livros, mentoria e projetos sobre código, liderança e inovação.', home, '')
+        'Paulo Leite: engenheiro de software com 20+ anos de experiência. Livros, mentoria e projetos sobre código, liderança e inovação.', home, '', jsonld=home_jsonld())
 
     know = head('Conhecimento', 'Conhecimento', 'Livros, materiais e recomendações para evoluir em engenharia de software.') + f'''
 <div class="container"><nav class="anchor-nav" aria-label="Seções"><a class="btn btn--secondary" href="#livros">Livros</a><a class="btn btn--secondary" href="#smartbooks">SmartBooks</a><a class="btn btn--secondary" href="#recomendacoes">Recomendações</a></nav></div>
@@ -204,11 +235,16 @@ def build():
 
     nf = head('Erro 404', 'Página não encontrada', 'O endereço que você acessou não existe ou foi movido.') + '''
 <section class="section container"><a class="btn btn--primary" href="/">Voltar ao início</a></section>'''
-    pages['404.html'] = layout(None, '/', 'Página não encontrada — Paulo Leite', 'Página não encontrada.', nf, '404.html')
+    pages['404.html'] = layout(None, '/', 'Página não encontrada — Paulo Leite', 'Página não encontrada.', nf, '404.html', index=False)
 
     for f, h in pages.items():
         path = os.path.join(ROOT, f); os.makedirs(os.path.dirname(path), exist_ok=True)
         open(path, 'w', encoding='utf8').write(h)
+    today = datetime.date.today().isoformat()
+    urls = ''.join(f"  <url><loc>{SITE['domain']}/{f.replace('index.html', '')}</loc><lastmod>{today}</lastmod></url>\n" for f in pages if f != '404.html')
+    open(os.path.join(ROOT, 'sitemap.xml'), 'w', encoding='utf8').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + '</urlset>\n')
+    rules = 'Allow: /' if SITE['indexable'] else 'Disallow: /'
+    open(os.path.join(ROOT, 'robots.txt'), 'w', encoding='utf8').write(f"User-agent: *\n{rules}\n\nSitemap: {SITE['domain']}/sitemap.xml\n")
     print('Geradas:', ', '.join(pages))
 
 if __name__ == '__main__':
