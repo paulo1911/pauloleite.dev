@@ -51,10 +51,10 @@ def mentoring(p, placement):
   <a class="btn btn--primary" href="{e(m['url'])}" {ext_attrs()} data-event="mentoring_click" data-placement="{placement}">{e(m['cta'])} {ic(p, 'arrow-up-right')}{EXT}</a>
 </div>'''
 
-def project_card(p, pr, event):
+def project_card(p, pr, event, lv=3):
     return f'''<article class="card card--featured">
   <span class="badge">{ic(p, 'sparkles')} Projeto</span>
-  <h3 class="card__title">{e(pr['title'])}</h3>
+  <h{lv} class="card__title"{' style="font-size:var(--fs-xl)"' if lv == 2 else ''}>{e(pr['title'])}</h{lv}>
   <p class="card__text">{e(pr['description'])}</p>
   <p><a class="btn btn--primary" href="{e(pr['url'])}" {ext_attrs()} data-event="{event}" data-project-id="{pr['id']}">{e(pr['cta'])} {ic(p, 'arrow-up-right')}{EXT}</a></p>
 </article>'''
@@ -123,9 +123,9 @@ def layout(key, depth, title, desc, body, path, jsonld='', index=True):
 <meta name="twitter:title" content="{e(title)}">
 <meta name="twitter:description" content="{e(desc)}">
 <meta name="twitter:image" content="{SITE['domain']}/{SITE['og_image']['src']}">
-{jsonld}<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@700;800&display=swap">
+{jsonld}<link rel="preload" href="{p}assets/fonts/manrope-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{p}assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{p}css/fonts.css">
 <link rel="stylesheet" href="{p}css/tokens.css">
 <link rel="stylesheet" href="{p}css/base.css">
 <link rel="stylesheet" href="{p}css/components.css">
@@ -220,7 +220,7 @@ def build():
         'Livros, SmartBooks e recomendações de Paulo Leite sobre engenharia de software, arquitetura, carreira e liderança.', know, 'conhecimento/')
 
     pj = head('Projetos', "Things I've built.", 'Ideas transformed into technology.') + f'''
-<section class="section container" aria-label="Projetos"><div class="grid">{''.join(project_card('../', x, 'project_click') for x in PROJECTS)}</div><p class="placeholder" style="margin-top:var(--space-5)">Mais projetos em breve.</p></section>'''
+<section class="section container" aria-label="Projetos"><div class="grid">{''.join(project_card('../', x, 'project_click', 2) for x in PROJECTS)}</div><p class="placeholder" style="margin-top:var(--space-5)">Mais projetos em breve.</p></section>'''
     pages['projetos/index.html'] = layout('projetos', 1, 'Projetos — Paulo Leite',
         'Projetos autorais de Paulo Leite. Inicialmente: DogNAS, transforme dispositivos Android em servidores NAS pessoais.', pj, 'projetos/')
 

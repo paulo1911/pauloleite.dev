@@ -17,8 +17,8 @@ Eventos: hero_cta_click, book_click, mentoring_click, project_click, social_clic
 - [x] 3. Core Development
 - [x] 4. Content & Conversion
 - [x] 5. SEO & Analytics
-- [ ] 6. Quality & Optimization
-- [ ] 7. Deployment & Launch (GitHub Pages, domínio, HTTPS, migração da bio)
+- [x] 6. Quality & Optimization
+- [~] 7. Deployment & Launch (PREPARADO; publicação aguarda aprovação do Paulo — ver docs/DEPLOY.md) (GitHub Pages, domínio, HTTPS, migração da bio)
 
 ## Definition of Done
 Requisitos implementados · Design System respeitado · testes executados · sem defeitos críticos · docs atualizadas · critérios de aceite atendidos · alterações aprovadas.
