@@ -67,6 +67,7 @@ Total: 38 links (7 topo, 1 projeto, 3 SmartBooks, 24 recomendações/afiliados, 
 8. **Foto e capas:** enviar originais (foto hero, 3 capas de livros, 3 capas SmartBooks, screenshots DogNAS).
 9. **GA4:** ✅ decidido pelo Paulo (2026-11-05): **sem ID por enquanto**. O código de eventos entra na Sprint 5 como no-op (não carrega GA4 sem ID); ativar depois é só configurar o ID. Aviso de cookies (LGPD) fica para quando o GA4 for ativado.
 10. **Domínio:** pauloleite.dev está registrado com acesso ao DNS? Onde (registrar)?
+    ✅ decidido pelo Paulo (2026-11-05): **DNS por último** (Sprint 7). Até lá o desenvolvimento roda local; nada é publicado.
 11. **Afiliados:** divulgar nota de afiliado nas recomendações (exigência da Amazon Associados).
 
 ## 5. Riscos
