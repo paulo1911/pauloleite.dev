@@ -107,3 +107,11 @@
 .site-footer__nav { display: flex; gap: var(--space-4); list-style: none; margin: 0; padding: 0; flex-wrap: wrap; }
 .site-footer a { color: var(--color-text-muted); }
 .site-footer a:hover { color: var(--color-text); }
+
+/* Recommendation lists */
+.reco { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2); }
+.reco a { display: inline-block; padding-block: var(--space-1); }
+.reco__more { margin-top: var(--space-3); }
+.reco__more summary { cursor: pointer; color: var(--color-accent); font-weight: 600; min-height: 44px; display: flex; align-items: center; }
+.reco__more[open] summary { margin-bottom: var(--space-2); }
+.reco__more summary:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 3px; border-radius: var(--radius-sm); }

@@ -10,7 +10,7 @@
 ## Decisões
 - **`noindex, nofollow` em todas as páginas** até o lançamento aprovado (remover na Sprint 7).
 - Caminhos relativos por profundidade (funciona em qualquer host, inclusive antes do domínio).
-- Header/footer repetidos em cada HTML (sem build/JS de include → SEO e no-JS). Alterar nas 4 páginas.
+- (Superado na Sprint 4) Páginas agora geradas por `tools/build.py`; header/footer vêm do template.
 - Foto do hero: **provisória**, a mesma do Linktree (2000×2000, reduzida a 960px). Substituir se houver foto melhor.
 
 ## Conteúdo (somente validado)

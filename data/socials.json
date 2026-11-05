@@ -1,0 +1,8 @@
+[
+  { "id": "instagram", "label": "Instagram", "meta": "@pauloleite.dev", "icon": "instagram", "url": "https://www.instagram.com/pauloleite.dev", "kind": "social", "status": "published" },
+  { "id": "linkedin", "label": "LinkedIn", "meta": "Paulo Roberto Leite", "icon": "linkedin", "url": "https://www.linkedin.com/in/paulorobertoleite", "kind": "social", "status": "published" },
+  { "id": "youtube", "label": "YouTube", "meta": "", "icon": "youtube", "url": null, "kind": "social", "status": "draft" },
+  { "id": "podcast", "label": "Podcast", "meta": "", "icon": "podcast", "url": null, "kind": "social", "status": "draft" },
+  { "id": "whatsapp", "label": "WhatsApp", "meta": "Conversar agora", "icon": "message-circle", "url": "https://wa.me/5511998812487", "kind": "contact", "status": "published" },
+  { "id": "email", "label": "E-mail", "meta": "me.pauloleite.dev [arroba] gmail.com", "icon": "mail", "email": { "user": "me.pauloleite.dev", "domain": "gmail.com" }, "kind": "contact", "status": "published" }
+]

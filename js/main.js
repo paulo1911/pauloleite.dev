@@ -17,3 +17,13 @@
     if (e.key === 'Escape' && nav.classList.contains('is-open')) { setOpen(false); toggle.focus(); }
   });
 })();
+
+// E-mail montado em runtime (evita scraping simples). Sem JS, o texto "[arroba]" permanece sem link.
+(function () {
+  document.querySelectorAll('[data-email-user]').forEach(function (a) {
+    var addr = a.dataset.emailUser + '@' + a.dataset.emailDomain;
+    a.href = 'mailto:' + addr;
+    var meta = a.closest('.social') && a.closest('.social').querySelector('[data-email-text]');
+    if (meta) meta.textContent = addr;
+  });
+})();

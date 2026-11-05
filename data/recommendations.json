@@ -1,0 +1,198 @@
+[
+  {
+    "id": "tecnologia",
+    "title": "Tecnologia",
+    "status": "published",
+    "items": [
+      {
+        "id": "system-design-interview-an-insider-s-gui",
+        "title": "System Design Interview - An Insider's Guide",
+        "subtitle": "Volume 2",
+        "url": "https://amzn.to/3QU6YXh",
+        "store": "amazon"
+      },
+      {
+        "id": "programador-pragmatico",
+        "title": "Programador Pragmático",
+        "subtitle": "",
+        "url": "https://amzn.to/3FuoVcD",
+        "store": "amazon"
+      },
+      {
+        "id": "como-ser-um-programador-melhor",
+        "title": "Como ser um programador melhor!",
+        "subtitle": "",
+        "url": "https://amzn.to/4iOkhEw",
+        "store": "amazon"
+      },
+      {
+        "id": "migrando-sistemas-monoliticos-para-micro",
+        "title": "Migrando Sistemas Monolíticos Para Microsserviços",
+        "subtitle": "Padrões Evolutivos Para Transformar seu Sistema Monolítico",
+        "url": "https://amzn.to/4guUVde",
+        "store": "amazon"
+      },
+      {
+        "id": "arquitetura-limpa",
+        "title": "Arquitetura limpa",
+        "subtitle": "o guia do artesão para estrutura e design de software",
+        "url": "https://amzn.to/3U18J6c",
+        "store": "amazon"
+      },
+      {
+        "id": "codigo-limpo",
+        "title": "Código Limpo",
+        "subtitle": "Habilidades Práticas do Agile Software",
+        "url": "https://amzn.to/3BvPMDz",
+        "store": "amazon"
+      },
+      {
+        "id": "staff-engineer-s-path",
+        "title": "Staff Engineer’s Path",
+        "subtitle": "",
+        "url": "https://amzn.to/4ftivGN",
+        "store": "amazon"
+      },
+      {
+        "id": "a-philosophy-of-software-design",
+        "title": "A Philosophy of Software Design",
+        "subtitle": "",
+        "url": "https://amzn.to/41SXx0Q",
+        "store": "amazon"
+      },
+      {
+        "id": "entendendo-algoritmos",
+        "title": "Entendendo Algoritmos",
+        "subtitle": "Um Guia Ilustrado Para Programadores e Outros Curiosos",
+        "url": "https://amzn.to/3Jh6d6T",
+        "store": "amazon"
+      },
+      {
+        "id": "estruturas-de-dados-e-algoritmos-com-jav",
+        "title": "Estruturas de Dados e Algoritmos com JavaScript",
+        "subtitle": "Escreva um Código JavaScript Complexo e Eficaz Usando a Mais Recente ECMAScript",
+        "url": "https://amzn.to/3vGyAZ6",
+        "store": "amazon"
+      },
+      {
+        "id": "logica-de-programacao-e-algoritmos-com-j",
+        "title": "Lógica de Programação e Algoritmos com JavaScript",
+        "subtitle": "uma Introdução à Programação de Computadores com Exemplos e Exercícios Para Iniciantes",
+        "url": "https://amzn.to/4aLRXyQ",
+        "store": "amazon"
+      },
+      {
+        "id": "introducao-programacao-com-python",
+        "title": "Introdução à Programação com Python",
+        "subtitle": "Algoritmos e Lógica de Programação Para Iniciantes",
+        "url": "https://amzn.to/4cT5hD7",
+        "store": "amazon"
+      }
+    ]
+  },
+  {
+    "id": "lideranca",
+    "title": "Liderança",
+    "status": "published",
+    "items": [
+      {
+        "id": "carreiras-exponenciais-eberson-terra",
+        "title": "Carreiras exponenciais - Eberson Terra",
+        "subtitle": "",
+        "url": "https://amzn.to/446X36q",
+        "store": "amazon"
+      },
+      {
+        "id": "seja-egoista-com-sua-carreira",
+        "title": "Seja egoísta com sua carreira",
+        "subtitle": "Descubra como colocar você em primeiro lugar em sua jornada profissional e alcance seus objetivos pessoais",
+        "url": "https://amzn.to/4cFHcyQ",
+        "store": "amazon"
+      },
+      {
+        "id": "nada-pode-me-ferir",
+        "title": "Nada pode me ferir",
+        "subtitle": "",
+        "url": "https://amzn.to/3AYB9bC",
+        "store": "amazon"
+      },
+      {
+        "id": "nunca-e-hora-de-parar",
+        "title": "Nunca é hora de parar",
+        "subtitle": "",
+        "url": "https://amzn.to/4gk8vkb",
+        "store": "amazon"
+      },
+      {
+        "id": "cerebro-com-foco-e-disciplina",
+        "title": "Cérebro com Foco  e Disciplina",
+        "subtitle": "",
+        "url": "https://amzn.to/3C4Q9oD",
+        "store": "amazon"
+      }
+    ]
+  },
+  {
+    "id": "produtividade",
+    "title": "Produtividade",
+    "status": "published",
+    "items": [
+      {
+        "id": "cubo-temporizado-pomodoro-classico",
+        "title": "Cubo Temporizado Pomodoro classico",
+        "subtitle": "",
+        "url": "https://s.shopee.com.br/7V1lbAuDgY",
+        "store": "shopee"
+      },
+      {
+        "id": "a-tecnica-pomodoro",
+        "title": "A técnica Pomodoro",
+        "subtitle": "O sistema de gerenciamento de tempo que transformou o modo como trabalhamos",
+        "url": "https://amzn.to/4bvjOD4",
+        "store": "amazon"
+      }
+    ]
+  },
+  {
+    "id": "neurodiversidade",
+    "title": "Neurodiversidade",
+    "status": "draft",
+    "items": [
+      {
+        "id": "guia-para-compreensao-e-manejo-do-tdah-d",
+        "title": "Guia para Compreensão e Manejo do TDAH da World Federation of ADHD",
+        "subtitle": "",
+        "url": "https://amzn.to/3XoZPlj",
+        "store": "amazon"
+      }
+    ]
+  },
+  {
+    "id": "setup",
+    "title": "Setup",
+    "status": "draft",
+    "items": [
+      {
+        "id": "suporte-notebook-mac-14-a-17-aco",
+        "title": "Suporte Notebook Mac 14 a 17” aço",
+        "subtitle": "",
+        "url": "https://s.shopee.com.br/LdKnLsRr6",
+        "store": "shopee"
+      },
+      {
+        "id": "monitor-portatil-bettdow-15-6-full-hd",
+        "title": "Monitor portátil BETTDOW 15.6\" Full HD",
+        "subtitle": "",
+        "url": "https://s.shopee.com.br/4L9AQbXPr1",
+        "store": "shopee"
+      },
+      {
+        "id": "roteador-huawei-mesh-3-ax3000-wi-fi-6-pl",
+        "title": "Roteador Huawei Mesh 3 AX3000, Wi-Fi 6 Plus, Dual Band - WS8100 (PACK 3)",
+        "subtitle": "",
+        "url": "https://amzn.to/3EnmKXK",
+        "store": "amazon"
+      }
+    ]
+  }
+]

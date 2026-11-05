@@ -1,0 +1,5 @@
+[
+  { "id": "system-design", "title": "System Design para Desenvolvedores", "subtitle": "Como Criar Arquiteturas Escaláveis e Performáticas", "url": "https://www.amazon.com.br/dp/B0F35ZZ6GW", "store": "amazon", "format": "Livro", "image": null, "featured": true, "status": "published" },
+  { "id": "arquiteto-carreira", "title": "O Arquiteto da Própria Carreira", "subtitle": "De Pleno a Sênior na Engenharia de Software", "url": "https://www.amazon.com.br/dp/B0G5JLT49N", "store": "amazon", "format": "Livro", "image": null, "featured": true, "status": "published" },
+  { "id": "pessoa-engenheira-jr", "title": "Pessoa Engenheira de Software JR", "subtitle": "Desenvolva habilidades de alto impacto e decole rumo ao nível pleno com confiança e auto-liderança", "url": "https://www.amazon.com.br/dp/B0FSYLTS6Y", "store": "amazon", "format": "eBook Kindle", "image": null, "featured": false, "status": "published" }
+]

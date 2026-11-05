@@ -1,0 +1,16 @@
+{
+  "name": "Paulo Leite",
+  "domain": "https://pauloleite.dev",
+  "tagline": "Building technology. Developing people.",
+  "eyebrow": "Engineering · Architecture · Leadership",
+  "bio": "Paulo Leite — engenheiro de software com 20+ anos de experiência. Código, liderança e inovação.",
+  "photo": { "src": "assets/images/paulo-leite.jpg", "width": 960, "height": 960, "alt": "Retrato em preto e branco de Paulo Leite sorrindo" },
+  "mentoring": {
+    "status": "published",
+    "title": "Mentoria 1:1 pelo ADPList",
+    "text": "Sessões de carreira e engenharia de software, sujeitas à disponibilidade de agenda.",
+    "cta": "Agendar no ADPList",
+    "url": "https://adplist.org/mentors/paulo-roberto-a-s-leite"
+  },
+  "affiliate_note": "Alguns links são de afiliados (Amazon e Shopee): posso receber uma comissão, sem custo extra para você."
+}
