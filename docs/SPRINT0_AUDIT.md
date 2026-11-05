@@ -60,7 +60,7 @@ Total: 38 links (7 topo, 1 projeto, 3 SmartBooks, 24 recomendações/afiliados, 
 1. **Mentoring (ADPList):** ✅ URL recebida; falta só confirmar tom/texto de disponibilidade (sessões gratuitas, sujeitas à agenda).
 2. **Podcast/Spotify:** ✅ decidido pelo Paulo (2026-11-05): ainda não há conteúdo publicado → **fora do site por enquanto**.
 3. **YouTube:** ✅ decidido pelo Paulo (2026-11-05): ainda não há conteúdo publicado → **fora do site por enquanto** (o vídeo de brown noise do Linktree não entra).
-4. **Contato:** ✅ decidido pelo Paulo (2026-11-05): **e-mail me.pauloleite.dev@gmail.com** e **WhatsApp** (`https://wa.me/5511998812487`, já público no Linktree) entram no Conecte-se. Os demais links do site vêm do Linktree (inventário na seção 2). Risco: e-mail e telefone em página pública ficam expostos a scraping/spam.
+4. **Contato:** ✅ decidido pelo Paulo (2026-11-05): **e-mail me.pauloleite.dev [arroba] gmail.com** e **WhatsApp** (`https://wa.me/5511998812487`, já público no Linktree) entram no Conecte-se. Os demais links do site vêm do Linktree (inventário na seção 2). Risco: e-mail e telefone em página pública ficam expostos a scraping/spam.
 5. **Livro JR:** ✅ confirmado pelo Paulo (2026-11-05): à venda como **Kindle (eBook) na Amazon**. URL limpa: https://www.amazon.com.br/dp/B0FSYLTS6Y. Pendente: manter como destaque na home?
 6. **SmartBooks:** oferta de 50% ainda vale? Preços?
 7. **Neurodiversidade e Setup:** ✅ decidido pelo Paulo (2026-11-05): **ficam de fora por enquanto** (podem voltar numa versão futura; links preservados na seção 2 deste documento).

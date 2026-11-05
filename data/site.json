@@ -23,7 +23,7 @@
     "url": "https://adplist.org/mentors/paulo-roberto-a-s-leite"
   },
   "affiliate_note": "Alguns links são de afiliados (Amazon e Shopee): posso receber uma comissão, sem custo extra para você.",
-  "indexable": false,
+  "indexable": true,
   "ga4_id": null,
   "og_image": {
     "src": "assets/images/og-image.jpg",
