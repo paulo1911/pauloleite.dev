@@ -14,7 +14,7 @@ Eventos: hero_cta_click, book_click, mentoring_click, project_click, social_clic
 - [x] 0. Discovery & Brand Audit (Linktree, links, conteúdos, imagens, ativos)
 - [x] 1. Brand Identity & Design System
 - [x] 2. UX Architecture & Wireframes
-- [ ] 3. Core Development
+- [x] 3. Core Development
 - [ ] 4. Content & Conversion
 - [ ] 5. SEO & Analytics
 - [ ] 6. Quality & Optimization

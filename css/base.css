@@ -24,7 +24,7 @@ a:hover { text-decoration-thickness: 2px; }
 
 .container { width: min(100% - 2 * var(--gutter), var(--container)); margin-inline: auto; }
 .container--narrow { width: min(100% - 2 * var(--gutter), var(--container-narrow)); margin-inline: auto; }
-.section { padding-block: var(--space-8); }
+.section { padding-block: var(--space-7); }
 .stack > * + * { margin-top: var(--space-4); }
 .text-muted { color: var(--color-text-muted); }
 .eyebrow { font: 600 var(--fs-xs)/1 var(--font-body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-accent); margin: 0 0 var(--space-3); }
@@ -36,7 +36,7 @@ a:hover { text-decoration-thickness: 2px; }
 
 .grid { display: grid; gap: var(--space-5); grid-template-columns: 1fr; }
 @media (min-width: 40em) { .grid--2, .grid--3 { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 64em) { .grid--3 { grid-template-columns: repeat(3, 1fr); } .section { padding-block: var(--space-9); } }
+@media (min-width: 64em) { .grid--3 { grid-template-columns: repeat(3, 1fr); } .section { padding-block: var(--space-8); } }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
