@@ -63,7 +63,7 @@ Total: 38 links (7 topo, 1 projeto, 3 SmartBooks, 24 recomendações/afiliados, 
 4. **Contato:** WhatsApp (+55 11 99881-2487 já público no Linktree) e/ou e-mail — qual exibir?
 5. **Livro JR:** ✅ confirmado pelo Paulo (2026-11-05): à venda como **Kindle (eBook) na Amazon**. URL limpa: https://www.amazon.com.br/dp/B0FSYLTS6Y. Pendente: manter como destaque na home?
 6. **SmartBooks:** oferta de 50% ainda vale? Preços?
-7. **Neurodiversidade e Setup:** incluir ou descartar?
+7. **Neurodiversidade e Setup:** ✅ decidido pelo Paulo (2026-11-05): **ficam de fora por enquanto** (podem voltar numa versão futura; links preservados na seção 2 deste documento).
 8. **Foto e capas:** enviar originais (foto hero, 3 capas de livros, 3 capas SmartBooks, screenshots DogNAS).
 9. **GA4:** possui ID de medição (`G-…`)?
 10. **Domínio:** pauloleite.dev está registrado com acesso ao DNS? Onde (registrar)?
