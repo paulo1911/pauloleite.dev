@@ -90,7 +90,7 @@ def head(eyebrow, h1, lead):
     return f'<section class="page-head"><div class="container"><p class="eyebrow">{e(eyebrow)}</p><h1>{h1}</h1><p>{e(lead)}</p></div></section>'
 
 def layout(key, depth, title, desc, body, path):
-    p = '../' * depth
+    p = '../' * depth if isinstance(depth, int) else depth  # str = prefixo absoluto (404)
     nav = ''.join(f'<li><a href="{p}{h}"{" aria-current=&quot;page&quot;" if k == key else ""}>{t}</a></li>'.replace('&quot;', '"') for t, h, k in NAV)
     ig, li_ = soc('instagram'), soc('linkedin')
     return f'''<!doctype html>
@@ -201,6 +201,10 @@ def build():
 <div class="grid grid--2">{''.join(link_card('../', s) for s in social('contact'))}</div></section>'''
     pages['conecte-se/index.html'] = layout('conecte-se', 1, 'Conecte-se — Paulo Leite',
         'Instagram, LinkedIn, e-mail, WhatsApp e mentoria com Paulo Leite.', con, 'conecte-se/')
+
+    nf = head('Erro 404', 'Página não encontrada', 'O endereço que você acessou não existe ou foi movido.') + '''
+<section class="section container"><a class="btn btn--primary" href="/">Voltar ao início</a></section>'''
+    pages['404.html'] = layout(None, '/', 'Página não encontrada — Paulo Leite', 'Página não encontrada.', nf, '404.html')
 
     for f, h in pages.items():
         path = os.path.join(ROOT, f); os.makedirs(os.path.dirname(path), exist_ok=True)
