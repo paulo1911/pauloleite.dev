@@ -8,4 +8,6 @@
 3. Desligar "Encaminhamento de domínio" no GoDaddy, se ativo.
 4. (Recomendado) verificar o domínio em github.com/settings/pages (TXT `_github-pages-challenge-paulo1911`).
 
-**Depois do DNS propagar:** Settings → Pages → marcar **Enforce HTTPS** (certificado automático, até ~1h; `.dev` exige HTTPS) → conferir https://pauloleite.dev e https://www.pauloleite.dev → Search Console (sitemap) → PageSpeed Insights → trocar o link da bio do Instagram (UTMs em `docs/ANALYTICS.md`).
+**HTTPS:** certificado válido e *Enforce HTTPS* já ativo (verificado pelo IP do Pages).
+
+**Depois do DNS propagar:** conferir https://pauloleite.dev e https://www.pauloleite.dev → Search Console (sitemap) → PageSpeed Insights → trocar o link da bio do Instagram (UTMs em `docs/ANALYTICS.md`).
