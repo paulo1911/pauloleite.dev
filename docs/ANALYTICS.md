@@ -9,7 +9,7 @@
 
 ## Analytics
 - `js/analytics.js` escuta cliques em elementos com `data-event` e empilha em `window.dataLayer` (sem rede, sem cookies). Parâmetros = `data-*` em snake_case + `page_path`. O e-mail nunca é enviado.
-- **Google Tag Manager com consentimento (LGPD):** `"gtm_id": "GTM-PWQFMS3W"` em `data/site.json`. O contêiner **só é carregado depois que o visitante aceita** o aviso de cookies (`js/consent.js`). Sem aceite, nenhum script do Google é carregado e `data-event` não registra nada. A escolha fica em `localStorage` (`pl_consent`); o botão "Cookies" no rodapé reabre o aviso, e recusar apaga os cookies `_ga*`.
+- **Google Tag Manager com consentimento (LGPD):** `"gtm_id": "GTM-K9ZTN386"` em `data/site.json`. O contêiner **só é carregado depois que o visitante aceita** o aviso de cookies (`js/consent.js`). Sem aceite, nenhum script do Google é carregado e `data-event` não registra nada. A escolha fica em `localStorage` (`pl_consent`); o botão "Cookies" no rodapé reabre o aviso, e recusar apaga os cookies `_ga*`.
 - **Consent Mode:** o padrão é `denied` (analytics, ads, user data, personalization); ao aceitar, só `analytics_storage` vira `granted`.
 - **O que configurar no GTM (painel do Google):** a tag do **GA4** dentro do contêiner (ID de medição `G-…`), disparando em "All Pages" ou no evento `gtm.js`. O snippet `<noscript>` do GTM **não** foi incluído de propósito: sem JavaScript não há como pedir consentimento.
 - **Eventos (formato plano):** `dataLayer.push({ event: '<nome>', page_path, section_id, ...parâmetros })`. Só são registrados com consentimento. O e-mail nunca é enviado.
