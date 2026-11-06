@@ -250,3 +250,9 @@ img.book__cover { aspect-ratio: auto; height: auto; }
 
 @media (min-width: 64em) { .filter { justify-content: flex-start; } }
 @media (max-width: 39.99em) { .filter { display: grid; grid-template-columns: 1fr 1fr; } .filter .btn { padding-inline: var(--space-2); } }
+
+/* DogNAS no celular: texto primeiro, capturas menores e ilustrativas ao final */
+.proj__shots { order: 2; gap: var(--space-4); margin-top: var(--space-2); }
+.proj__shots img { width: min(30vw, 7.25rem); border-radius: var(--radius-md); }
+@media (min-width: 48em) { .proj__shots img { width: 11rem; border-radius: var(--radius-lg); } }
+@media (min-width: 64em) { .proj__shots { order: 0; margin-top: 0; } }
