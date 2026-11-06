@@ -1,6 +1,6 @@
 # Paulo Leite
 
-> Paulo Leite — engenheiro de software com 20+ anos de experiência. Ajudo profissionais de tecnologia a crescer, do primeiro emprego à liderança. Livros, SmartBooks, mentoria gratuita e projetos para profissionais de tecnologia que estão começando, querem crescer ou querem liderar. Site em português do Brasil. Atualizado em 2026-11-05.
+> Paulo Leite — engenheiro de software com 20+ anos de experiência. Ajudo profissionais de tecnologia a crescer, do primeiro emprego à liderança. Livros, SmartBooks, mentoria gratuita e projetos para profissionais de tecnologia que estão começando, querem crescer ou querem liderar. Site em português do Brasil. Atualizado em 2026-11-06.
 
 ## Páginas principais
 - [Início](https://pauloleite.dev/): apresentação e trilhas por etapa da carreira

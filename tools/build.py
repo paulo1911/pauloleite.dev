@@ -38,7 +38,7 @@ def minify_js(t):
 def bundle_assets():
     css = ''.join(open(os.path.join(ROOT, 'css', f), encoding='utf8').read() + '\n' for f in ('fonts.css', 'tokens.css', 'base.css', 'components.css'))
     open(os.path.join(ROOT, 'css', 'site.min.css'), 'w', encoding='utf8').write(minify_css(css) + '\n')
-    js = '\n'.join(open(os.path.join(ROOT, 'js', f), encoding='utf8').read() for f in ('analytics.js', 'main.js'))
+    js = '\n'.join(open(os.path.join(ROOT, 'js', f), encoding='utf8').read() for f in ('consent.js', 'analytics.js', 'main.js'))
     open(os.path.join(ROOT, 'js', 'site.min.js'), 'w', encoding='utf8').write(minify_js(js) + '\n')
 
 SPRITE = open(os.path.join(ROOT, 'assets', 'icons', 'sprite.svg'), encoding='utf8').read()
@@ -60,6 +60,14 @@ def social(kind): return [s for s in SOCIALS if s['kind'] == kind]
 def soc(id_): return next(s for s in SOCIALS if s['id'] == id_)
 
 def offer_badge(it): return f'<span class="badge badge--offer">{e(it["offer"])}</span>' if it.get('offer') else ''
+
+def CONSENT_HTML(p):
+    return f'''<div class="consent" id="consent" role="dialog" aria-labelledby="consent-t" aria-describedby="consent-d" hidden>
+  <p class="consent__t" id="consent-t">Cookies de medição</p>
+  <p class="consent__d" id="consent-d">Uso o Google Analytics para entender quais conteúdos ajudam mais. Só ativo se você aceitar. <a href="{p or './'}privacidade/">Saiba mais</a></p>
+  <div class="consent__btns"><button type="button" class="btn btn--primary" data-consent="granted">Aceitar</button><button type="button" class="btn btn--secondary" data-consent="denied">Recusar</button></div>
+</div>
+'''
 
 def product_url(p, id_): return f'{p}conhecimento/{id_}/'
 
@@ -341,11 +349,12 @@ def about_page():
         jsonld=ld({"@type": "ProfilePage", "url": SITE['domain'] + "/sobre/", "name": "Sobre Paulo Leite", "inLanguage": "pt-BR", "dateModified": DATES.get('sobre/'), "mainEntity": person_node()}, breadcrumb(("Sobre", "sobre/"))))
 
 def privacy_page():
+    collect = ('<p>O site não pede cadastro. Com o seu consentimento, uso o Google Analytics (por meio do Google Tag Manager) para medir visitas e cliques: páginas acessadas, origem do acesso, tipo de dispositivo e cliques em botões. Esses dados são enviados à Google e usam cookies (como <code>_ga</code>). Sem o seu aceite, nenhum script do Google é carregado e nada é registrado. Você pode recusar ou mudar de ideia a qualquer momento pelo botão &ldquo;Cookies&rdquo; no rodapé; ao recusar, apago os cookies de medição.</p>' if SITE.get('gtm_id') else '<p>Hoje o site não pede cadastro, não usa cookies de rastreamento e não envia dados de navegação a ferramentas de terceiros. Se isso mudar, esta página será atualizada e, quando necessário, vou pedir o seu consentimento.</p>')
     news = '<h2>Newsletter</h2><p>Se você assinar a newsletter, seu e-mail é usado apenas para enviar o conteúdo que você pediu e fica guardado no serviço de envio de e-mails contratado. Você pode cancelar a qualquer momento pelo link no rodapé de cada mensagem.</p>' if NEWS.get('status') == 'published' and NEWS.get('action') else ''
     body = head('Privacidade', 'Política de privacidade', 'Como este site trata seus dados.') + f'''
 <section class="section container container--narrow legal">
 <h2>Quem é o responsável</h2><p>Paulo Leite, responsável por este site (pauloleite.dev).</p>
-<h2>O que este site coleta</h2><p>Hoje o site não pede cadastro, não usa cookies de rastreamento e não envia dados de navegação a ferramentas de terceiros. Os cliques nos botões são registrados apenas no seu navegador, de forma anônima. Se isso mudar, esta página será atualizada e, quando necessário, vou pedir o seu consentimento.</p>
+<h2>O que este site coleta</h2>{collect}
 <h2>Contato</h2><p>Se você me escrever por e-mail ou WhatsApp, uso seus dados somente para responder.</p>
 {news}
 <h2>Hospedagem e fontes</h2><p>O site é hospedado no GitHub Pages, que pode registrar dados técnicos de acesso, como o endereço IP. As fontes de texto são carregadas do próprio site.</p>
@@ -371,6 +380,10 @@ def layout(key, depth, title, desc, body, path, jsonld='', index=True, head_extr
     url = f"{SITE['domain']}/{path}"
     robots = 'index, follow, max-image-preview:large' if (SITE['indexable'] and index) else 'noindex, nofollow'
     ogi = og or SITE['og_image']
+    gtm = SITE.get('gtm_id')
+    gtm_attr = f' data-gtm-id="{e(gtm)}"' if gtm else ''
+    consent = CONSENT_HTML(p) if gtm else ''
+    cookies_li = '<li><button type="button" class="linklike" id="consent-open">Cookies</button></li>' if gtm else ''
     ga = f' data-ga4-id="{SITE["ga4_id"]}"' if SITE.get('ga4_id') else ''
     html = f'''<!doctype html>
 <html lang="pt-BR">
@@ -427,13 +440,13 @@ def layout(key, depth, title, desc, body, path, jsonld='', index=True, head_extr
   <div class="container site-footer__inner">
     <span>© 2026 Paulo Leite · {e(SITE['tagline'])}</span>
     <ul class="site-footer__nav" aria-label="Links do rodapé">
-      <li><a href="{p or './'}privacidade/">Privacidade</a></li>
+      <li><a href="{p or './'}privacidade/">Privacidade</a></li>{cookies_li}
       <li><a href="{ig['url']}" {ext_attrs()} data-event="social_click" data-network="instagram">Instagram{EXT}</a></li>
       <li><a href="{li_['url']}" {ext_attrs()} data-event="social_click" data-network="linkedin">LinkedIn{EXT}</a></li>
     </ul>
   </div>
 </footer>
-<script src="{p}js/site.min.js" defer{ga}></script>
+{consent}<script src="{p}js/site.min.js" defer{ga}{gtm_attr}></script>
 </body>
 </html>
 '''
@@ -459,7 +472,7 @@ def page_dates():
         'mentoria/': mentoria_src,
         'projetos/': (PROJECTS,),
         'conecte-se/': (SOCIALS, SITE['mentoring']),
-        'privacidade/': (NEWS.get('status'), bool(NEWS.get('action'))),
+        'privacidade/': (NEWS.get('status'), bool(NEWS.get('action')), SITE.get('gtm_id')),
     }
     byid = {x['id']: x for x in BOOKS + SMART}
     for it in BOOKS + SMART:

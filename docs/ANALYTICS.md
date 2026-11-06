@@ -9,12 +9,18 @@
 
 ## Analytics
 - `js/analytics.js` escuta cliques em elementos com `data-event` e empilha em `window.dataLayer` (sem rede, sem cookies). Parâmetros = `data-*` em snake_case + `page_path`. O e-mail nunca é enviado.
-- **GA4 desativado** (`"ga4_id": null`). Para ativar: colocar o ID `G-XXXXXXXXXX` em `data/site.json`, rodar o build. **Antes disso, adicionar aviso de cookies (LGPD)** — não implementado nesta versão.
+- **Google Tag Manager com consentimento (LGPD):** `"gtm_id": "GTM-PWQFMS3W"` em `data/site.json`. O contêiner **só é carregado depois que o visitante aceita** o aviso de cookies (`js/consent.js`). Sem aceite, nenhum script do Google é carregado e `data-event` não registra nada. A escolha fica em `localStorage` (`pl_consent`); o botão "Cookies" no rodapé reabre o aviso, e recusar apaga os cookies `_ga*`.
+- **Consent Mode:** o padrão é `denied` (analytics, ads, user data, personalization); ao aceitar, só `analytics_storage` vira `granted`.
+- **O que configurar no GTM (painel do Google):** a tag do **GA4** dentro do contêiner (ID de medição `G-…`), disparando em "All Pages" ou no evento `gtm.js`. O snippet `<noscript>` do GTM **não** foi incluído de propósito: sem JavaScript não há como pedir consentimento.
+- **Eventos:** cada clique com `data-event` faz `dataLayer.push({event: '<nome>', params: {...}})`. No GTM, crie um acionador "Evento personalizado" por nome (tabela abaixo) e variáveis de camada de dados `params.book_id`, `params.store`, `params.placement`, etc.
+- `ga4_id` (gtag direto) continua suportado, mas sem aviso de cookies; prefira o GTM.
 
 | Evento | Onde | Parâmetros |
 |---|---|---|
 | hero_cta_click | CTA do hero | cta_id |
-| book_click | livros, SmartBooks, recomendações | book_id, store, category? |
+| book_click | botão de compra nas páginas de produto, recomendações | book_id, store, category?, placement |
+| product_click | cards de livros/SmartBooks (abrem a página do produto) | book_id, store, placement? |
+| newsletter_submit | formulário (quando ativo) | — |
 | mentoring_click | CTA ADPList | placement |
 | project_click | DogNAS em Projetos | project_id |
 | featured_click | destaques da home | project_id / item_id |

@@ -22,6 +22,7 @@
   document.addEventListener('click', function (ev) {
     var el = ev.target.closest('[data-event]');
     if (!el) return;
+    if (window.__plConsent !== 'granted') return; // sem consentimento, nada é registrado
     var params = { page_path: location.pathname };
     Object.keys(el.dataset).forEach(function (k) {
       if (k === 'event' || k.indexOf('email') === 0) return; // nunca envia o e-mail

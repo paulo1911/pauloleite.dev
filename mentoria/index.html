@@ -72,13 +72,18 @@
   <div class="container site-footer__inner">
     <span>© 2026 Paulo Leite · Arquitete sua carreira em tecnologia.</span>
     <ul class="site-footer__nav" aria-label="Links do rodapé">
-      <li><a href="../privacidade/">Privacidade</a></li>
+      <li><a href="../privacidade/">Privacidade</a></li><li><button type="button" class="linklike" id="consent-open">Cookies</button></li>
       <li><a href="https://www.instagram.com/pauloleite.dev" target="_blank" rel="noopener" data-event="social_click" data-network="instagram">Instagram<span class="visually-hidden"> (abre em nova aba)</span></a></li>
       <li><a href="https://www.linkedin.com/in/paulorobertoleite" target="_blank" rel="noopener" data-event="social_click" data-network="linkedin">LinkedIn<span class="visually-hidden"> (abre em nova aba)</span></a></li>
     </ul>
   </div>
 </footer>
-<script src="../js/site.min.js" defer></script>
+<div class="consent" id="consent" role="dialog" aria-labelledby="consent-t" aria-describedby="consent-d" hidden>
+  <p class="consent__t" id="consent-t">Cookies de medição</p>
+  <p class="consent__d" id="consent-d">Uso o Google Analytics para entender quais conteúdos ajudam mais. Só ativo se você aceitar. <a href="../privacidade/">Saiba mais</a></p>
+  <div class="consent__btns"><button type="button" class="btn btn--primary" data-consent="granted">Aceitar</button><button type="button" class="btn btn--secondary" data-consent="denied">Recusar</button></div>
+</div>
+<script src="../js/site.min.js" defer data-gtm-id="GTM-PWQFMS3W"></script>
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true"><symbol id="i-arrow-up-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10" />
   <path d="M7 17 17 7" /></symbol><symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12" />
   <line x1="4" x2="20" y1="6" y2="6" />
