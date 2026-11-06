@@ -1,0 +1,42 @@
+[
+  {
+    "when": "15 a 18 anos",
+    "title": "Primeiros passos",
+    "text": "Comecei em tecnologia aos 15 anos e me profissionalizei aos 18."
+  },
+  {
+    "when": "2003–2004",
+    "title": "Suporte e infraestrutura de TI",
+    "text": "Estágio em suporte: manutenção de computadores, redes, servidores Linux e os primeiros sistemas web."
+  },
+  {
+    "when": "2004–2018",
+    "title": "Minha própria empresa de TI",
+    "text": "Por 14 anos, desenvolvimento de software em Java, web e Android, mais suporte e infraestrutura para empresas da região."
+  },
+  {
+    "when": "2007–2010",
+    "title": "Formação",
+    "text": "Graduação em tecnologia e MBA em Tecnologia da Informação, com iniciação científica em simulação ambiental e climática."
+  },
+  {
+    "when": "2010–2018",
+    "title": "Engenharia em grandes plataformas",
+    "text": "De desenvolvedor Java a arquiteto e tech lead em portais, mercado financeiro e e-commerce, com foco em performance, resiliência e alta disponibilidade."
+  },
+  {
+    "when": "2018–2022",
+    "title": "Staff Engineer",
+    "text": "Escalando plataformas de alto tráfego em food delivery e fintech: performance, resiliência e testes de carga."
+  },
+  {
+    "when": "2022–hoje",
+    "title": "Liderança de times de engenharia",
+    "text": "De lead engineer a Engineering Manager em uma fintech, com MBA em Liderança, Inovação e Gestão 4.0. Plataformas no caminho crítico de movimentação de dinheiro, lançamentos regulados e times engajados."
+  },
+  {
+    "when": "Hoje",
+    "title": "Livros, mentoria e produtos",
+    "text": "Três livros, SmartBooks, mentoria gratuita no ADPList e o DogNAS, meu produto no Google Play."
+  }
+]

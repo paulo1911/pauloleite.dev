@@ -1,3 +1,53 @@
 [
-  { "id": "dognas", "title": "DogNAS", "description": "Transforme dispositivos Android em servidores NAS pessoais na sua rede local.", "url": "https://dognas.app", "cta": "Conhecer o DogNAS", "image": null, "featured": true, "status": "published" }
+  {
+    "id": "dognas",
+    "title": "DogNAS",
+    "description": "Transforme um celular, tablet ou TV box Android em armazenamento particular pelo Wi-Fi. Sem nuvem, sem mensalidade e sem comprar um NAS.",
+    "url": "https://dognas.app/pt/",
+    "cta": "Conhecer o DogNAS",
+    "play_url": "https://play.google.com/store/apps/details?id=com.dognas.server&referrer=utm_source%3Dpauloleite.dev%26utm_medium%3Dwebsite%26utm_campaign%3Dprojetos",
+    "play_cta": "Baixar na Google Play",
+    "shots": [
+      {
+        "src": "assets/images/dognas/server-status.webp",
+        "width": 540,
+        "height": 1080,
+        "alt": "Tela do DogNAS com o servidor online, um cliente transferindo arquivos e o uso do armazenamento"
+      },
+      {
+        "src": "assets/images/dognas/lite-files.webp",
+        "width": 540,
+        "height": 1080,
+        "alt": "Tela do DogNAS Lite listando as pastas Backups, Documentos, Fotos e Músicas"
+      }
+    ],
+    "benefits": [
+      {
+        "title": "Sem nuvem e sem mensalidade",
+        "text": "Seus arquivos ficam no seu aparelho, na sua rede. Gratuito para começar; o Pro é uma compra única."
+      },
+      {
+        "title": "Conexão criptografada",
+        "text": "Transferências por SFTP sobre SSH-2, com credenciais revogáveis por dispositivo."
+      },
+      {
+        "title": "Pareamento por QR Code",
+        "text": "Escaneie o código, use o PIN do perfil e conecte PC, Mac ou Linux com FileZilla, WinSCP, Cyberduck ou rclone."
+      }
+    ],
+    "story": [
+      "Projetei, construí e publiquei o DogNAS sozinho, de ponta a ponta: produto, arquitetura, desenvolvimento Android, lançamento e crescimento, com desenvolvimento assistido por IA.",
+      "O aplicativo servidor e o cliente estão no Google Play, e o site funciona em português, inglês e espanhol. O cliente para iOS está em desenvolvimento.",
+      "É o mesmo método que escrevo nos livros e uso nas mentorias: decisões de arquitetura com trade-offs claros, simplicidade e entrega."
+    ],
+    "stack": [
+      "Android",
+      "SFTP sobre SSH-2",
+      "AES-GCM / ChaCha20",
+      "Credenciais por dispositivo",
+      "Modelo freemium"
+    ],
+    "featured": true,
+    "status": "published"
+  }
 ]

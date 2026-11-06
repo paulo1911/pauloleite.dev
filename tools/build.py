@@ -15,6 +15,8 @@ PROJECTS, SOCIALS = pub(load('projects')), pub(load('socials'))
 RECO = pub(load('recommendations'))
 PATHS, CREDS, TESTI = load('paths'), pub(load('credentials')), pub(load('testimonials'))
 ENDORSE = pub(load('endorsements'))
+NEWS, TIMELINE, BEYOND = load('newsletter'), load('timeline'), load('beyond')
+PATH_OF = {i: x['id'] for x in PATHS for i in x['items']}
 PHOTO = SITE['photo']
 SIZES = '(min-width: 64em) 384px, 240px'
 def srcset(ext): return ', '.join(f"{{p}}{PHOTO['base']}-{w}.{ext} {w}w" for w in PHOTO['widths'])
@@ -47,7 +49,7 @@ def inline_sprite(html):
     return html.replace('</body>', f'<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">{syms}</svg>\n</body>')
 
 EXT = '<span class="visually-hidden"> (abre em nova aba)</span>'
-NAV = [('Início', '', 'home'), ('Conhecimento', 'conhecimento/', 'conhecimento'), ('Mentoria', 'mentoria/', 'mentoria'), ('Projetos', 'projetos/', 'projetos'), ('Conecte-se', 'conecte-se/', 'conecte-se')]
+NAV = [('Início', '', 'home'), ('Sobre', 'sobre/', 'sobre'), ('Conhecimento', 'conhecimento/', 'conhecimento'), ('Mentoria', 'mentoria/', 'mentoria'), ('Projetos', 'projetos/', 'projetos'), ('Conecte-se', 'conecte-se/', 'conecte-se')]
 
 def ic(p, n): return f'<svg class="icon" aria-hidden="true" focusable="false"><use href="{p}assets/icons/sprite.svg#i-{n}"/></svg>'
 def ext_attrs(store=None):
@@ -55,6 +57,8 @@ def ext_attrs(store=None):
     return f'target="_blank" rel="{rel}"'
 def social(kind): return [s for s in SOCIALS if s['kind'] == kind]
 def soc(id_): return next(s for s in SOCIALS if s['id'] == id_)
+
+def offer_badge(it): return f'<span class="badge badge--offer">{e(it["offer"])}</span>' if it.get('offer') else ''
 
 def product_url(p, id_): return f'{p}conhecimento/{id_}/'
 
@@ -65,7 +69,7 @@ def img_or_cover(p, item, cls):
     return f'<div class="{cls}" aria-hidden="true" style="display:grid;place-items:center;color:var(--color-text-muted)">{ic(p, "book-open")}</div>'
 
 def book_card(p, b):
-    return f'''<article class="card card--interactive book">
+    return f'''<article class="card card--interactive book" data-path="{PATH_OF.get(b['id'], '')}">
   {img_or_cover(p, b, 'book__cover')}
   <div class="book__body">
     <span class="badge">{e(b['format'])}</span>
@@ -75,9 +79,9 @@ def book_card(p, b):
 </article>'''
 
 def smart_card(p, b):
-    return f'''<article class="card card--interactive">
+    return f'''<article class="card card--interactive" data-path="{PATH_OF.get(b['id'], '')}">
   <div class="card__media card__media--contain">{img_or_cover(p, b, '')}</div>
-  <span class="badge">{e(b['format'])}</span>
+  <p class="badges"><span class="badge">{e(b['format'])}</span>{offer_badge(b)}</p>
   <h3 class="card__title" style="font-size:var(--fs-lg)"><a class="card__link" href="{product_url(p, b['id'])}" data-event="product_click" data-book-id="{b['id']}" data-store="{b['store']}">{e(b['title'])}</a></h3>
   <p class="card__text">{e(b['subtitle'])}</p>
 </article>'''
@@ -153,7 +157,7 @@ def credentials():
 
 def quotes_section(items, hid, eyebrow, h2, src_html):
     if not items: return ''
-    cards = ''.join(f'<figure class="card quote"><blockquote><p>“{e(t["quote"])}”</p></blockquote><figcaption><strong>{e(t["name"])}</strong> - {e(t["role"])}</figcaption></figure>' for t in items)
+    cards = ''.join(f'<figure class="card quote"><blockquote><p>“{e(t.get("quote_pt") or t["quote"])}”</p></blockquote><figcaption><strong>{e(t["name"])}</strong> - {e(t.get("role_pt") or t["role"])}{" · tradução do inglês" if t.get("quote_pt") else ""}</figcaption></figure>' for t in items)
     return f'''<section class="section container" aria-labelledby="{hid}">
   <div class="section-head"><p class="eyebrow">{e(eyebrow)}</p><h2 id="{hid}">{e(h2)}</h2></div>
   <div class="grid quotes" role="group" aria-label="{e(h2)}" tabindex="0">{cards}</div>
@@ -169,7 +173,7 @@ def endorsements():
         f'Recomendações públicas no <a href="{e(soc("linkedin")["url"])}" {ext_attrs()}>LinkedIn{EXT}</a>.')
 
 def about():
-    return '<section class="section container" aria-labelledby="sobre-h"><div class="section-head"><p class="eyebrow">Sobre</p><h2 id="sobre-h">Quem está do outro lado</h2></div><div class="about">' + ''.join(f'<p>{e(x)}</p>' for x in SITE['about']) + '</div></section>'
+    return '<section class="section container" aria-labelledby="sobre-h"><div class="section-head"><p class="eyebrow">Sobre</p><h2 id="sobre-h">Quem está do outro lado</h2></div><div class="about">' + ''.join(f'<p>{e(x)}</p>' for x in SITE['about']) + '</div><p class="section-cta" style="margin-top:var(--space-5)"><a class="btn btn--ghost" href="sobre/" data-event="featured_click" data-item-id="sobre">Conheça minha trajetória ' + ic('', 'arrow-right') + '</a></p></section>'
 
 STORE_CTA = {'amazon': 'Comprar na Amazon', 'hotmart': 'Adquirir na Hotmart'}
 
@@ -183,6 +187,8 @@ def product_page(it):
     learn = ''
     if it.get('learn'):
         learn = '<section class="section container" aria-labelledby="learn-h"><div class="section-head"><h2 id="learn-h">O que você vai encontrar</h2></div><ul class="checks">' + ''.join(f'<li>{e(x)}</li>' for x in it['learn']) + '</ul></section>'
+    if it.get('contents'):
+        learn += '<section class="section container" aria-labelledby="cont-h"><div class="section-head"><h2 id="cont-h">Conteúdo</h2></div><ol class="toc">' + ''.join(f'<li>{e(x)}</li>' for x in it['contents']) + '</ol></section>'
     fit = ''
     more = ''
     if pa:
@@ -196,7 +202,7 @@ def product_page(it):
 <section class="container prod">
   <div class="prod__media">{cover}</div>
   <div class="prod__body">
-    <span class="badge">{e(it['format'])}</span>
+    <p class="badges"><span class="badge">{e(it['format'])}</span>{offer_badge(it)}</p>
     <h1>{e(it['title'])}</h1>
     <p class="prod__sub">{e(it['subtitle'])}</p>
     {desc}
@@ -246,6 +252,98 @@ def mentoring_page():
 <section class="section container" aria-label="Agendar">{mentoring('../', 'mentoria-final')}</section>'''
     return layout('mentoria', 1, 'Mentoria 1:1 gratuita — Paulo Leite',
         'Mentoria gratuita de 45 minutos com Paulo Leite pelo ADPList: carreira, engenharia de software, arquitetura e liderança em tecnologia.', body, 'mentoria/')
+
+def dog_shots(p, pr):
+    return '<div class="proj__shots">' + ''.join(f'<img src="{p}{e(i["src"])}" width="{i["width"]}" height="{i["height"]}" alt="{e(i["alt"])}" loading="lazy" decoding="async">' for i in pr['shots']) + '</div>'
+
+def dognas_home(pr):
+    li = ''.join(f'<li>{e(b["title"])}</li>' for b in pr['benefits'])
+    return f'''<article class="card card--featured proj">
+  {dog_shots('', pr)}
+  <div class="proj__body">
+    <span class="badge">{ic('', 'sparkles')} Projeto</span>
+    <h3 class="card__title" style="font-size:var(--fs-xl)">{e(pr['title'])}</h3>
+    <p class="card__text">{e(pr['description'])}</p>
+    <ul class="checks checks--tight">{li}</ul>
+    <p class="proj__actions"><a class="btn btn--primary" href="projetos/" data-event="featured_click" data-project-id="{pr['id']}">Ver o projeto {ic('', 'arrow-right')}</a>
+    <a class="btn btn--secondary" href="{e(pr['url'])}" {ext_attrs()} data-event="featured_click" data-project-id="{pr['id']}" data-placement="site">{e(pr['cta'])} {ic('', 'arrow-up-right')}{EXT}</a></p>
+  </div>
+</article>'''
+
+def projects_page(pr):
+    ben = ''.join(f'<article class="card"><h3 class="card__title" style="font-size:var(--fs-lg)">{e(b["title"])}</h3><p class="card__text">{e(b["text"])}</p></article>' for b in pr['benefits'])
+    story = ''.join(f'<p>{e(x)}</p>' for x in pr['story'])
+    stack = ''.join(f'<li>{e(x)}</li>' for x in pr['stack'])
+    body = head('Projetos', 'Projetos <span class="gradient-text">autorais</span>', 'Ideias transformadas em tecnologia.') + f'''
+<section class="section container" aria-labelledby="dog-h">
+  <article class="card card--featured proj proj--page">
+    {dog_shots('../', pr)}
+    <div class="proj__body">
+      <span class="badge">{ic('../', 'sparkles')} Projeto</span>
+      <h2 id="dog-h" style="font-size:var(--fs-2xl)">{e(pr['title'])}</h2>
+      <p class="card__text">{e(pr['description'])}</p>
+      <p class="proj__actions"><a class="btn btn--primary" href="{e(pr['play_url'])}" {ext_attrs()} data-event="project_click" data-project-id="{pr['id']}" data-placement="play">{e(pr['play_cta'])} {ic('../', 'arrow-up-right')}{EXT}</a>
+      <a class="btn btn--secondary" href="{e(pr['url'])}" {ext_attrs()} data-event="project_click" data-project-id="{pr['id']}" data-placement="site">{e(pr['cta'])} {ic('../', 'arrow-up-right')}{EXT}</a></p>
+    </div>
+  </article>
+</section>
+<section class="section container" aria-labelledby="ben-h"><div class="section-head"><h2 id="ben-h">Por que usar</h2></div><div class="grid grid--3 grid--start">{ben}</div></section>
+<section class="section container" aria-labelledby="how-h"><div class="section-head"><p class="eyebrow">Bastidores</p><h2 id="how-h">Como foi construído</h2></div><div class="about">{story}</div><ul class="creds creds--plain" aria-label="Tecnologias" style="margin-top:var(--space-5)">{stack}</ul></section>
+<section class="section container"><p class="placeholder">Mais projetos em breve.</p></section>'''
+    ld = {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": pr['title'], "applicationCategory": "UtilitiesApplication",
+          "operatingSystem": "Android", "description": pr['description'], "url": pr['url'], "inLanguage": "pt-BR",
+          "author": {"@type": "Person", "@id": SITE['domain'] + "/#person", "name": SITE['name']}}
+    jl = '<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False) + '</script>\n'
+    return layout('projetos', 1, 'Projetos — Paulo Leite', 'Projetos autorais de Paulo Leite. DogNAS: transforme um Android em armazenamento particular pelo Wi-Fi, sem nuvem e sem mensalidade.', body, 'projetos/', jsonld=jl)
+
+def newsletter(p):
+    n = NEWS
+    if n.get('status') != 'published' or not n.get('action'): return ''
+    hid = ''.join(f'<input type="hidden" name="{e(k)}" value="{e(v)}">' for k, v in n.get('hidden', {}).items())
+    return f'''<section class="section container" aria-labelledby="news-h">
+  <div class="band band--form">
+    <div class="band__text"><p class="eyebrow">{e(n['eyebrow'])}</p><h2 id="news-h" style="font-size:var(--fs-xl)">{e(n['title'])}</h2><p class="text-muted">{e(n['text'])}</p></div>
+    <form class="news" method="{e(n['method'])}" action="{e(n['action'])}">
+      {hid}
+      <label for="news-email">Seu melhor e-mail</label>
+      <div class="news__row"><input id="news-email" type="email" name="{e(n['email_field'])}" autocomplete="email" required placeholder="voce@exemplo.com"><button class="btn btn--primary" type="submit" data-event="newsletter_submit">{e(n['button'])}</button></div>
+      <label class="news__consent"><input type="checkbox" required> <span>{e(n['consent'])} <a href="{p}privacidade/">Privacidade</a></span></label>
+    </form>
+  </div>
+</section>'''
+
+def about_page():
+    tl = ''.join(f'<li><span class="tl__when">{e(t["when"])}</span><div><h3 class="card__title" style="font-size:var(--fs-lg)">{e(t["title"])}</h3><p>{e(t["text"])}</p></div></li>' for t in TIMELINE)
+    bd = ''.join(f'<article class="card"><h3 class="card__title" style="font-size:var(--fs-lg)">{e(b["title"])}</h3><p class="card__text">{e(b["text"])}</p></article>' for b in BEYOND)
+    intro = ''.join(f'<p>{e(x)}</p>' for x in SITE['about'])
+    body = head('Sobre', 'Minha <span class="gradient-text">trajetória</span>', 'Do primeiro código à liderança de times de engenharia.') + f'''
+<section class="section container" aria-label="Apresentação"><div class="about">{intro}</div></section>
+<section class="section container" aria-labelledby="tl-h"><div class="section-head"><h2 id="tl-h">Linha do tempo</h2></div><ol class="timeline">{tl}</ol></section>
+<section class="section container" aria-labelledby="bd-h"><div class="section-head"><h2 id="bd-h">Além do código</h2></div><div class="grid grid--3 grid--start">{bd}</div></section>
+<section class="section container" aria-label="Mentoria">{mentoring('../', 'sobre')}</section>'''
+    return layout('sobre', 1, 'Sobre Paulo Leite — trajetória em tecnologia',
+        'A trajetória de Paulo Leite: do primeiro código aos 15 anos à liderança de times de engenharia, com 10+ anos de docência, livros e mentoria gratuita.', body, 'sobre/')
+
+def privacy_page():
+    news = '<h2>Newsletter</h2><p>Se você assinar a newsletter, seu e-mail é usado apenas para enviar o conteúdo que você pediu e fica guardado no serviço de envio de e-mails contratado. Você pode cancelar a qualquer momento pelo link no rodapé de cada mensagem.</p>' if NEWS.get('status') == 'published' and NEWS.get('action') else ''
+    body = head('Privacidade', 'Política de privacidade', 'Como este site trata seus dados.') + f'''
+<section class="section container container--narrow legal">
+<h2>Quem é o responsável</h2><p>Paulo Leite, responsável por este site (pauloleite.dev).</p>
+<h2>O que este site coleta</h2><p>Hoje o site não pede cadastro, não usa cookies de rastreamento e não envia dados de navegação a ferramentas de terceiros. Os cliques nos botões são registrados apenas no seu navegador, de forma anônima. Se isso mudar, esta página será atualizada e, quando necessário, vou pedir o seu consentimento.</p>
+<h2>Contato</h2><p>Se você me escrever por e-mail ou WhatsApp, uso seus dados somente para responder.</p>
+{news}
+<h2>Hospedagem e fontes</h2><p>O site é hospedado no GitHub Pages, que pode registrar dados técnicos de acesso, como o endereço IP. As fontes de texto são carregadas do próprio site.</p>
+<h2>Links externos e afiliados</h2><p>Ao seguir links para Amazon, Hotmart, ADPList, Google Play, Instagram ou LinkedIn, você passa a estar sujeito às políticas desses serviços. Alguns links de recomendações são de afiliados (Amazon e Shopee): posso receber uma comissão, sem custo extra para você.</p>
+<h2>Seus direitos</h2><p>Pela Lei Geral de Proteção de Dados (LGPD, Lei 13.709/2018), você pode pedir acesso, correção, exclusão ou portabilidade dos seus dados, e revogar consentimentos. Para isso, use o e-mail disponível em <a href="../conecte-se/#contato">Conecte-se</a>.</p>
+<p class="note">Atualizada em {datetime.date.today().strftime('%d/%m/%Y')}.</p>
+</section>'''
+    return layout(None, 1, 'Política de privacidade — Paulo Leite', 'Como o site pauloleite.dev trata dados pessoais, em conformidade com a LGPD.', body, 'privacidade/')
+
+FILTERS = [('todos', 'Todos')] + [(x['id'], x['eyebrow']) for x in PATHS]
+def filter_bar():
+    btns = ''.join(f'<button type="button" class="btn btn--secondary" data-filter="{k}" aria-pressed="{"true" if k == "todos" else "false"}">{e(l)}</button>' for k, l in FILTERS)
+    return f'''<div class="container"><div class="filter" role="group" aria-label="Filtrar por etapa da carreira" hidden>{btns}</div>
+<div class="container filter-empty" id="filter-empty" role="status" hidden><div class="card"><p class="card__text">Ainda não tenho livro ou SmartBook específico para esta etapa. Comece pela <a href="../mentoria/">mentoria gratuita</a> e pelas recomendações de leitura mais abaixo.</p></div></div></div>'''
 
 def head(eyebrow, h1, lead):
     return f'<section class="page-head"><div class="container"><p class="eyebrow">{e(eyebrow)}</p><h1>{h1}</h1><p>{e(lead)}</p></div></section>'
@@ -311,7 +409,8 @@ def layout(key, depth, title, desc, body, path, jsonld='', index=True, head_extr
 <footer class="site-footer">
   <div class="container site-footer__inner">
     <span>© 2026 Paulo Leite · {e(SITE['tagline'])}</span>
-    <ul class="site-footer__nav" aria-label="Redes">
+    <ul class="site-footer__nav" aria-label="Links do rodapé">
+      <li><a href="{p or './'}privacidade/">Privacidade</a></li>
       <li><a href="{ig['url']}" {ext_attrs()} data-event="social_click" data-network="instagram">Instagram{EXT}</a></li>
       <li><a href="{li_['url']}" {ext_attrs()} data-event="social_click" data-network="linkedin">LinkedIn{EXT}</a></li>
     </ul>
@@ -362,10 +461,11 @@ def build():
 {about()}
 {endorsements()}
 {testimonials('')}
-<section class="section container" aria-label="Mentoring">{mentoring('', 'home')}</section>
+{newsletter('')}
+<section class="section container" aria-label="Mentoria">{mentoring('', 'home')}</section>
 <section class="section container" aria-labelledby="proj-h">
   <div class="section-head"><p class="eyebrow">Projetos</p><h2 id="proj-h">Também construo produtos</h2></div>
-  {project_card('', proj, 'featured_click')}
+  {dognas_home(proj)}
 </section>
 <section class="section container" aria-labelledby="contato-h">
   <div class="section-head"><h2 id="contato-h">Vamos conversar</h2></div>
@@ -375,19 +475,19 @@ def build():
         'Paulo Leite, engenheiro com 20+ anos de experiência. Livros, SmartBooks e mentoria gratuita para quem está começando, quer crescer ou liderar em tecnologia.', home, '', jsonld=home_jsonld(), head_extra=PRELOAD_HERO + '\n')
 
     know = head('Conhecimento', 'Conhecimento', 'Livros, materiais e recomendações para evoluir em engenharia de software.') + f'''
+{filter_bar()}
 <div class="container"><nav class="anchor-nav" aria-label="Seções"><a class="btn btn--secondary" href="#livros">Livros</a><a class="btn btn--secondary" href="#smartbooks">SmartBooks</a><a class="btn btn--secondary" href="#recomendacoes">Recomendações</a></nav></div>
-<section class="section container" id="livros" aria-labelledby="l-h"><div class="section-head"><h2 id="l-h">Livros</h2><p>Publicados por Paulo Leite.</p></div>{grid('../', BOOKS)}</section>
-<section class="section container" id="smartbooks" aria-labelledby="s-h"><div class="section-head"><h2 id="s-h">SmartBooks</h2><p>Guias práticos para destravar a carreira em tecnologia.</p></div>{smart_grid('../', SMART)}</section>
+<section class="section container" id="livros" data-filter-section aria-labelledby="l-h"><div class="section-head"><h2 id="l-h">Livros</h2><p>Publicados por Paulo Leite.</p></div>{grid('../', BOOKS)}</section>
+<section class="section container" id="smartbooks" data-filter-section aria-labelledby="s-h"><div class="section-head"><h2 id="s-h">SmartBooks</h2><p>Guias práticos para destravar a carreira em tecnologia.</p></div>{smart_grid('../', SMART)}</section>
 <section class="section container" id="recomendacoes" aria-labelledby="r-h"><div class="section-head"><h2 id="r-h">Recomendações</h2><p>Leituras e materiais que indico.</p></div>
 <div class="grid grid--3">{''.join(reco_card(c) for c in RECO)}</div>
 <p class="note" style="margin-top:var(--space-5)">{e(SITE['affiliate_note'])}</p></section>'''
     pages['conhecimento/index.html'] = layout('conhecimento', 1, 'Conhecimento — Paulo Leite',
         'Livros, SmartBooks e recomendações de Paulo Leite sobre engenharia de software, arquitetura, carreira e liderança.', know, 'conhecimento/')
 
-    pj = head('Projetos', "Things I've built.", 'Ideas transformed into technology.') + f'''
-<section class="section container" aria-label="Projetos"><div class="grid">{''.join(project_card('../', x, 'project_click', 2) for x in PROJECTS)}</div><p class="placeholder" style="margin-top:var(--space-5)">Mais projetos em breve.</p></section>'''
-    pages['projetos/index.html'] = layout('projetos', 1, 'Projetos — Paulo Leite',
-        'Projetos autorais de Paulo Leite. Inicialmente: DogNAS, transforme dispositivos Android em servidores NAS pessoais.', pj, 'projetos/')
+    pages['projetos/index.html'] = projects_page(proj)
+    pages['sobre/index.html'] = about_page()
+    pages['privacidade/index.html'] = privacy_page()
 
     con = head('Conecte-se', 'Conecte-se', 'Vamos conversar sobre tecnologia, carreira e liderança.') + f'''
 <section class="section container" aria-label="Mentoring">{mentoring('../', 'conecte-se')}</section>

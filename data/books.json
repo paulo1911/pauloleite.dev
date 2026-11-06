@@ -12,7 +12,25 @@
       "height": 480
     },
     "featured": true,
-    "status": "published"
+    "status": "published",
+    "description": "Domine System Design e esteja preparado para as entrevistas técnicas mais desafiadoras. Um framework passo a passo para abordar qualquer questão de arquitetura, com exemplos do mundo real.",
+    "learn": [
+      "Um framework de 4 passos para resolver qualquer questão de System Design no seu projeto e em entrevistas",
+      "Um guia prático para construir sistemas robustos, escaláveis e de alta performance",
+      "Um estudo de caso detalhado de um sistema tipo Uber, dos requisitos à implementação",
+      "Dicas para abordar gargalos e otimizar a arquitetura do seu sistema",
+      "Bônus: o que os entrevistadores realmente procuram, um checklist prático e um dicionário de termos para descrever seu design com clareza"
+    ],
+    "contents": [
+      "Introdução ao System Design: conceitos fundamentais",
+      "Requisitos funcionais e não funcionais: a base para um design de sucesso",
+      "Design de bancos de dados: SQL vs. NoSQL",
+      "Escalabilidade horizontal vs. vertical",
+      "Balanceamento de carga e cache",
+      "Mensageria e event-driven architecture",
+      "Estudo de caso: arquitetando um sistema tipo Uber",
+      "Como resolver questões de System Design em entrevistas"
+    ]
   },
   {
     "id": "arquiteto-carreira",
@@ -27,7 +45,18 @@
       "height": 419
     },
     "featured": true,
-    "status": "published"
+    "status": "published",
+    "description": "Um guia direto e prático para profissionais de engenharia que querem avançar de pleno para sênior de forma consciente, estruturada e intencional: os princípios, comportamentos e mentalidades que transformam bons profissionais em referências técnicas e multiplicadores de impacto.",
+    "learn": [
+      "Humildade intelectual: a mentalidade que destrava a evolução contínua e atrai mentores",
+      "Multiplicação de impacto: como sair do individual e se tornar indispensável para o time",
+      "Autorresponsabilidade e protagonismo: como assumir o volante da própria carreira",
+      "Mentalidade de longo prazo: construindo fundamentos para 10, 20, 30 anos",
+      "Entregas de alta qualidade: como elevar seu padrão e fortalecer sua reputação técnica",
+      "Crescimento baseado em impacto: como mostrar valor e acelerar sua evolução",
+      "Consciência sistêmica: o pensamento estratégico que diferencia plenos de seniores",
+      "Comportamentos que constroem confiança: o segredo silencioso da promoção"
+    ]
   },
   {
     "id": "pessoa-engenheira-jr",
@@ -42,6 +71,14 @@
       "height": 320
     },
     "featured": false,
-    "status": "published"
+    "status": "published",
+    "description": "Um guia prático e estratégico, com mais de 20 anos de experiência em tecnologia, para quem está começando como pessoa engenheira de software júnior e quer chegar ao nível pleno.",
+    "learn": [
+      "Como construir uma base sólida de código limpo, testes e boas práticas",
+      "Estratégias para navegar em bases de código complexas com segurança e autonomia",
+      "Técnicas para resolver problemas com mentalidade de detetive e crescer com feedbacks",
+      "Como se comunicar, colaborar e demonstrar proatividade de maneira estratégica",
+      "Um plano claro para superar a síndrome do impostor, ganhar confiança e decolar para o nível pleno"
+    ]
   }
 ]

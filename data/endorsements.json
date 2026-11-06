@@ -11,14 +11,18 @@
     "quote": "Paulo is one of the best Tech specialist that I had the opportunity to work with. He knows how to balance a good technical approach using architectural best practices and a precisely solution to fit the business needs. Beyond that, He is a natural leader, helping the team to improve their knowledge and a good work environment.",
     "name": "Elisio",
     "role": "Vice President, Technology",
-    "status": "published"
+    "status": "published",
+    "quote_pt": "Paulo é um dos melhores especialistas de tecnologia com quem tive a oportunidade de trabalhar. Ele sabe equilibrar uma boa abordagem técnica, com boas práticas de arquitetura, e uma solução precisa para as necessidades do negócio. Além disso, é um líder nato, ajudando o time a ampliar seu conhecimento e mantendo um bom ambiente de trabalho.",
+    "role_pt": "VP de Tecnologia"
   },
   {
     "id": "ciro",
     "quote": "Paulo is a great technical leader. He's always studying the best technologies and works focused on improve the quality of the teams that he works. If you are looking for a great technical leader, I really recommend him!",
     "name": "Ciro",
     "role": "Chief Technology Officer",
-    "status": "published"
+    "status": "published",
+    "quote_pt": "Paulo é um ótimo líder técnico. Está sempre estudando as melhores tecnologias e trabalha com foco em melhorar a qualidade dos times em que atua. Se você procura um ótimo líder técnico, eu recomendo!",
+    "role_pt": "CTO"
   },
   {
     "id": "jean",

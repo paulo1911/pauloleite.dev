@@ -27,3 +27,23 @@
     if (meta) meta.textContent = addr;
   });
 })();
+
+// Filtro por etapa da carreira (Conhecimento). Sem JS, tudo fica visível.
+(function () {
+  var bar = document.querySelector('.filter');
+  if (!bar) return;
+  bar.hidden = false;
+  var cards = document.querySelectorAll('[data-path]');
+  var sections = document.querySelectorAll('[data-filter-section]');
+  var empty = document.getElementById('filter-empty');
+  bar.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-filter]');
+    if (!b) return;
+    var f = b.dataset.filter;
+    bar.querySelectorAll('[data-filter]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+    var shown = 0;
+    cards.forEach(function (c) { var ok = f === 'todos' || c.dataset.path === f; c.hidden = !ok; if (ok) shown++; });
+    sections.forEach(function (s) { s.hidden = !s.querySelector('[data-path]:not([hidden])'); });
+    if (empty) empty.hidden = shown !== 0;
+  });
+})();

@@ -1,0 +1,13 @@
+{
+  "status": "draft",
+  "action": null,
+  "method": "post",
+  "email_field": "email",
+  "hidden": {},
+  "eyebrow": "Newsletter",
+  "title": "Um e-mail por semana sobre carreira em tecnologia",
+  "text": "Ideias práticas para evoluir de júnior a sênior e chegar à liderança. Sem spam, e você sai quando quiser.",
+  "button": "Quero receber",
+  "consent": "Concordo em receber e-mails de Paulo Leite e li a política de privacidade.",
+  "note": "Para ativar: defina action (URL do formulário do serviço de e-mail), troque status para published e ajuste o material gratuito, se houver."
+}

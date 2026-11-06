@@ -11,7 +11,8 @@
       "width": 640,
       "height": 640
     },
-    "status": "published"
+    "status": "published",
+    "offer": "50% de desconto"
   },
   {
     "id": "dominando-entrevistas",
@@ -25,7 +26,8 @@
       "width": 640,
       "height": 420
     },
-    "status": "published"
+    "status": "published",
+    "offer": "50% de desconto"
   },
   {
     "id": "disciplina",
@@ -39,6 +41,7 @@
       "width": 640,
       "height": 372
     },
-    "status": "published"
+    "status": "published",
+    "offer": "50% de desconto"
   }
 ]

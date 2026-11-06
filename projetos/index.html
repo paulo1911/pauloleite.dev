@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Projetos — Paulo Leite</title>
-<meta name="description" content="Projetos autorais de Paulo Leite. Inicialmente: DogNAS, transforme dispositivos Android em servidores NAS pessoais.">
+<meta name="description" content="Projetos autorais de Paulo Leite. DogNAS: transforme um Android em armazenamento particular pelo Wi-Fi, sem nuvem e sem mensalidade.">
 <link rel="canonical" href="https://pauloleite.dev/projetos/">
 <!-- robots controlado por "indexable" em data/site.json (Sprint 7 libera) -->
 <meta name="robots" content="index, follow, max-image-preview:large">
@@ -19,7 +19,7 @@
 <meta property="og:site_name" content="Paulo Leite">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:title" content="Projetos — Paulo Leite">
-<meta property="og:description" content="Projetos autorais de Paulo Leite. Inicialmente: DogNAS, transforme dispositivos Android em servidores NAS pessoais.">
+<meta property="og:description" content="Projetos autorais de Paulo Leite. DogNAS: transforme um Android em armazenamento particular pelo Wi-Fi, sem nuvem e sem mensalidade.">
 <meta property="og:url" content="https://pauloleite.dev/projetos/">
 <meta property="og:image" content="https://pauloleite.dev/assets/images/og-image.jpg">
 <meta property="og:image:type" content="image/jpeg">
@@ -28,8 +28,9 @@
 <meta property="og:image:alt" content="Paulo Leite — Arquitete sua carreira em tecnologia">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Projetos — Paulo Leite">
-<meta name="twitter:description" content="Projetos autorais de Paulo Leite. Inicialmente: DogNAS, transforme dispositivos Android em servidores NAS pessoais.">
+<meta name="twitter:description" content="Projetos autorais de Paulo Leite. DogNAS: transforme um Android em armazenamento particular pelo Wi-Fi, sem nuvem e sem mensalidade.">
 <meta name="twitter:image" content="https://pauloleite.dev/assets/images/og-image.jpg">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "DogNAS", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Android", "description": "Transforme um celular, tablet ou TV box Android em armazenamento particular pelo Wi-Fi. Sem nuvem, sem mensalidade e sem comprar um NAS.", "url": "https://dognas.app/pt/", "inLanguage": "pt-BR", "author": {"@type": "Person", "@id": "https://pauloleite.dev/#person", "name": "Paulo Leite"}}</script>
 <link rel="preload" href="../assets/fonts/manrope-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../css/site.min.css">
@@ -41,24 +42,34 @@
   <div class="container site-header__inner">
     <a class="brand" href="../">Paulo Leite<span>.dev</span></a>
     <nav class="nav" id="nav" aria-label="Principal">
-      <ul><li><a href="../">Início</a></li><li><a href="../conhecimento/">Conhecimento</a></li><li><a href="../mentoria/">Mentoria</a></li><li><a href="../projetos/" aria-current="page">Projetos</a></li><li><a href="../conecte-se/">Conecte-se</a></li></ul>
+      <ul><li><a href="../">Início</a></li><li><a href="../sobre/">Sobre</a></li><li><a href="../conhecimento/">Conhecimento</a></li><li><a href="../mentoria/">Mentoria</a></li><li><a href="../projetos/" aria-current="page">Projetos</a></li><li><a href="../conecte-se/">Conecte-se</a></li></ul>
     </nav>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Abrir menu"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-menu"/></svg></button>
   </div>
 </header>
 <main id="main">
-<section class="page-head"><div class="container"><p class="eyebrow">Projetos</p><h1>Things I've built.</h1><p>Ideas transformed into technology.</p></div></section>
-<section class="section container" aria-label="Projetos"><div class="grid"><article class="card card--featured">
-  <span class="badge"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-sparkles"/></svg> Projeto</span>
-  <h2 class="card__title" style="font-size:var(--fs-xl)">DogNAS</h2>
-  <p class="card__text">Transforme dispositivos Android em servidores NAS pessoais na sua rede local.</p>
-  <p><a class="btn btn--primary" href="https://dognas.app" target="_blank" rel="noopener" data-event="project_click" data-project-id="dognas">Conhecer o DogNAS <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg><span class="visually-hidden"> (abre em nova aba)</span></a></p>
-</article></div><p class="placeholder" style="margin-top:var(--space-5)">Mais projetos em breve.</p></section>
+<section class="page-head"><div class="container"><p class="eyebrow">Projetos</p><h1>Projetos <span class="gradient-text">autorais</span></h1><p>Ideias transformadas em tecnologia.</p></div></section>
+<section class="section container" aria-labelledby="dog-h">
+  <article class="card card--featured proj proj--page">
+    <div class="proj__shots"><img src="../assets/images/dognas/server-status.webp" width="540" height="1080" alt="Tela do DogNAS com o servidor online, um cliente transferindo arquivos e o uso do armazenamento" loading="lazy" decoding="async"><img src="../assets/images/dognas/lite-files.webp" width="540" height="1080" alt="Tela do DogNAS Lite listando as pastas Backups, Documentos, Fotos e Músicas" loading="lazy" decoding="async"></div>
+    <div class="proj__body">
+      <span class="badge"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-sparkles"/></svg> Projeto</span>
+      <h2 id="dog-h" style="font-size:var(--fs-2xl)">DogNAS</h2>
+      <p class="card__text">Transforme um celular, tablet ou TV box Android em armazenamento particular pelo Wi-Fi. Sem nuvem, sem mensalidade e sem comprar um NAS.</p>
+      <p class="proj__actions"><a class="btn btn--primary" href="https://play.google.com/store/apps/details?id=com.dognas.server&amp;referrer=utm_source%3Dpauloleite.dev%26utm_medium%3Dwebsite%26utm_campaign%3Dprojetos" target="_blank" rel="noopener" data-event="project_click" data-project-id="dognas" data-placement="play">Baixar na Google Play <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg><span class="visually-hidden"> (abre em nova aba)</span></a>
+      <a class="btn btn--secondary" href="https://dognas.app/pt/" target="_blank" rel="noopener" data-event="project_click" data-project-id="dognas" data-placement="site">Conhecer o DogNAS <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg><span class="visually-hidden"> (abre em nova aba)</span></a></p>
+    </div>
+  </article>
+</section>
+<section class="section container" aria-labelledby="ben-h"><div class="section-head"><h2 id="ben-h">Por que usar</h2></div><div class="grid grid--3 grid--start"><article class="card"><h3 class="card__title" style="font-size:var(--fs-lg)">Sem nuvem e sem mensalidade</h3><p class="card__text">Seus arquivos ficam no seu aparelho, na sua rede. Gratuito para começar; o Pro é uma compra única.</p></article><article class="card"><h3 class="card__title" style="font-size:var(--fs-lg)">Conexão criptografada</h3><p class="card__text">Transferências por SFTP sobre SSH-2, com credenciais revogáveis por dispositivo.</p></article><article class="card"><h3 class="card__title" style="font-size:var(--fs-lg)">Pareamento por QR Code</h3><p class="card__text">Escaneie o código, use o PIN do perfil e conecte PC, Mac ou Linux com FileZilla, WinSCP, Cyberduck ou rclone.</p></article></div></section>
+<section class="section container" aria-labelledby="how-h"><div class="section-head"><p class="eyebrow">Bastidores</p><h2 id="how-h">Como foi construído</h2></div><div class="about"><p>Projetei, construí e publiquei o DogNAS sozinho, de ponta a ponta: produto, arquitetura, desenvolvimento Android, lançamento e crescimento, com desenvolvimento assistido por IA.</p><p>O aplicativo servidor e o cliente estão no Google Play, e o site funciona em português, inglês e espanhol. O cliente para iOS está em desenvolvimento.</p><p>É o mesmo método que escrevo nos livros e uso nas mentorias: decisões de arquitetura com trade-offs claros, simplicidade e entrega.</p></div><ul class="creds creds--plain" aria-label="Tecnologias" style="margin-top:var(--space-5)"><li>Android</li><li>SFTP sobre SSH-2</li><li>AES-GCM / ChaCha20</li><li>Credenciais por dispositivo</li><li>Modelo freemium</li></ul></section>
+<section class="section container"><p class="placeholder">Mais projetos em breve.</p></section>
 </main>
 <footer class="site-footer">
   <div class="container site-footer__inner">
     <span>© 2026 Paulo Leite · Arquitete sua carreira em tecnologia.</span>
-    <ul class="site-footer__nav" aria-label="Redes">
+    <ul class="site-footer__nav" aria-label="Links do rodapé">
+      <li><a href="../privacidade/">Privacidade</a></li>
       <li><a href="https://www.instagram.com/pauloleite.dev" target="_blank" rel="noopener" data-event="social_click" data-network="instagram">Instagram<span class="visually-hidden"> (abre em nova aba)</span></a></li>
       <li><a href="https://www.linkedin.com/in/paulorobertoleite" target="_blank" rel="noopener" data-event="social_click" data-network="linkedin">LinkedIn<span class="visually-hidden"> (abre em nova aba)</span></a></li>
     </ul>
