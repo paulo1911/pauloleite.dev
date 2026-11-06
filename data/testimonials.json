@@ -2,22 +2,29 @@
   {
     "id": "matheus",
     "quote": "Minha conversa com o Paulo foi muito boa e muito esclarecedora. Me gerou muitos insights e me fez refletir bastante sobre alguns pontos da minha carreira.",
-    "name": "Matheus Lemos",
-    "role": "Software Engineer, Hammer",
-    "status": "draft"
+    "name": "Matheus",
+    "role": "Software Engineer",
+    "status": "published"
   },
   {
     "id": "lucas",
-    "quote": "De forma clara e bem detalhada, o Paulo me ajudou a mapear os principais problemas que eu enfrento na minha organização e me deu um direcionamento para melhorar as minhas habilidades em desenvolvimento e gestão de TI. A mentoria foi muito proveitosa, recomendo!",
-    "name": "Lucas Bertuol",
-    "role": "Developer, Volk Finance",
-    "status": "draft"
+    "quote": "De forma clara e bem detalhada, o Paulo me ajudou a mapear os principais problemas que eu enfrento na minha organização e me deu um direcionamento para melhorar as minhas habilidades em desenvolvimento e gestão de TI. Ele demonstrou ter um conhecimento profundo da área de tecnologia, me passou vários insights e me indicou recursos de aprendizado. A mentoria foi muito proveitosa, recomendo!",
+    "name": "Lucas",
+    "role": "Developer",
+    "status": "published"
   },
   {
     "id": "francisko",
-    "quote": "Deu pra ver claramente que ele dedica tempo pra se preparar pro encontro. Ele também produziu um material pra guiar a sessão e possíveis encontros posteriores, algo que eu não havia visto ainda aqui no ADP List.",
-    "name": "Francisko de Moraes Rezende",
-    "role": "Front-end engineer, Radek Systems",
-    "status": "draft"
+    "quote": "A sessão de mentoria que tive com o Paulo foi incrível. Deu pra ver claramente que ele dedica tempo pra se preparar pro encontro, o que combinado com o conhecimento e vivência dele tornam a experiência excelente. Ele também produziu um material pra guiar a sessão e possíveis encontros posteriores, algo que eu não havia visto ainda aqui no ADP List. Definitivamente um mentor ótimo e que faz um trabalho muito bom aqui, é até difícil de acreditar que ele não cobra.",
+    "name": "Francisko",
+    "role": "Front-end Engineer",
+    "status": "published"
+  },
+  {
+    "id": "jether",
+    "quote": "Paulo is always inspired to help people achieve their goals. I had the blessing of knowing him many years ago, and I'm so glad to have him mentor me in attaining some career goals. Thanks so much, Paulo.",
+    "name": "Jether",
+    "role": "Software Engineer",
+    "status": "published"
   }
 ]

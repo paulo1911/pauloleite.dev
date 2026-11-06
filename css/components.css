@@ -157,9 +157,9 @@ img.book__cover { aspect-ratio: auto; height: auto; }
 .about p { margin: 0; color: var(--color-text-muted); font-size: var(--fs-lg); }
 .quote { margin: 0; gap: var(--space-4); }
 .quote blockquote { margin: 0; }
-.quote p { margin: 0; }
-.quote figcaption { display: grid; gap: 2px; margin-top: auto; }
-.quote figcaption span { color: var(--color-text-muted); font-size: var(--fs-sm); }
+.quote p { margin: 0; font-family: var(--font-body); font-style: italic; font-weight: 400; font-size: var(--fs-base); line-height: 1.7; color: var(--color-text); }
+.quote figcaption { margin-top: auto; color: var(--color-text-muted); font-size: var(--fs-sm); }
+.quote figcaption strong { color: var(--color-accent); font-weight: 700; }
 @media (min-width: 64em) {
   .creds { justify-content: flex-start; }
   .path { text-align: left; align-items: stretch; }

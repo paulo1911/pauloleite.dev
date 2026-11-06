@@ -152,10 +152,10 @@ def credentials():
 
 def testimonials(p):
     if not TESTI: return ''
-    cards = ''.join(f'<figure class="card quote"><blockquote><p>{e(t["quote"])}</p></blockquote><figcaption><strong>{e(t["name"])}</strong><span>{e(t["role"])}</span></figcaption></figure>' for t in TESTI)
+    cards = ''.join(f'<figure class="card quote"><blockquote><p>“{e(t["quote"])}”</p></blockquote><figcaption><strong>{e(t["name"])}</strong> - {e(t["role"])}</figcaption></figure>' for t in TESTI)
     return f'''<section class="section container" aria-labelledby="dep-h">
   <div class="section-head"><p class="eyebrow">Mentorados</p><h2 id="dep-h">O que dizem quem já fez mentoria</h2></div>
-  <div class="grid grid--3">{cards}</div>
+  <div class="grid grid--2 grid--start">{cards}</div>
   <p class="note section-cta" style="margin-top:var(--space-4)">Avaliações públicas no <a href="{e(SITE['mentoring']['url'])}" {ext_attrs()}>perfil do ADPList{EXT}</a>.</p>
 </section>'''
 
