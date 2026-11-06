@@ -7,7 +7,7 @@ import json, subprocess, time, urllib.request, os, sys, tempfile
 import websocket
 
 BASE = 'http://localhost:8765'
-PAGES = ['/', '/conhecimento/', '/projetos/', '/conecte-se/', '/404.html']
+PAGES = ['/', '/conhecimento/', '/mentoria/', '/conhecimento/system-design/', '/conhecimento/plano-de-acao/', '/conhecimento/pessoa-engenheira-jr/', '/projetos/', '/conecte-se/', '/404.html']
 CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
 AXE = os.path.join(tempfile.gettempdir(), 'axe.min.js')
 if not os.path.exists(AXE):

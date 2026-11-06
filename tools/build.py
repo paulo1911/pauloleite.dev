@@ -46,7 +46,7 @@ def inline_sprite(html):
     return html.replace('</body>', f'<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">{syms}</svg>\n</body>')
 
 EXT = '<span class="visually-hidden"> (abre em nova aba)</span>'
-NAV = [('Início', '', 'home'), ('Conhecimento', 'conhecimento/', 'conhecimento'), ('Projetos', 'projetos/', 'projetos'), ('Conecte-se', 'conecte-se/', 'conecte-se')]
+NAV = [('Início', '', 'home'), ('Conhecimento', 'conhecimento/', 'conhecimento'), ('Mentoria', 'mentoria/', 'mentoria'), ('Projetos', 'projetos/', 'projetos'), ('Conecte-se', 'conecte-se/', 'conecte-se')]
 
 def ic(p, n): return f'<svg class="icon" aria-hidden="true" focusable="false"><use href="{p}assets/icons/sprite.svg#i-{n}"/></svg>'
 def ext_attrs(store=None):
@@ -54,6 +54,8 @@ def ext_attrs(store=None):
     return f'target="_blank" rel="{rel}"'
 def social(kind): return [s for s in SOCIALS if s['kind'] == kind]
 def soc(id_): return next(s for s in SOCIALS if s['id'] == id_)
+
+def product_url(p, id_): return f'{p}conhecimento/{id_}/'
 
 def img_or_cover(p, item, cls):
     im = item.get('image')
@@ -66,7 +68,7 @@ def book_card(p, b):
   {img_or_cover(p, b, 'book__cover')}
   <div class="book__body">
     <span class="badge">{e(b['format'])}</span>
-    <h3 class="card__title" style="font-size:var(--fs-lg)"><a class="card__link" href="{e(b['url'])}" {ext_attrs()} data-event="book_click" data-book-id="{b['id']}" data-store="{b['store']}">{e(b['title'])}{EXT}</a></h3>
+    <h3 class="card__title" style="font-size:var(--fs-lg)"><a class="card__link" href="{product_url(p, b['id'])}" data-event="product_click" data-book-id="{b['id']}" data-store="{b['store']}">{e(b['title'])}</a></h3>
     <p class="card__text">{e(b['subtitle'])}</p>
   </div>
 </article>'''
@@ -75,11 +77,11 @@ def smart_card(p, b):
     return f'''<article class="card card--interactive">
   <div class="card__media card__media--contain">{img_or_cover(p, b, '')}</div>
   <span class="badge">{e(b['format'])}</span>
-  <h3 class="card__title" style="font-size:var(--fs-lg)"><a class="card__link" href="{e(b['url'])}" {ext_attrs()} data-event="book_click" data-book-id="{b['id']}" data-store="{b['store']}">{e(b['title'])}{EXT}</a></h3>
+  <h3 class="card__title" style="font-size:var(--fs-lg)"><a class="card__link" href="{product_url(p, b['id'])}" data-event="product_click" data-book-id="{b['id']}" data-store="{b['store']}">{e(b['title'])}</a></h3>
   <p class="card__text">{e(b['subtitle'])}</p>
 </article>'''
 
-def smart_grid(p, items): return '<div class="grid grid--3">' + ''.join(smart_card(p, b) for b in items) + '</div>'
+def smart_grid(p, items): return '<div class="grid grid--3 grid--start">' + ''.join(smart_card(p, b) for b in items) + '</div>'
 
 def grid(p, items, cols=2): return f'<div class="grid grid--{cols}">' + ''.join(book_card(p, b) for b in items) + '</div>'
 
@@ -131,10 +133,10 @@ def reco_card(c, per=6):
 
 def path_card(p, pa):
     byid = {x['id']: x for x in BOOKS + SMART}
-    items = ''.join(f'<li><a href="{e(byid[i]["url"])}" {ext_attrs()} data-event="book_click" data-book-id="{i}" data-store="{byid[i]["store"]}" data-placement="trilha">{e(byid[i]["title"])}{EXT}</a><span class="path__fmt">{e(byid[i]["format"])}</span></li>' for i in pa['items'] if i in byid)
+    items = ''.join(f'<li><a href="{product_url(p, i)}" data-event="product_click" data-book-id="{i}" data-store="{byid[i]["store"]}" data-placement="trilha">{e(byid[i]["title"])}</a><span class="path__fmt">{e(byid[i]["format"])}</span></li>' for i in pa['items'] if i in byid)
     m = SITE['mentoring']
     ig = soc('instagram')
-    lk = {'mentoring': f'<li><a href="{e(m["url"])}" {ext_attrs()} data-event="mentoring_click" data-placement="trilha">Mentoria 1:1 gratuita (ADPList){EXT}</a></li>',
+    lk = {'mentoring': f'<li><a href="{p}mentoria/" data-event="mentoring_click" data-placement="trilha">Mentoria 1:1 gratuita</a></li>',
           'instagram': f'<li><a href="{e(ig["url"])}" {ext_attrs()} data-event="social_click" data-network="instagram" data-placement="trilha">Conteúdo no Instagram {e(ig["meta"])}{EXT}</a></li>'}
     items += ''.join(lk[k] for k in pa['links'])
     return f'''<article class="card path">
@@ -159,6 +161,82 @@ def testimonials(p):
 
 def about():
     return '<section class="section container" aria-labelledby="sobre-h"><div class="section-head"><p class="eyebrow">Sobre</p><h2 id="sobre-h">Quem está do outro lado</h2></div><div class="about">' + ''.join(f'<p>{e(x)}</p>' for x in SITE['about']) + '</div></section>'
+
+STORE_CTA = {'amazon': 'Comprar na Amazon', 'hotmart': 'Adquirir na Hotmart'}
+
+def product_page(it):
+    pa = next((x for x in PATHS if it['id'] in x['items']), None)
+    byid = {x['id']: x for x in BOOKS + SMART}
+    im = it.get('image')
+    cover = f'<img class="prod__cover" src="../../{e(im["src"])}" width="{im["width"]}" height="{im["height"]}" alt="Capa de {e(it["title"])}" decoding="async" fetchpriority="high">' if im else ''
+    cta = STORE_CTA.get(it['store'], 'Comprar')
+    desc = f'<p class="prod__desc">{e(it["description"])}</p>' if it.get('description') else ''
+    learn = ''
+    if it.get('learn'):
+        learn = '<section class="section container" aria-labelledby="learn-h"><div class="section-head"><h2 id="learn-h">O que você vai encontrar</h2></div><ul class="checks">' + ''.join(f'<li>{e(x)}</li>' for x in it['learn']) + '</ul></section>'
+    fit = ''
+    more = ''
+    if pa:
+        fit = f'''<section class="section container" aria-labelledby="fit-h">
+  <div class="section-head"><p class="eyebrow">Para quem é</p><h2 id="fit-h">{e(pa['eyebrow'])}: {e(pa['title'])}</h2><p>{e(pa['text'])}</p></div>
+</section>'''
+        others = [byid[i] for i in pa['items'] if i != it['id'] and i in byid]
+        if others:
+            more = '<section class="section container" aria-labelledby="more-h"><div class="section-head"><p class="eyebrow">Na mesma trilha</p><h2 id="more-h">Continue por aqui</h2></div><div class="grid grid--3 grid--start">' + ''.join(smart_card('../../', o) if o['store'] == 'hotmart' else book_card('../../', o) for o in others) + '</div></section>'
+    body = f'''<nav class="container crumbs" aria-label="Trilha de navegação"><a href="../">Conhecimento</a><span aria-hidden="true"> / </span><span>{e(it['title'])}</span></nav>
+<section class="container prod">
+  <div class="prod__media">{cover}</div>
+  <div class="prod__body">
+    <span class="badge">{e(it['format'])}</span>
+    <h1>{e(it['title'])}</h1>
+    <p class="prod__sub">{e(it['subtitle'])}</p>
+    {desc}
+    <p><a class="btn btn--primary" href="{e(it['url'])}" {ext_attrs()} data-event="book_click" data-book-id="{it['id']}" data-store="{it['store']}" data-placement="produto">{cta} {ic('../../', 'arrow-up-right')}{EXT}</a></p>
+  </div>
+</section>
+{learn}
+{fit}
+{more}
+<section class="section container" aria-label="Mentoria">{mentoring('../../', 'produto')}</section>'''
+    typ = 'Book' if it['format'] != 'SmartBook' else 'CreativeWork'
+    ld = {"@context": "https://schema.org", "@type": typ, "name": it['title'], "alternativeHeadline": it['subtitle'],
+          "url": f"{SITE['domain']}/conhecimento/{it['id']}/", "inLanguage": "pt-BR",
+          "author": {"@type": "Person", "@id": SITE['domain'] + "/#person", "name": SITE['name']}}
+    if im: ld["image"] = f"{SITE['domain']}/{im['src']}"
+    jl = '<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False) + '</script>\n'
+    d = f"{it['title']}: {it['subtitle']}. {it['format']} de Paulo Leite."
+    return layout('conhecimento', 2, f"{it['title']} — Paulo Leite", d, body, f"conhecimento/{it['id']}/", jsonld=jl)
+
+TOPICS = ['Carreira e transição', 'Engenharia e back-end', 'Arquitetura de software', 'Cloud computing', 'Liderança e gestão', 'Comunicação e negociação', 'Resolução de problemas', 'Organização e gestão de projetos']
+FIT = [('Estou começando', 'Primeiro emprego, entrevistas, o que estudar e como se posicionar.'),
+       ('Quero crescer', 'Caminho de pleno a sênior, decisões técnicas, visibilidade e arquitetura.'),
+       ('Quero liderar', 'Transição para tech lead ou gestão, liderança de pessoas e comunicação.')]
+STEPS = ['Escolha um horário no ADPList. A sessão é gratuita e dura 45 minutos.',
+         'Ao agendar, conte seu momento de carreira e o que você quer resolver.',
+         'Eu me preparo para a sessão antes. Costumo levar um material-guia, que pode servir para os encontros seguintes.',
+         'Na conversa, mapeamos prioridades e saímos com próximos passos claros.']
+FAQ = [('A mentoria é paga?', 'Não. As sessões pelo ADPList são gratuitas, sujeitas à disponibilidade de agenda.'),
+       ('Quanto tempo dura?', 'Cada sessão tem 45 minutos.'),
+       ('O que levar para a sessão?', 'Seu objetivo para os próximos meses, um resumo do seu contexto atual e duas ou três perguntas que você quer ver respondidas.'),
+       ('Serve para quem ainda não tem emprego em tecnologia?', 'Sim. A conversa se adapta ao seu momento: da primeira vaga à transição para liderança.')]
+
+def mentoring_page():
+    m = SITE['mentoring']
+    btn = lambda pl: f'<a class="btn btn--primary" href="{e(m["url"])}" {ext_attrs()} data-event="mentoring_click" data-placement="{pl}">{e(m["cta"])} {ic("../", "arrow-up-right")}{EXT}</a>'
+    fit = ''.join(f'<article class="card"><h3 class="card__title">{e(t)}</h3><p class="card__text">{e(x)}</p></article>' for t, x in FIT)
+    topics = ''.join(f'<li>{e(t)}</li>' for t in TOPICS)
+    steps = ''.join(f'<li>{e(x)}</li>' for x in STEPS)
+    faq = ''.join(f'<details class="faq"><summary>{e(q)}</summary><p>{e(a)}</p></details>' for q, a in FAQ)
+    body = head('Mentoria', 'Mentoria 1:1 <span class="gradient-text">gratuita</span>', 'Uma conversa de 45 minutos sobre carreira, engenharia e liderança, para você decidir o próximo passo com clareza.') + f'''
+<div class="container hero__actions" style="margin-top:calc(var(--space-4) * -1)">{btn('mentoria-topo')}</div>
+<section class="section container" aria-labelledby="fit-h"><div class="section-head"><h2 id="fit-h">Para quem é</h2></div><div class="grid grid--3">{fit}</div></section>
+<section class="section container" aria-labelledby="top-h"><div class="section-head"><h2 id="top-h">Temas que podemos trabalhar</h2></div><ul class="creds creds--plain">{topics}</ul></section>
+<section class="section container" aria-labelledby="how-h"><div class="section-head"><h2 id="how-h">Como funciona</h2></div><ol class="steps">{steps}</ol></section>
+{testimonials('../')}
+<section class="section container" aria-labelledby="faq-h"><div class="section-head"><h2 id="faq-h">Perguntas frequentes</h2></div><div class="faqs">{faq}</div></section>
+<section class="section container" aria-label="Agendar">{mentoring('../', 'mentoria-final')}</section>'''
+    return layout('mentoria', 1, 'Mentoria 1:1 gratuita — Paulo Leite',
+        'Mentoria gratuita de 45 minutos com Paulo Leite pelo ADPList: carreira, engenharia de software, arquitetura e liderança em tecnologia.', body, 'mentoria/')
 
 def head(eyebrow, h1, lead):
     return f'<section class="page-head"><div class="container"><p class="eyebrow">{e(eyebrow)}</p><h1>{h1}</h1><p>{e(lead)}</p></div></section>'
@@ -309,6 +387,10 @@ def build():
 <div class="grid grid--2">{''.join(link_card('../', s) for s in social('contact'))}</div></section>'''
     pages['conecte-se/index.html'] = layout('conecte-se', 1, 'Conecte-se — Paulo Leite',
         'Instagram, LinkedIn, e-mail, WhatsApp e mentoria com Paulo Leite.', con, 'conecte-se/')
+
+    pages['mentoria/index.html'] = mentoring_page()
+    for it in BOOKS + SMART:
+        pages[f"conhecimento/{it['id']}/index.html"] = product_page(it)
 
     nf = head('Erro 404', 'Página não encontrada', 'O endereço que você acessou não existe ou foi movido.') + '''
 <section class="section container"><a class="btn btn--primary" href="/">Voltar ao início</a></section>'''
