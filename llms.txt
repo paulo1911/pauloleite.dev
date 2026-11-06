@@ -1,0 +1,33 @@
+# Paulo Leite
+
+> Paulo Leite — engenheiro de software com 20+ anos de experiência. Ajudo profissionais de tecnologia a crescer, do primeiro emprego à liderança. Livros, SmartBooks, mentoria gratuita e projetos para profissionais de tecnologia que estão começando, querem crescer ou querem liderar. Site em português do Brasil. Atualizado em 2026-11-05.
+
+## Páginas principais
+- [Início](https://pauloleite.dev/): apresentação e trilhas por etapa da carreira
+- [Sobre](https://pauloleite.dev/sobre/): trajetória profissional e pessoal
+- [Conhecimento](https://pauloleite.dev/conhecimento/): livros, SmartBooks e recomendações de leitura
+- [Mentoria](https://pauloleite.dev/mentoria/): mentoria 1:1 gratuita de 45 minutos pelo ADPList
+- [Projetos](https://pauloleite.dev/projetos/): projetos autorais, como o DogNAS
+- [Conecte-se](https://pauloleite.dev/conecte-se/): redes e formas de contato
+
+## Livros
+- [System Design para Desenvolvedores](https://pauloleite.dev/conhecimento/system-design/): Como Criar Arquiteturas Escaláveis e Performáticas. Livro, publicado em 2025-03-31. Compra: https://www.amazon.com.br/dp/B0F35ZZ6GW
+- [O Arquiteto da Própria Carreira](https://pauloleite.dev/conhecimento/arquiteto-carreira/): De Pleno a Sênior na Engenharia de Software. Livro, publicado em 2025-12-06. Compra: https://www.amazon.com.br/dp/B0G5JLT49N
+- [Pessoa Engenheira de Software JR](https://pauloleite.dev/conhecimento/pessoa-engenheira-jr/): Desenvolva habilidades de alto impacto e decole rumo ao nível pleno com confiança e auto-liderança. eBook Kindle, publicado em 2025-09-27. Compra: https://www.amazon.com.br/dp/B0FSYLTS6Y
+
+## SmartBooks
+- [Plano de Ação](https://pauloleite.dev/conhecimento/plano-de-acao/): Do Zero ao Primeiro Emprego em Tecnologia. SmartBook. 50% de desconto. Compra: https://pay.hotmart.com/R101931483O?checkoutMode=10
+- [Dominando Entrevistas](https://pauloleite.dev/conhecimento/dominando-entrevistas/): O Segredo para o Sucesso Profissional na Tecnologia. SmartBook. 50% de desconto. Compra: https://pay.hotmart.com/I95767788G?checkoutMode=10
+- [Disciplina](https://pauloleite.dev/conhecimento/disciplina/): O Segredo do Sucesso para Crescer na Tecnologia. SmartBook. 50% de desconto. Compra: https://pay.hotmart.com/V97856870X?checkoutMode=10
+
+## Trilhas de carreira
+- Estou começando: Do zero ao primeiro emprego em tecnologia. Um plano de ação, preparo para entrevistas e as bases para os primeiros anos de carreira.
+- Quero crescer: De pleno a sênior, com método. O que separa um nível do outro, a disciplina para evoluir e a arquitetura por trás de sistemas que escalam.
+- Quero liderar: De engenheiro a tech lead e gestão. Como liderar pessoas sem deixar de ser engenheiro: conteúdo no Instagram e mentorias 1:1 gratuitas.
+
+## Projetos
+- [DogNAS](https://dognas.app/pt/): Transforme um celular, tablet ou TV box Android em armazenamento particular pelo Wi-Fi. Sem nuvem, sem mensalidade e sem comprar um NAS.
+
+## Opcional
+- [Política de privacidade](https://pauloleite.dev/privacidade/)
+- [Versão completa deste arquivo](https://pauloleite.dev/llms-full.txt)

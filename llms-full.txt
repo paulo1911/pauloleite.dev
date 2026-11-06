@@ -1,0 +1,184 @@
+# Paulo Leite
+
+> Paulo Leite — engenheiro de software com 20+ anos de experiência. Ajudo profissionais de tecnologia a crescer, do primeiro emprego à liderança. Livros, SmartBooks, mentoria gratuita e projetos para profissionais de tecnologia que estão começando, querem crescer ou querem liderar. Site em português do Brasil. Atualizado em 2026-11-05.
+
+Fonte: https://pauloleite.dev/. Este arquivo reúne o conteúdo público do site em texto simples.
+
+## Sobre Paulo Leite
+
+Comecei em tecnologia aos 15 anos e me profissionalizei aos 18. Desde então fui desenvolvedor, tech lead, Staff Engineer e hoje lidero times de engenharia.
+
+Dei aulas de graduação e pós-graduação por mais de 10 anos, escrevi livros para quem quer evoluir na carreira e construo meus próprios produtos, como o DogNAS.
+
+Corro maratonas (São Paulo, Nova York, Chicago): a disciplina que levo da pista para o código e para a liderança.
+
+### Credenciais
+- 20+ anos de carreira em tecnologia
+- 10+ anos como professor de graduação e pós
+- Ex-Staff Engineer em big techs de fintech e food delivery
+- 3 livros e 3 SmartBooks publicados
+- 31 recomendações de colegas, gestores e líderes no LinkedIn
+- Mentor gratuito no ADPList
+
+### Trajetória
+- 15 a 18 anos: Primeiros passos. Comecei em tecnologia aos 15 anos e me profissionalizei aos 18.
+- 2003–2004: Suporte e infraestrutura de TI. Estágio em suporte: manutenção de computadores, redes, servidores Linux e os primeiros sistemas web.
+- 2004–2018: Minha própria empresa de TI. Por 14 anos, desenvolvimento de software em Java, web e Android, mais suporte e infraestrutura para empresas da região.
+- 2007–2010: Formação. Graduação em tecnologia e MBA em Tecnologia da Informação, com iniciação científica em simulação ambiental e climática.
+- 2010–2018: Engenharia em grandes plataformas. De desenvolvedor Java a arquiteto e tech lead em portais, mercado financeiro e e-commerce, com foco em performance, resiliência e alta disponibilidade.
+- 2018–2022: Staff Engineer. Escalando plataformas de alto tráfego em food delivery e fintech: performance, resiliência e testes de carga.
+- 2022–hoje: Liderança de times de engenharia. De lead engineer a Engineering Manager em uma fintech, com MBA em Liderança, Inovação e Gestão 4.0. Plataformas no caminho crítico de movimentação de dinheiro, lançamentos regulados e times engajados.
+- Hoje: Livros, mentoria e produtos. Três livros, SmartBooks, mentoria gratuita no ADPList e o DogNAS, meu produto no Google Play.
+
+### Além do código
+- Professor: Mais de 10 anos ensinando em cursos de graduação e pós-graduação em tecnologia e formando novas lideranças.
+- Maratonista: São Paulo (2017, 2018, 2022, 2023), Nova York (2019) e Chicago (2023). O próximo objetivo: as 6 World Marathon Majors.
+- Construtor: Gosto de construir produtos de ponta a ponta. O mais recente é o DogNAS.
+
+## Trilhas de carreira
+
+### Estou começando: Do zero ao primeiro emprego em tecnologia
+Um plano de ação, preparo para entrevistas e as bases para os primeiros anos de carreira.
+- [Plano de Ação](https://pauloleite.dev/conhecimento/plano-de-acao/)
+- [Dominando Entrevistas](https://pauloleite.dev/conhecimento/dominando-entrevistas/)
+- [Pessoa Engenheira de Software JR](https://pauloleite.dev/conhecimento/pessoa-engenheira-jr/)
+
+### Quero crescer: De pleno a sênior, com método
+O que separa um nível do outro, a disciplina para evoluir e a arquitetura por trás de sistemas que escalam.
+- [O Arquiteto da Própria Carreira](https://pauloleite.dev/conhecimento/arquiteto-carreira/)
+- [Disciplina](https://pauloleite.dev/conhecimento/disciplina/)
+- [System Design para Desenvolvedores](https://pauloleite.dev/conhecimento/system-design/)
+
+### Quero liderar: De engenheiro a tech lead e gestão
+Como liderar pessoas sem deixar de ser engenheiro: conteúdo no Instagram e mentorias 1:1 gratuitas.
+
+
+## Livros e SmartBooks
+
+### System Design para Desenvolvedores
+Como Criar Arquiteturas Escaláveis e Performáticas. Formato: Livro. Publicado em 2025-03-31.
+Página: https://pauloleite.dev/conhecimento/system-design/
+Compra: https://www.amazon.com.br/dp/B0F35ZZ6GW
+
+Domine System Design e esteja preparado para as entrevistas técnicas mais desafiadoras. Um framework passo a passo para abordar qualquer questão de arquitetura, com exemplos do mundo real.
+
+O que você vai encontrar:
+- Um framework de 4 passos para resolver qualquer questão de System Design no seu projeto e em entrevistas
+- Um guia prático para construir sistemas robustos, escaláveis e de alta performance
+- Um estudo de caso detalhado de um sistema tipo Uber, dos requisitos à implementação
+- Dicas para abordar gargalos e otimizar a arquitetura do seu sistema
+- Bônus: o que os entrevistadores realmente procuram, um checklist prático e um dicionário de termos para descrever seu design com clareza
+
+Conteúdo:
+1. Introdução ao System Design: conceitos fundamentais
+2. Requisitos funcionais e não funcionais: a base para um design de sucesso
+3. Design de bancos de dados: SQL vs. NoSQL
+4. Escalabilidade horizontal vs. vertical
+5. Balanceamento de carga e cache
+6. Mensageria e event-driven architecture
+7. Estudo de caso: arquitetando um sistema tipo Uber
+8. Como resolver questões de System Design em entrevistas
+
+### O Arquiteto da Própria Carreira
+De Pleno a Sênior na Engenharia de Software. Formato: Livro. Publicado em 2025-12-06.
+Página: https://pauloleite.dev/conhecimento/arquiteto-carreira/
+Compra: https://www.amazon.com.br/dp/B0G5JLT49N
+
+Um guia direto e prático para profissionais de engenharia que querem avançar de pleno para sênior de forma consciente, estruturada e intencional: os princípios, comportamentos e mentalidades que transformam bons profissionais em referências técnicas e multiplicadores de impacto.
+
+O que você vai encontrar:
+- Humildade intelectual: a mentalidade que destrava a evolução contínua e atrai mentores
+- Multiplicação de impacto: como sair do individual e se tornar indispensável para o time
+- Autorresponsabilidade e protagonismo: como assumir o volante da própria carreira
+- Mentalidade de longo prazo: construindo fundamentos para 10, 20, 30 anos
+- Entregas de alta qualidade: como elevar seu padrão e fortalecer sua reputação técnica
+- Crescimento baseado em impacto: como mostrar valor e acelerar sua evolução
+- Consciência sistêmica: o pensamento estratégico que diferencia plenos de seniores
+- Comportamentos que constroem confiança: o segredo silencioso da promoção
+
+### Pessoa Engenheira de Software JR
+Desenvolva habilidades de alto impacto e decole rumo ao nível pleno com confiança e auto-liderança. Formato: eBook Kindle. Publicado em 2025-09-27.
+Página: https://pauloleite.dev/conhecimento/pessoa-engenheira-jr/
+Compra: https://www.amazon.com.br/dp/B0FSYLTS6Y
+
+Um guia prático e estratégico, com mais de 20 anos de experiência em tecnologia, para quem está começando como pessoa engenheira de software júnior e quer chegar ao nível pleno.
+
+O que você vai encontrar:
+- Como construir uma base sólida de código limpo, testes e boas práticas
+- Estratégias para navegar em bases de código complexas com segurança e autonomia
+- Técnicas para resolver problemas com mentalidade de detetive e crescer com feedbacks
+- Como se comunicar, colaborar e demonstrar proatividade de maneira estratégica
+- Um plano claro para superar a síndrome do impostor, ganhar confiança e decolar para o nível pleno
+
+### Plano de Ação
+Do Zero ao Primeiro Emprego em Tecnologia. Formato: SmartBook. 50% de desconto.
+Página: https://pauloleite.dev/conhecimento/plano-de-acao/
+Compra: https://pay.hotmart.com/R101931483O?checkoutMode=10
+
+### Dominando Entrevistas
+O Segredo para o Sucesso Profissional na Tecnologia. Formato: SmartBook. 50% de desconto.
+Página: https://pauloleite.dev/conhecimento/dominando-entrevistas/
+Compra: https://pay.hotmart.com/I95767788G?checkoutMode=10
+
+### Disciplina
+O Segredo do Sucesso para Crescer na Tecnologia. Formato: SmartBook. 50% de desconto.
+Página: https://pauloleite.dev/conhecimento/disciplina/
+Compra: https://pay.hotmart.com/V97856870X?checkoutMode=10
+
+## Mentoria 1:1 gratuita
+Sessões de 45 minutos sobre carreira, engenharia e liderança. Gratuitas, sujeitas à disponibilidade de agenda. Agendamento: https://adplist.org/mentors/paulo-roberto-a-s-leite
+
+### Para quem é
+- Estou começando: Primeiro emprego, entrevistas, o que estudar e como se posicionar.
+- Quero crescer: Caminho de pleno a sênior, decisões técnicas, visibilidade e arquitetura.
+- Quero liderar: Transição para tech lead ou gestão, liderança de pessoas e comunicação.
+
+### Temas
+- Carreira e transição
+- Engenharia e back-end
+- Arquitetura de software
+- Cloud computing
+- Liderança e gestão
+- Comunicação e negociação
+- Resolução de problemas
+- Organização e gestão de projetos
+
+### Como funciona
+1. Escolha um horário no ADPList. A sessão é gratuita e dura 45 minutos.
+2. Ao agendar, conte seu momento de carreira e o que você quer resolver.
+3. Eu me preparo para a sessão antes. Costumo levar um material-guia, que pode servir para os encontros seguintes.
+4. Na conversa, mapeamos prioridades e saímos com próximos passos claros.
+
+### Perguntas frequentes
+**A mentoria é paga?**
+Não. As sessões pelo ADPList são gratuitas, sujeitas à disponibilidade de agenda.
+
+**Quanto tempo dura?**
+Cada sessão tem 45 minutos.
+
+**O que levar para a sessão?**
+Seu objetivo para os próximos meses, um resumo do seu contexto atual e duas ou três perguntas que você quer ver respondidas.
+
+**Serve para quem ainda não tem emprego em tecnologia?**
+Sim. A conversa se adapta ao seu momento: da primeira vaga à transição para liderança.
+
+## Projeto: DogNAS
+Transforme um celular, tablet ou TV box Android em armazenamento particular pelo Wi-Fi. Sem nuvem, sem mensalidade e sem comprar um NAS.
+Site: https://dognas.app/pt/
+
+- Sem nuvem e sem mensalidade: Seus arquivos ficam no seu aparelho, na sua rede. Gratuito para começar; o Pro é uma compra única.
+- Conexão criptografada: Transferências por SFTP sobre SSH-2, com credenciais revogáveis por dispositivo.
+- Pareamento por QR Code: Escaneie o código, use o PIN do perfil e conecte PC, Mac ou Linux com FileZilla, WinSCP, Cyberduck ou rclone.
+
+Projetei, construí e publiquei o DogNAS sozinho, de ponta a ponta: produto, arquitetura, desenvolvimento Android, lançamento e crescimento, com desenvolvimento assistido por IA.
+
+O aplicativo servidor e o cliente estão no Google Play, e o site funciona em português, inglês e espanhol. O cliente para iOS está em desenvolvimento.
+
+É o mesmo método que escrevo nos livros e uso nas mentorias: decisões de arquitetura com trade-offs claros, simplicidade e entrega.
+
+Tecnologias: Android, SFTP sobre SSH-2, AES-GCM / ChaCha20, Credenciais por dispositivo, Modelo freemium.
+
+## Contato e redes
+- Instagram: https://www.instagram.com/pauloleite.dev
+- LinkedIn: https://www.linkedin.com/in/paulorobertoleite
+- Outras formas de contato: https://pauloleite.dev/conecte-se/

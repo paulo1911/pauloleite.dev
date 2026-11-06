@@ -30,7 +30,8 @@
       "Mensageria e event-driven architecture",
       "Estudo de caso: arquitetando um sistema tipo Uber",
       "Como resolver questões de System Design em entrevistas"
-    ]
+    ],
+    "published": "2025-03-31"
   },
   {
     "id": "arquiteto-carreira",
@@ -56,7 +57,8 @@
       "Crescimento baseado em impacto: como mostrar valor e acelerar sua evolução",
       "Consciência sistêmica: o pensamento estratégico que diferencia plenos de seniores",
       "Comportamentos que constroem confiança: o segredo silencioso da promoção"
-    ]
+    ],
+    "published": "2025-12-06"
   },
   {
     "id": "pessoa-engenheira-jr",
@@ -79,6 +81,7 @@
       "Técnicas para resolver problemas com mentalidade de detetive e crescer com feedbacks",
       "Como se comunicar, colaborar e demonstrar proatividade de maneira estratégica",
       "Um plano claro para superar a síndrome do impostor, ganhar confiança e decolar para o nível pleno"
-    ]
+    ],
+    "published": "2025-09-27"
   }
 ]

@@ -2,7 +2,7 @@
 """Gera as páginas estáticas a partir de data/*.json (somente stdlib).
 Uso: python3 tools/build.py   (rodar na raiz do repositório)
 Itens com "status": "draft" não são renderizados."""
-import json, os, datetime
+import json, os, datetime, hashlib, subprocess
 from html import escape as e
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -17,6 +17,7 @@ PATHS, CREDS, TESTI = load('paths'), pub(load('credentials')), pub(load('testimo
 ENDORSE = pub(load('endorsements'))
 NEWS, TIMELINE, BEYOND = load('newsletter'), load('timeline'), load('beyond')
 PATH_OF = {i: x['id'] for x in PATHS for i in x['items']}
+DATES = {}
 PHOTO = SITE['photo']
 SIZES = '(min-width: 64em) 384px, 240px'
 def srcset(ext): return ', '.join(f"{{p}}{PHOTO['base']}-{w}.{ext} {w}w" for w in PHOTO['widths'])
@@ -214,13 +215,17 @@ def product_page(it):
 {more}
 <section class="section container" aria-label="Mentoria">{mentoring('../../', 'produto')}</section>'''
     typ = 'Book' if it['format'] != 'SmartBook' else 'CreativeWork'
-    ld = {"@context": "https://schema.org", "@type": typ, "name": it['title'], "alternativeHeadline": it['subtitle'],
-          "url": f"{SITE['domain']}/conhecimento/{it['id']}/", "inLanguage": "pt-BR",
-          "author": {"@type": "Person", "@id": SITE['domain'] + "/#person", "name": SITE['name']}}
-    if im: ld["image"] = f"{SITE['domain']}/{im['src']}"
-    jl = '<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False) + '</script>\n'
+    key = f"conhecimento/{it['id']}/"
+    node = {"@type": typ, "name": it['title'], "alternativeHeadline": it['subtitle'], "url": f"{SITE['domain']}/{key}",
+            "inLanguage": "pt-BR", "dateModified": DATES.get(key),
+            "author": {"@type": "Person", "@id": PERSON_ID(), "name": SITE['name']}, "sameAs": [it['url']]}
+    if it.get('description'): node["description"] = it['description']
+    if it.get('published'): node["datePublished"] = it['published']
+    if im: node["image"] = f"{SITE['domain']}/{im['src']}"
+    jl = ld(node, breadcrumb(("Conhecimento", "conhecimento/"), (it['title'], key)))
     d = f"{it['title']}: {it['subtitle']}. {it['format']} de Paulo Leite."
-    return layout('conhecimento', 2, f"{it['title']} — Paulo Leite", d, body, f"conhecimento/{it['id']}/", jsonld=jl)
+    og = {"src": f"assets/images/og/{it['id']}.jpg", "width": 1200, "height": 630, "alt": f"{it['title']}, {it['format']} de Paulo Leite"}
+    return layout('conhecimento', 2, f"{it['title']} — Paulo Leite", d, body, key, jsonld=jl, og=og)
 
 TOPICS = ['Carreira e transição', 'Engenharia e back-end', 'Arquitetura de software', 'Cloud computing', 'Liderança e gestão', 'Comunicação e negociação', 'Resolução de problemas', 'Organização e gestão de projetos']
 FIT = [('Estou começando', 'Primeiro emprego, entrevistas, o que estudar e como se posicionar.'),
@@ -250,8 +255,14 @@ def mentoring_page():
 {testimonials('../')}
 <section class="section container" aria-labelledby="faq-h"><div class="section-head"><h2 id="faq-h">Perguntas frequentes</h2></div><div class="faqs">{faq}</div></section>
 <section class="section container" aria-label="Agendar">{mentoring('../', 'mentoria-final')}</section>'''
+    m = SITE['mentoring']
+    jl = ld({"@type": "Service", "name": "Mentoria 1:1 gratuita", "serviceType": "Mentoria de carreira em tecnologia", "url": SITE['domain'] + "/mentoria/",
+             "description": "Sessões gratuitas de 45 minutos sobre carreira, engenharia e liderança, agendadas pelo ADPList.", "inLanguage": "pt-BR",
+             "provider": {"@id": PERSON_ID()}, "areaServed": "BR", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "BRL", "url": m['url']}},
+            {"@type": "FAQPage", "dateModified": DATES.get('mentoria/'), "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in FAQ]},
+            breadcrumb(("Mentoria", "mentoria/")))
     return layout('mentoria', 1, 'Mentoria 1:1 gratuita — Paulo Leite',
-        'Mentoria gratuita de 45 minutos com Paulo Leite pelo ADPList: carreira, engenharia de software, arquitetura e liderança em tecnologia.', body, 'mentoria/')
+        'Mentoria gratuita de 45 minutos com Paulo Leite pelo ADPList: carreira, engenharia de software, arquitetura e liderança em tecnologia.', body, 'mentoria/', jsonld=jl)
 
 def dog_shots(p, pr, eager=False):
     def img(n, i):
@@ -293,10 +304,11 @@ def projects_page(pr):
 <section class="section container" aria-labelledby="ben-h"><div class="section-head"><h2 id="ben-h">Por que usar</h2></div><div class="grid grid--3 grid--start">{ben}</div></section>
 <section class="section container" aria-labelledby="how-h"><div class="section-head"><p class="eyebrow">Bastidores</p><h2 id="how-h">Como foi construído</h2></div><div class="about">{story}</div><ul class="creds creds--plain" aria-label="Tecnologias" style="margin-top:var(--space-5)">{stack}</ul></section>
 <section class="section container"><p class="placeholder">Mais projetos em breve.</p></section>'''
-    ld = {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": pr['title'], "applicationCategory": "UtilitiesApplication",
-          "operatingSystem": "Android", "description": pr['description'], "url": pr['url'], "inLanguage": "pt-BR",
-          "author": {"@type": "Person", "@id": SITE['domain'] + "/#person", "name": SITE['name']}}
-    jl = '<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False) + '</script>\n'
+    app = {"@type": "SoftwareApplication", "name": pr['title'], "applicationCategory": "UtilitiesApplication", "operatingSystem": "Android",
+           "description": pr['description'], "url": pr['url'], "inLanguage": "pt-BR", "dateModified": DATES.get('projetos/'),
+           "image": SITE['domain'] + "/" + pr['shots'][0]['src'], "downloadUrl": pr['play_url'].split('&referrer')[0],
+           "author": {"@type": "Person", "@id": PERSON_ID(), "name": SITE['name']}}
+    jl = ld(app, breadcrumb(("Projetos", "projetos/")))
     return layout('projetos', 1, 'Projetos — Paulo Leite', 'Projetos autorais de Paulo Leite. DogNAS: transforme um Android em armazenamento particular pelo Wi-Fi, sem nuvem e sem mensalidade.', body, 'projetos/', jsonld=jl)
 
 def newsletter(p):
@@ -325,7 +337,8 @@ def about_page():
 <section class="section container" aria-labelledby="bd-h"><div class="section-head"><h2 id="bd-h">Além do código</h2></div><div class="grid grid--3 grid--start">{bd}</div></section>
 <section class="section container" aria-label="Mentoria">{mentoring('../', 'sobre')}</section>'''
     return layout('sobre', 1, 'Sobre Paulo Leite — trajetória em tecnologia',
-        'A trajetória de Paulo Leite: do primeiro código aos 15 anos à liderança de times de engenharia, com 10+ anos de docência, livros e mentoria gratuita.', body, 'sobre/')
+        'A trajetória de Paulo Leite: do primeiro código aos 15 anos à liderança de times de engenharia, com 10+ anos de docência, livros e mentoria gratuita.', body, 'sobre/',
+        jsonld=ld({"@type": "ProfilePage", "url": SITE['domain'] + "/sobre/", "name": "Sobre Paulo Leite", "inLanguage": "pt-BR", "dateModified": DATES.get('sobre/'), "mainEntity": person_node()}, breadcrumb(("Sobre", "sobre/"))))
 
 def privacy_page():
     news = '<h2>Newsletter</h2><p>Se você assinar a newsletter, seu e-mail é usado apenas para enviar o conteúdo que você pediu e fica guardado no serviço de envio de e-mails contratado. Você pode cancelar a qualquer momento pelo link no rodapé de cada mensagem.</p>' if NEWS.get('status') == 'published' and NEWS.get('action') else ''
@@ -338,9 +351,9 @@ def privacy_page():
 <h2>Hospedagem e fontes</h2><p>O site é hospedado no GitHub Pages, que pode registrar dados técnicos de acesso, como o endereço IP. As fontes de texto são carregadas do próprio site.</p>
 <h2>Links externos e afiliados</h2><p>Ao seguir links para Amazon, Hotmart, ADPList, Google Play, Instagram ou LinkedIn, você passa a estar sujeito às políticas desses serviços. Alguns links de recomendações são de afiliados (Amazon e Shopee): posso receber uma comissão, sem custo extra para você.</p>
 <h2>Seus direitos</h2><p>Pela Lei Geral de Proteção de Dados (LGPD, Lei 13.709/2018), você pode pedir acesso, correção, exclusão ou portabilidade dos seus dados, e revogar consentimentos. Para isso, use o e-mail disponível em <a href="../conecte-se/#contato">Conecte-se</a>.</p>
-<p class="note">Atualizada em {datetime.date.today().strftime('%d/%m/%Y')}.</p>
+<p class="note">Atualizada em {datetime.date.fromisoformat(DATES['privacidade/']).strftime('%d/%m/%Y')}.</p>
 </section>'''
-    return layout(None, 1, 'Política de privacidade — Paulo Leite', 'Como o site pauloleite.dev trata dados pessoais, em conformidade com a LGPD.', body, 'privacidade/')
+    return layout(None, 1, 'Política de privacidade — Paulo Leite', 'Como o site pauloleite.dev trata dados pessoais, em conformidade com a LGPD.', body, 'privacidade/', jsonld=ld(breadcrumb(("Privacidade", "privacidade/"))))
 
 FILTERS = [('todos', 'Todos')] + [(x['id'], x['eyebrow']) for x in PATHS]
 def filter_bar():
@@ -351,12 +364,13 @@ def filter_bar():
 def head(eyebrow, h1, lead):
     return f'<section class="page-head"><div class="container"><p class="eyebrow">{e(eyebrow)}</p><h1>{h1}</h1><p>{e(lead)}</p></div></section>'
 
-def layout(key, depth, title, desc, body, path, jsonld='', index=True, head_extra=''):
+def layout(key, depth, title, desc, body, path, jsonld='', index=True, head_extra='', og=None):
     p = '../' * depth if isinstance(depth, int) else depth  # str = prefixo absoluto (404)
     nav = ''.join(f'<li><a href="{p}{h}"{" aria-current=&quot;page&quot;" if k == key else ""}>{t}</a></li>'.replace('&quot;', '"') for t, h, k in NAV)
     ig, li_ = soc('instagram'), soc('linkedin')
     url = f"{SITE['domain']}/{path}"
     robots = 'index, follow, max-image-preview:large' if (SITE['indexable'] and index) else 'noindex, nofollow'
+    ogi = og or SITE['og_image']
     ga = f' data-ga4-id="{SITE["ga4_id"]}"' if SITE.get('ga4_id') else ''
     html = f'''<!doctype html>
 <html lang="pt-BR">
@@ -381,15 +395,15 @@ def layout(key, depth, title, desc, body, path, jsonld='', index=True, head_extr
 <meta property="og:title" content="{e(title)}">
 <meta property="og:description" content="{e(desc)}">
 <meta property="og:url" content="{url}">
-<meta property="og:image" content="{SITE['domain']}/{SITE['og_image']['src']}">
+<meta property="og:image" content="{SITE['domain']}/{ogi['src']}">
 <meta property="og:image:type" content="image/jpeg">
-<meta property="og:image:width" content="{SITE['og_image']['width']}">
-<meta property="og:image:height" content="{SITE['og_image']['height']}">
-<meta property="og:image:alt" content="{e(SITE['og_image']['alt'])}">
+<meta property="og:image:width" content="{ogi['width']}">
+<meta property="og:image:height" content="{ogi['height']}">
+<meta property="og:image:alt" content="{e(ogi['alt'])}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{e(title)}">
 <meta name="twitter:description" content="{e(desc)}">
-<meta name="twitter:image" content="{SITE['domain']}/{SITE['og_image']['src']}">
+<meta name="twitter:image" content="{SITE['domain']}/{ogi['src']}">
 {jsonld}<link rel="preload" href="{p}assets/fonts/manrope-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{p}assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
 {head_extra}<link rel="stylesheet" href="{p}css/site.min.css">
@@ -425,19 +439,108 @@ def layout(key, depth, title, desc, body, path, jsonld='', index=True, head_extr
 '''
     return inline_sprite(html)
 
-def home_jsonld():
-    graph = [
-        {"@type": "Person", "@id": SITE['domain'] + "/#person", "name": SITE['name'], "url": SITE['domain'] + "/",
-         "jobTitle": SITE['job_title'], "description": SITE['bio'],
-         "image": SITE['domain'] + "/" + PHOTO['base'] + "-960.jpg",
-         "sameAs": [soc('instagram')['url'], soc('linkedin')['url']]},
-        {"@type": "WebSite", "@id": SITE['domain'] + "/#website", "url": SITE['domain'] + "/", "name": SITE['name'],
-         "description": SITE['tagline'], "inLanguage": "pt-BR", "publisher": {"@id": SITE['domain'] + "/#person"}},
-    ]
-    return '<script type="application/ld+json">' + json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False) + '</script>'
+# ---- Datas reais de modificação (por conteúdo, não por build) ----
+LASTMOD_FILE = os.path.join(ROOT, 'data', 'lastmod.json')
+def _hash(*o): return hashlib.sha1(json.dumps(o, sort_keys=True, ensure_ascii=False, default=str).encode()).hexdigest()[:12]
+def _seed_date():
+    try:
+        d = subprocess.run(['git', '-C', ROOT, 'log', '-1', '--format=%cs', '--', 'data'], capture_output=True, text=True).stdout.strip()
+        return d or datetime.date.today().isoformat()
+    except Exception: return datetime.date.today().isoformat()
+
+def page_dates():
+    """Data da última mudança de CONTEÚDO de cada página. Só muda quando os dados da página mudam
+    (CSS/template não contam). Guarda hashes em data/lastmod.json."""
+    mentoria_src = (SITE['mentoring'], TESTI, FIT, TOPICS, STEPS, FAQ)
+    src = {
+        '': (SITE, PATHS, CREDS, ENDORSE, TESTI, PROJECTS, BOOKS, SMART),
+        'sobre/': (SITE['about'], TIMELINE, BEYOND, SITE['mentoring']),
+        'conhecimento/': (BOOKS, SMART, RECO, PATHS),
+        'mentoria/': mentoria_src,
+        'projetos/': (PROJECTS,),
+        'conecte-se/': (SOCIALS, SITE['mentoring']),
+        'privacidade/': (NEWS.get('status'), bool(NEWS.get('action'))),
+    }
+    byid = {x['id']: x for x in BOOKS + SMART}
+    for it in BOOKS + SMART:
+        pa = next((x for x in PATHS if it['id'] in x['items']), None)
+        src[f"conhecimento/{it['id']}/"] = (it, pa, [byid[i] for i in (pa['items'] if pa else []) if i in byid])
+    try: store = json.load(open(LASTMOD_FILE, encoding='utf8'))
+    except Exception: store = {}
+    today, seed, out, changed = datetime.date.today().isoformat(), _seed_date(), {}, False
+    for k, v in src.items():
+        h = _hash(v)
+        if k not in store: store[k] = {'hash': h, 'date': seed}; changed = True
+        elif store[k]['hash'] != h: store[k] = {'hash': h, 'date': today}; changed = True
+        out[k] = store[k]['date']
+    store = {k: store[k] for k in sorted(store) if k in src}
+    new = json.dumps(store, ensure_ascii=False, indent=2) + '\n'
+    if not os.path.exists(LASTMOD_FILE) or open(LASTMOD_FILE, encoding='utf8').read() != new:
+        open(LASTMOD_FILE, 'w', encoding='utf8').write(new)
+    return out
+
+# ---- JSON-LD ----
+PERSON_ID = lambda: SITE['domain'] + '/#person'
+def person_node():
+    same = [soc('instagram')['url'], soc('linkedin')['url'], SITE['mentoring']['url']] + [x['url'] for x in PROJECTS]
+    return {"@type": "Person", "@id": PERSON_ID(), "name": SITE['name'], "url": SITE['domain'] + "/",
+            "jobTitle": SITE['job_title'], "description": SITE['bio'],
+            "image": SITE['domain'] + "/" + PHOTO['base'] + "-960.jpg", "sameAs": same,
+            "knowsAbout": ["Engenharia de software", "Arquitetura de software", "System design", "Liderança em tecnologia", "Carreira em tecnologia"]}
+def ld(*nodes): return '<script type="application/ld+json">' + json.dumps({"@context": "https://schema.org", "@graph": list(nodes)}, ensure_ascii=False) + '</script>\n'
+def breadcrumb(*crumbs):
+    items = [("Início", "")] + list(crumbs)
+    return {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": n + 1, "name": nm, "item": SITE['domain'] + '/' + pth} for n, (nm, pth) in enumerate(items)]}
+
+def home_jsonld(dm):
+    web = {"@type": "WebSite", "@id": SITE['domain'] + "/#website", "url": SITE['domain'] + "/", "name": SITE['name'],
+           "description": SITE['tagline'], "inLanguage": "pt-BR", "publisher": {"@id": PERSON_ID()}, "dateModified": dm}
+    return ld(person_node(), web)
+
+def llms_files():
+    D = SITE['domain']
+    byid = {x['id']: x for x in BOOKS + SMART}
+    newest = max(DATES.values())
+    def link(t, path, d): return f"- [{t}]({D}/{path}): {d}"
+    prod = lambda it: f"- [{it['title']}]({D}/conhecimento/{it['id']}/): {it['subtitle']}. {it['format']}" + (f", publicado em {it['published']}" if it.get('published') else '') + (f". {it['offer']}" if it.get('offer') else '') + f". Compra: {it['url']}"
+    head = f"# {SITE['name']}\n\n> {SITE['bio']} Livros, SmartBooks, mentoria gratuita e projetos para profissionais de tecnologia que estão começando, querem crescer ou querem liderar. Site em português do Brasil. Atualizado em {newest}.\n"
+    short = head + "\n## Páginas principais\n" + '\n'.join([
+        link('Início', '', 'apresentação e trilhas por etapa da carreira'),
+        link('Sobre', 'sobre/', 'trajetória profissional e pessoal'),
+        link('Conhecimento', 'conhecimento/', 'livros, SmartBooks e recomendações de leitura'),
+        link('Mentoria', 'mentoria/', 'mentoria 1:1 gratuita de 45 minutos pelo ADPList'),
+        link('Projetos', 'projetos/', 'projetos autorais, como o DogNAS'),
+        link('Conecte-se', 'conecte-se/', 'redes e formas de contato')]) + "\n"
+    short += "\n## Livros\n" + '\n'.join(prod(i) for i in BOOKS) + "\n\n## SmartBooks\n" + '\n'.join(prod(i) for i in SMART)
+    short += "\n\n## Trilhas de carreira\n" + '\n'.join(f"- {x['eyebrow']}: {x['title']}. {x['text']}" for x in PATHS)
+    short += f"\n\n## Projetos\n" + '\n'.join(f"- [{x['title']}]({x['url']}): {x['description']}" for x in PROJECTS)
+    short += f"\n\n## Opcional\n- [Política de privacidade]({D}/privacidade/)\n- [Versão completa deste arquivo]({D}/llms-full.txt)\n"
+
+    full = head + f"\nFonte: {D}/. Este arquivo reúne o conteúdo público do site em texto simples.\n\n## Sobre {SITE['name']}\n\n" + '\n\n'.join(SITE['about'])
+    full += "\n\n### Credenciais\n" + '\n'.join('- ' + c['text'].format(n_books=len(BOOKS), n_smart=len(SMART)) for c in CREDS)
+    full += "\n\n### Trajetória\n" + '\n'.join(f"- {t['when']}: {t['title']}. {t['text']}" for t in TIMELINE)
+    full += "\n\n### Além do código\n" + '\n'.join(f"- {b['title']}: {b['text']}" for b in BEYOND)
+    full += "\n\n## Trilhas de carreira\n"
+    for x in PATHS:
+        full += f"\n### {x['eyebrow']}: {x['title']}\n{x['text']}\n" + '\n'.join(f"- [{byid[i]['title']}]({D}/conhecimento/{i}/)" for i in x['items'] if i in byid) + "\n"
+    full += "\n## Livros e SmartBooks\n"
+    for it in BOOKS + SMART:
+        full += f"\n### {it['title']}\n{it['subtitle']}. Formato: {it['format']}." + (f" Publicado em {it['published']}." if it.get('published') else '') + (f" {it['offer']}." if it.get('offer') else '') + f"\nPágina: {D}/conhecimento/{it['id']}/\nCompra: {it['url']}\n"
+        if it.get('description'): full += f"\n{it['description']}\n"
+        if it.get('learn'): full += "\nO que você vai encontrar:\n" + '\n'.join('- ' + x for x in it['learn']) + "\n"
+        if it.get('contents'): full += "\nConteúdo:\n" + '\n'.join(f"{n + 1}. {x}" for n, x in enumerate(it['contents'])) + "\n"
+    m = SITE['mentoring']
+    full += f"\n## Mentoria 1:1 gratuita\n{m['text']} Agendamento: {m['url']}\n\n### Para quem é\n" + '\n'.join(f"- {t}: {x}" for t, x in FIT)
+    full += "\n\n### Temas\n" + '\n'.join('- ' + t for t in TOPICS) + "\n\n### Como funciona\n" + '\n'.join(f"{n + 1}. {x}" for n, x in enumerate(STEPS))
+    full += "\n\n### Perguntas frequentes\n" + '\n\n'.join(f"**{q}**\n{a}" for q, a in FAQ)
+    for x in PROJECTS:
+        full += f"\n\n## Projeto: {x['title']}\n{x['description']}\nSite: {x['url']}\n\n" + '\n'.join(f"- {b['title']}: {b['text']}" for b in x['benefits']) + "\n\n" + '\n\n'.join(x['story']) + "\n\nTecnologias: " + ', '.join(x['stack']) + "."
+    full += f"\n\n## Contato e redes\n" + '\n'.join(f"- {x['label']}: {x['url']}" for x in SOCIALS if x.get('url') and x['kind'] == 'social') + f"\n- Outras formas de contato: {D}/conecte-se/\n"
+    return short, full
 
 def build():
     bundle_assets()
+    DATES.update(page_dates())
     ig, li_ = soc('instagram'), soc('linkedin')
     proj = next(x for x in PROJECTS if x.get('featured'))
     pages = {}
@@ -475,7 +578,7 @@ def build():
   <div class="grid grid--2">{''.join(link_card('', s) for s in social('contact'))}</div>
 </section>'''
     pages['index.html'] = layout('home', 0, 'Paulo Leite — Arquitete sua carreira em tecnologia',
-        'Paulo Leite, engenheiro com 20+ anos de experiência. Livros, SmartBooks e mentoria gratuita para quem está começando, quer crescer ou liderar em tecnologia.', home, '', jsonld=home_jsonld(), head_extra=PRELOAD_HERO + '\n')
+        'Paulo Leite, engenheiro com 20+ anos de experiência. Livros, SmartBooks e mentoria gratuita para quem está começando, quer crescer ou liderar em tecnologia.', home, '', jsonld=home_jsonld(DATES.get('')), head_extra=PRELOAD_HERO + '\n')
 
     know = head('Conhecimento', 'Conhecimento', 'Livros, materiais e recomendações para evoluir em engenharia de software.') + f'''
 {filter_bar()}
@@ -486,7 +589,9 @@ def build():
 <div class="grid grid--3">{''.join(reco_card(c) for c in RECO)}</div>
 <p class="note" style="margin-top:var(--space-5)">{e(SITE['affiliate_note'])}</p></section>'''
     pages['conhecimento/index.html'] = layout('conhecimento', 1, 'Conhecimento — Paulo Leite',
-        'Livros, SmartBooks e recomendações de Paulo Leite sobre engenharia de software, arquitetura, carreira e liderança.', know, 'conhecimento/')
+        'Livros, SmartBooks e recomendações de Paulo Leite sobre engenharia de software, arquitetura, carreira e liderança.', know, 'conhecimento/',
+        jsonld=ld({"@type": "CollectionPage", "name": "Conhecimento", "url": SITE['domain'] + "/conhecimento/", "inLanguage": "pt-BR", "dateModified": DATES.get('conhecimento/'),
+                   "hasPart": [{"@type": "ListItem", "position": n + 1, "name": x['title'], "url": f"{SITE['domain']}/conhecimento/{x['id']}/"} for n, x in enumerate(BOOKS + SMART)]}, breadcrumb(("Conhecimento", "conhecimento/"))))
 
     pages['projetos/index.html'] = projects_page(proj)
     pages['sobre/index.html'] = about_page()
@@ -499,7 +604,8 @@ def build():
 <section class="section container" id="contato" aria-labelledby="contato-h"><div class="section-head"><h2 id="contato-h">Contato</h2></div>
 <div class="grid grid--2">{''.join(link_card('../', s) for s in social('contact'))}</div></section>'''
     pages['conecte-se/index.html'] = layout('conecte-se', 1, 'Conecte-se — Paulo Leite',
-        'Instagram, LinkedIn, e-mail, WhatsApp e mentoria com Paulo Leite.', con, 'conecte-se/')
+        'Fale com Paulo Leite: Instagram, LinkedIn, e-mail, WhatsApp e mentoria gratuita pelo ADPList. Conversas sobre tecnologia, carreira e liderança.', con, 'conecte-se/',
+        jsonld=ld({"@type": "ContactPage", "name": "Conecte-se", "url": SITE['domain'] + "/conecte-se/", "inLanguage": "pt-BR", "dateModified": DATES.get('conecte-se/')}, breadcrumb(("Conecte-se", "conecte-se/"))))
 
     pages['mentoria/index.html'] = mentoring_page()
     for it in BOOKS + SMART:
@@ -512,12 +618,14 @@ def build():
     for f, h in pages.items():
         path = os.path.join(ROOT, f); os.makedirs(os.path.dirname(path), exist_ok=True)
         open(path, 'w', encoding='utf8').write(h)
-    today = datetime.date.today().isoformat()
-    urls = ''.join(f"  <url><loc>{SITE['domain']}/{f.replace('index.html', '')}</loc><lastmod>{today}</lastmod></url>\n" for f in pages if f != '404.html')
+    urls = ''.join(f"  <url><loc>{SITE['domain']}/{f.replace('index.html', '')}</loc><lastmod>{DATES.get(f.replace('index.html', ''), datetime.date.today().isoformat())}</lastmod></url>\n" for f in pages if f != '404.html')
     open(os.path.join(ROOT, 'sitemap.xml'), 'w', encoding='utf8').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + '</urlset>\n')
+    short, full = llms_files()
+    open(os.path.join(ROOT, 'llms.txt'), 'w', encoding='utf8').write(short)
+    open(os.path.join(ROOT, 'llms-full.txt'), 'w', encoding='utf8').write(full)
     rules = 'Allow: /' if SITE['indexable'] else 'Disallow: /'
     open(os.path.join(ROOT, 'robots.txt'), 'w', encoding='utf8').write(f"User-agent: *\n{rules}\n\nSitemap: {SITE['domain']}/sitemap.xml\n")
-    print('Geradas:', ', '.join(pages))
+    print('Geradas:', ', '.join(pages), '+ llms.txt, llms-full.txt')
 
 if __name__ == '__main__':
     build()
