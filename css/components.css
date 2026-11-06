@@ -198,3 +198,11 @@ img.book__cover { aspect-ratio: auto; height: auto; }
   .steps, .faqs { margin-inline: 0; }
 }
 .grid--start { align-items: start; }
+
+/* Depoimentos: carrossel nativo (scroll-snap) no celular; grade de 2 e 4 colunas a partir de tablet/desktop */
+.quotes { grid-auto-flow: column; grid-auto-columns: 82%; grid-template-columns: none; overflow-x: auto; scroll-snap-type: x mandatory; align-items: start; gap: var(--space-3); padding-bottom: var(--space-3); scrollbar-width: thin; }
+.quotes > * { scroll-snap-align: start; }
+.quotes .quote { padding: var(--space-4); gap: var(--space-3); text-align: left; }
+.quotes .quote p { font-size: var(--fs-sm); line-height: 1.65; }
+@media (min-width: 40em) { .quotes { grid-auto-flow: row; grid-auto-columns: auto; grid-template-columns: repeat(2, 1fr); overflow: visible; scroll-snap-type: none; padding-bottom: 0; } }
+@media (min-width: 64em) { .quotes { grid-template-columns: repeat(4, 1fr); } }

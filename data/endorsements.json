@@ -1,0 +1,30 @@
+[
+  {
+    "id": "thiago",
+    "quote": "Tive a oportunidade de trabalhar com Paulo no Pagseguro. Um profissional extremamente qualificado e comprometido. Um líder nato, sempre trazendo a responsabilidade para si, engajando a equipe para resolver os problemas de forma disruptiva. Paulo é uma pessoa com nível técnico muito elevado. Sempre pensando em soluções simples para problemas complexos como concorrência, disponibilidade, performance e resiliência. Grande profissional",
+    "name": "Thiago",
+    "role": "Principal Engineer",
+    "status": "published"
+  },
+  {
+    "id": "elisio",
+    "quote": "Paulo is one of the best Tech specialist that I had the opportunity to work with. He knows how to balance a good technical approach using architectural best practices and a precisely solution to fit the business needs. Beyond that, He is a natural leader, helping the team to improve their knowledge and a good work environment.",
+    "name": "Elisio",
+    "role": "Vice President, Technology",
+    "status": "published"
+  },
+  {
+    "id": "ciro",
+    "quote": "Paulo is a great technical leader. He's always studying the best technologies and works focused on improve the quality of the teams that he works. If you are looking for a great technical leader, I really recommend him!",
+    "name": "Ciro",
+    "role": "Chief Technology Officer",
+    "status": "published"
+  },
+  {
+    "id": "jean",
+    "quote": "O Paulo Roberto é um profissional diferenciado. Uma pessoa que promove melhorias, apoia nas mudanças e acompanha os resultados. Um especialista que cumpre com excelência seu papel técnico dentro dos times que atua e inspira seus colegas de trabalho, sendo muitas vezes uma referência. Tem o grande diferencial de elevar o nível técnico das pessoas ao redor.",
+    "name": "Jean",
+    "role": "Tech Lead",
+    "status": "published"
+  }
+]

@@ -14,6 +14,7 @@ BOOKS, SMART = pub(load('books')), pub(load('smartbooks'))
 PROJECTS, SOCIALS = pub(load('projects')), pub(load('socials'))
 RECO = pub(load('recommendations'))
 PATHS, CREDS, TESTI = load('paths'), pub(load('credentials')), pub(load('testimonials'))
+ENDORSE = pub(load('endorsements'))
 PHOTO = SITE['photo']
 SIZES = '(min-width: 64em) 384px, 240px'
 def srcset(ext): return ', '.join(f"{{p}}{PHOTO['base']}-{w}.{ext} {w}w" for w in PHOTO['widths'])
@@ -150,14 +151,22 @@ def credentials():
     t = [c['text'].format(n_books=len(BOOKS), n_smart=len(SMART)) for c in CREDS]
     return '<ul class="creds" aria-label="Credenciais">' + ''.join(f'<li>{e(x)}</li>' for x in t) + '</ul>'
 
-def testimonials(p):
-    if not TESTI: return ''
-    cards = ''.join(f'<figure class="card quote"><blockquote><p>“{e(t["quote"])}”</p></blockquote><figcaption><strong>{e(t["name"])}</strong> - {e(t["role"])}</figcaption></figure>' for t in TESTI)
-    return f'''<section class="section container" aria-labelledby="dep-h">
-  <div class="section-head"><p class="eyebrow">Mentorados</p><h2 id="dep-h">O que dizem quem já fez mentoria</h2></div>
-  <div class="grid grid--2 grid--start">{cards}</div>
-  <p class="note section-cta" style="margin-top:var(--space-4)">Avaliações públicas no <a href="{e(SITE['mentoring']['url'])}" {ext_attrs()}>perfil do ADPList{EXT}</a>.</p>
+def quotes_section(items, hid, eyebrow, h2, src_html):
+    if not items: return ''
+    cards = ''.join(f'<figure class="card quote"><blockquote><p>“{e(t["quote"])}”</p></blockquote><figcaption><strong>{e(t["name"])}</strong> - {e(t["role"])}</figcaption></figure>' for t in items)
+    return f'''<section class="section container" aria-labelledby="{hid}">
+  <div class="section-head"><p class="eyebrow">{e(eyebrow)}</p><h2 id="{hid}">{e(h2)}</h2></div>
+  <div class="grid quotes" role="group" aria-label="{e(h2)}" tabindex="0">{cards}</div>
+  <p class="note section-cta" style="margin-top:var(--space-4)">{src_html}</p>
 </section>'''
+
+def testimonials(p):
+    return quotes_section(TESTI, 'dep-h', 'Mentorados', 'O que dizem quem já fez mentoria',
+        f'Avaliações públicas no <a href="{e(SITE["mentoring"]["url"])}" {ext_attrs()}>perfil do ADPList{EXT}</a>.')
+
+def endorsements():
+    return quotes_section(ENDORSE, 'rec-h', 'Liderança', 'Quem já trabalhou comigo',
+        f'Recomendações públicas no <a href="{e(soc("linkedin")["url"])}" {ext_attrs()}>LinkedIn{EXT}</a>.')
 
 def about():
     return '<section class="section container" aria-labelledby="sobre-h"><div class="section-head"><p class="eyebrow">Sobre</p><h2 id="sobre-h">Quem está do outro lado</h2></div><div class="about">' + ''.join(f'<p>{e(x)}</p>' for x in SITE['about']) + '</div></section>'
@@ -351,6 +360,7 @@ def build():
   <p class="section-cta" style="margin-top:var(--space-5)"><a class="btn btn--ghost" href="conhecimento/" data-event="featured_click" data-item-id="conhecimento">Ver todo o conhecimento {ic('', 'arrow-right')}</a></p>
 </section>
 {about()}
+{endorsements()}
 {testimonials('')}
 <section class="section container" aria-label="Mentoring">{mentoring('', 'home')}</section>
 <section class="section container" aria-labelledby="proj-h">
