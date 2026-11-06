@@ -253,8 +253,11 @@ def mentoring_page():
     return layout('mentoria', 1, 'Mentoria 1:1 gratuita — Paulo Leite',
         'Mentoria gratuita de 45 minutos com Paulo Leite pelo ADPList: carreira, engenharia de software, arquitetura e liderança em tecnologia.', body, 'mentoria/')
 
-def dog_shots(p, pr):
-    return '<div class="proj__shots">' + ''.join(f'<img src="{p}{e(i["src"])}" width="{i["width"]}" height="{i["height"]}" alt="{e(i["alt"])}" loading="lazy" decoding="async">' for i in pr['shots']) + '</div>'
+def dog_shots(p, pr, eager=False):
+    def img(n, i):
+        load = 'decoding="async" fetchpriority="high"' if eager and n == 0 else 'loading="lazy" decoding="async"'
+        return f'<img src="{p}{e(i["src"])}" width="{i["width"]}" height="{i["height"]}" alt="{e(i["alt"])}" {load}>'
+    return '<div class="proj__shots">' + ''.join(img(n, i) for n, i in enumerate(pr['shots'])) + '</div>'
 
 def dognas_home(pr):
     li = ''.join(f'<li>{e(b["title"])}</li>' for b in pr['benefits'])
@@ -277,7 +280,7 @@ def projects_page(pr):
     body = head('Projetos', 'Projetos <span class="gradient-text">autorais</span>', 'Ideias transformadas em tecnologia.') + f'''
 <section class="section container" aria-labelledby="dog-h">
   <article class="card card--featured proj proj--page">
-    {dog_shots('../', pr)}
+    {dog_shots('../', pr, eager=True)}
     <div class="proj__body">
       <span class="badge">{ic('../', 'sparkles')} Projeto</span>
       <h2 id="dog-h" style="font-size:var(--fs-2xl)">{e(pr['title'])}</h2>

@@ -10,7 +10,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PORT = 8766
 RUNS = int(sys.argv[1]) if len(sys.argv) > 1 else 3
 CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
-PAGES = ['/', '/conhecimento/', '/mentoria/', '/conhecimento/system-design/', '/projetos/', '/conecte-se/']
+PAGES = ['/', '/sobre/', '/conhecimento/', '/mentoria/', '/conhecimento/system-design/', '/conhecimento/plano-de-acao/', '/projetos/', '/privacidade/', '/conecte-se/']
 GZ = ('.html', '.css', '.js', '.svg', '.json', '.xml', '.txt')
 
 class H(http.server.SimpleHTTPRequestHandler):
