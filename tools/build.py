@@ -479,7 +479,7 @@ def build():
 
     know = head('Conhecimento', 'Conhecimento', 'Livros, materiais e recomendações para evoluir em engenharia de software.') + f'''
 {filter_bar()}
-<div class="container"><nav class="anchor-nav" aria-label="Seções"><a class="btn btn--secondary" href="#livros">Livros</a><a class="btn btn--secondary" href="#smartbooks">SmartBooks</a><a class="btn btn--secondary" href="#recomendacoes">Recomendações</a></nav></div>
+<div class="container"><nav class="anchor-nav" aria-label="Seções"><a class="btn btn--ghost" href="#livros">Livros</a><a class="btn btn--ghost" href="#smartbooks">SmartBooks</a><a class="btn btn--ghost" href="#recomendacoes">Recomendações</a></nav></div>
 <section class="section container" id="livros" data-filter-section aria-labelledby="l-h"><div class="section-head"><h2 id="l-h">Livros</h2><p>Publicados por Paulo Leite.</p></div>{grid('../', BOOKS)}</section>
 <section class="section container" id="smartbooks" data-filter-section aria-labelledby="s-h"><div class="section-head"><h2 id="s-h">SmartBooks</h2><p>Guias práticos para destravar a carreira em tecnologia.</p></div>{smart_grid('../', SMART)}</section>
 <section class="section container" id="recomendacoes" aria-labelledby="r-h"><div class="section-head"><h2 id="r-h">Recomendações</h2><p>Leituras e materiais que indico.</p></div>

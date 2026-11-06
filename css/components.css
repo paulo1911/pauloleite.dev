@@ -247,3 +247,6 @@ img.book__cover { aspect-ratio: auto; height: auto; }
   .timeline { margin-inline: 0; }
   .toc { margin-inline: 0; }
 }
+
+@media (min-width: 64em) { .filter { justify-content: flex-start; } }
+@media (max-width: 39.99em) { .filter { display: grid; grid-template-columns: 1fr 1fr; } .filter .btn { padding-inline: var(--space-2); } }
