@@ -143,3 +143,26 @@ img.book__cover { aspect-ratio: auto; height: auto; }
   .site-footer__inner, .site-footer__nav { justify-content: space-between; }
   .site-footer__inner { text-align: left; }
 }
+
+/* ---- Home de rebranding: credenciais, trilhas, sobre, depoimentos ---- */
+.creds { list-style: none; margin: 0; padding: var(--space-4) 0; display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-2) var(--space-3); border-block: 1px solid var(--color-border); }
+.creds li { font: 600 var(--fs-sm)/1.4 var(--font-body); color: var(--color-text-muted); padding: var(--space-1) var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-pill); }
+.path { gap: var(--space-3); text-align: center; align-items: center; }
+.path .eyebrow, .path .card__title, .path .card__text { margin: 0; }
+.path__list { list-style: none; margin: auto 0 0; padding: var(--space-3) 0 0; display: grid; gap: var(--space-2); width: 100%; border-top: 1px solid var(--color-border); }
+.path__list li { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.path__list a { color: var(--color-accent); font-weight: 600; padding-block: var(--space-1); }
+.path__fmt { font-size: var(--fs-xs); color: var(--color-text-muted); }
+.about { max-width: 44rem; margin-inline: auto; display: grid; gap: var(--space-4); text-align: center; }
+.about p { margin: 0; color: var(--color-text-muted); font-size: var(--fs-lg); }
+.quote { margin: 0; gap: var(--space-4); }
+.quote blockquote { margin: 0; }
+.quote p { margin: 0; }
+.quote figcaption { display: grid; gap: 2px; margin-top: auto; }
+.quote figcaption span { color: var(--color-text-muted); font-size: var(--fs-sm); }
+@media (min-width: 64em) {
+  .creds { justify-content: flex-start; }
+  .path { text-align: left; align-items: stretch; }
+  .path__list li { align-items: flex-start; }
+  .about { margin-inline: 0; text-align: left; }
+}

@@ -1,0 +1,37 @@
+[
+  {
+    "id": "comecando",
+    "eyebrow": "Estou começando",
+    "title": "Do zero ao primeiro emprego em tecnologia",
+    "text": "Um plano de ação, preparo para entrevistas e as bases para os primeiros anos de carreira.",
+    "items": [
+      "plano-de-acao",
+      "dominando-entrevistas",
+      "pessoa-engenheira-jr"
+    ],
+    "links": []
+  },
+  {
+    "id": "crescendo",
+    "eyebrow": "Quero crescer",
+    "title": "De pleno a sênior, com método",
+    "text": "O que separa um nível do outro, a disciplina para evoluir e a arquitetura por trás de sistemas que escalam.",
+    "items": [
+      "arquiteto-carreira",
+      "disciplina",
+      "system-design"
+    ],
+    "links": []
+  },
+  {
+    "id": "liderando",
+    "eyebrow": "Quero liderar",
+    "title": "De engenheiro a tech lead e gestão",
+    "text": "Como liderar pessoas sem deixar de ser engenheiro: conteúdo no Instagram e mentorias 1:1 gratuitas.",
+    "items": [],
+    "links": [
+      "mentoring",
+      "instagram"
+    ]
+  }
+]

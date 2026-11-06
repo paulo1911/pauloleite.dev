@@ -1,9 +1,9 @@
 {
   "name": "Paulo Leite",
   "domain": "https://pauloleite.dev",
-  "tagline": "Building technology. Developing people.",
-  "eyebrow": "Engineering · Architecture · Leadership",
-  "bio": "Paulo Leite — engenheiro de software com 20+ anos de experiência. Código, liderança e inovação.",
+  "tagline": "Arquitete sua carreira em tecnologia.",
+  "eyebrow": "Carreira · Engenharia · Liderança",
+  "bio": "Paulo Leite — engenheiro de software com 20+ anos de experiência. Ajudo profissionais de tecnologia a crescer, do primeiro emprego à liderança.",
   "photo": {
     "base": "assets/images/paulo-leite",
     "widths": [
@@ -18,7 +18,7 @@
   "mentoring": {
     "status": "published",
     "title": "Mentoria 1:1 pelo ADPList",
-    "text": "Sessões de carreira e engenharia de software, sujeitas à disponibilidade de agenda.",
+    "text": "Sessões de 45 minutos sobre carreira, engenharia e liderança. Gratuitas, sujeitas à disponibilidade de agenda.",
     "cta": "Agendar no ADPList",
     "url": "https://adplist.org/mentors/paulo-roberto-a-s-leite"
   },
@@ -29,8 +29,13 @@
     "src": "assets/images/og-image.jpg",
     "width": 1200,
     "height": 630,
-    "alt": "Paulo Leite — Building technology. Developing people."
+    "alt": "Paulo Leite — Arquitete sua carreira em tecnologia"
   },
   "locale": "pt_BR",
-  "job_title": "Engenheiro de Software"
+  "job_title": "Engenheiro de Software",
+  "about": [
+    "Comecei em tecnologia aos 15 anos e me profissionalizei aos 18. Desde então fui desenvolvedor, tech lead, Staff Engineer e hoje lidero times de engenharia.",
+    "Dei aulas de graduação e pós-graduação por mais de 10 anos, escrevi livros para quem quer evoluir na carreira e construo meus próprios produtos, como o DogNAS.",
+    "Corro maratonas (São Paulo, Nova York, Chicago): a disciplina que levo da pista para o código e para a liderança."
+  ]
 }

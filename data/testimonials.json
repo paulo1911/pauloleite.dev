@@ -1,0 +1,23 @@
+[
+  {
+    "id": "matheus",
+    "quote": "Minha conversa com o Paulo foi muito boa e muito esclarecedora. Me gerou muitos insights e me fez refletir bastante sobre alguns pontos da minha carreira.",
+    "name": "Matheus Lemos",
+    "role": "Software Engineer, Hammer",
+    "status": "draft"
+  },
+  {
+    "id": "lucas",
+    "quote": "De forma clara e bem detalhada, o Paulo me ajudou a mapear os principais problemas que eu enfrento na minha organização e me deu um direcionamento para melhorar as minhas habilidades em desenvolvimento e gestão de TI. A mentoria foi muito proveitosa, recomendo!",
+    "name": "Lucas Bertuol",
+    "role": "Developer, Volk Finance",
+    "status": "draft"
+  },
+  {
+    "id": "francisko",
+    "quote": "Deu pra ver claramente que ele dedica tempo pra se preparar pro encontro. Ele também produziu um material pra guiar a sessão e possíveis encontros posteriores, algo que eu não havia visto ainda aqui no ADP List.",
+    "name": "Francisko de Moraes Rezende",
+    "role": "Front-end engineer, Radek Systems",
+    "status": "draft"
+  }
+]

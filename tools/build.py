@@ -13,6 +13,7 @@ SITE = load('site')
 BOOKS, SMART = pub(load('books')), pub(load('smartbooks'))
 PROJECTS, SOCIALS = pub(load('projects')), pub(load('socials'))
 RECO = pub(load('recommendations'))
+PATHS, CREDS, TESTI = load('paths'), pub(load('credentials')), pub(load('testimonials'))
 PHOTO = SITE['photo']
 SIZES = '(min-width: 64em) 384px, 240px'
 def srcset(ext): return ', '.join(f"{{p}}{PHOTO['base']}-{w}.{ext} {w}w" for w in PHOTO['widths'])
@@ -86,7 +87,7 @@ def mentoring(p, placement):
     m = SITE['mentoring']
     return f'''<div class="band">
   <div class="band__text">
-    <p class="eyebrow">Mentoring</p>
+    <p class="eyebrow">Mentoria</p>
     <h2 style="font-size:var(--fs-xl)">{e(m['title'])}</h2>
     <p class="text-muted">{e(m['text'])}</p>
   </div>
@@ -127,6 +128,37 @@ def reco_card(c, per=6):
     if rest:
         more = f'<details class="reco__more"><summary>Ver mais ({len(rest)})</summary><ul class="reco">{"".join(li(i) for i in rest)}</ul></details>'
     return f'<article class="card"><h3 class="card__title">{e(c["title"])}</h3><ul class="reco">{"".join(li(i) for i in first)}</ul>{more}</article>'
+
+def path_card(p, pa):
+    byid = {x['id']: x for x in BOOKS + SMART}
+    items = ''.join(f'<li><a href="{e(byid[i]["url"])}" {ext_attrs()} data-event="book_click" data-book-id="{i}" data-store="{byid[i]["store"]}" data-placement="trilha">{e(byid[i]["title"])}{EXT}</a><span class="path__fmt">{e(byid[i]["format"])}</span></li>' for i in pa['items'] if i in byid)
+    m = SITE['mentoring']
+    ig = soc('instagram')
+    lk = {'mentoring': f'<li><a href="{e(m["url"])}" {ext_attrs()} data-event="mentoring_click" data-placement="trilha">Mentoria 1:1 gratuita (ADPList){EXT}</a></li>',
+          'instagram': f'<li><a href="{e(ig["url"])}" {ext_attrs()} data-event="social_click" data-network="instagram" data-placement="trilha">Conteúdo no Instagram {e(ig["meta"])}{EXT}</a></li>'}
+    items += ''.join(lk[k] for k in pa['links'])
+    return f'''<article class="card path">
+  <p class="eyebrow">{e(pa['eyebrow'])}</p>
+  <h3 class="card__title">{e(pa['title'])}</h3>
+  <p class="card__text">{e(pa['text'])}</p>
+  <ul class="path__list">{items}</ul>
+</article>'''
+
+def credentials():
+    t = [c['text'].format(n_books=len(BOOKS), n_smart=len(SMART)) for c in CREDS]
+    return '<ul class="creds" aria-label="Credenciais">' + ''.join(f'<li>{e(x)}</li>' for x in t) + '</ul>'
+
+def testimonials(p):
+    if not TESTI: return ''
+    cards = ''.join(f'<figure class="card quote"><blockquote><p>{e(t["quote"])}</p></blockquote><figcaption><strong>{e(t["name"])}</strong><span>{e(t["role"])}</span></figcaption></figure>' for t in TESTI)
+    return f'''<section class="section container" aria-labelledby="dep-h">
+  <div class="section-head"><p class="eyebrow">Mentorados</p><h2 id="dep-h">O que dizem quem já fez mentoria</h2></div>
+  <div class="grid grid--3">{cards}</div>
+  <p class="note section-cta" style="margin-top:var(--space-4)">Avaliações públicas no <a href="{e(SITE['mentoring']['url'])}" {ext_attrs()}>perfil do ADPList{EXT}</a>.</p>
+</section>'''
+
+def about():
+    return '<section class="section container" aria-labelledby="sobre-h"><div class="section-head"><p class="eyebrow">Sobre</p><h2 id="sobre-h">Quem está do outro lado</h2></div><div class="about">' + ''.join(f'<p>{e(x)}</p>' for x in SITE['about']) + '</div></section>'
 
 def head(eyebrow, h1, lead):
     return f'<section class="page-head"><div class="container"><p class="eyebrow">{e(eyebrow)}</p><h1>{h1}</h1><p>{e(lead)}</p></div></section>'
@@ -218,7 +250,6 @@ def home_jsonld():
 def build():
     bundle_assets()
     ig, li_ = soc('instagram'), soc('linkedin')
-    featured = [b for b in BOOKS if b.get('featured')]
     proj = next(x for x in PROJECTS if x.get('featured'))
     pages = {}
     home = f'''<section class="hero">
@@ -226,32 +257,34 @@ def build():
     <div class="hero__photo"><picture><source type="image/webp" srcset="{srcset('webp').replace('{p}', '')}" sizes="{SIZES}"><img src="{PHOTO['base']}-768.jpg" srcset="{srcset('jpg').replace('{p}', '')}" sizes="{SIZES}" width="{PHOTO['width']}" height="{PHOTO['height']}" alt="{e(PHOTO['alt'])}" fetchpriority="high" decoding="async"></picture></div>
     <div>
       <p class="eyebrow">{e(SITE['eyebrow'])}</p>
-      <h1>Building technology. <span class="gradient-text">Developing people.</span></h1>
+      <h1>Arquitete <span class="gradient-text">sua carreira</span> em tecnologia.</h1>
       <p class="hero__lead">{e(SITE['bio'])}</p>
       <div class="hero__actions">
-        <a class="btn btn--primary" href="conhecimento/" data-event="hero_cta_click" data-cta-id="explorar-conhecimento">Explorar conhecimento {ic('', 'arrow-right')}</a>
-        <a class="btn btn--secondary" href="{ig['url']}" {ext_attrs()} data-event="social_click" data-network="instagram">{ic('', 'instagram')} Instagram{EXT}</a>
-        <a class="btn btn--secondary" href="{li_['url']}" {ext_attrs()} data-event="social_click" data-network="linkedin">{ic('', 'linkedin')} LinkedIn{EXT}</a>
+        <a class="btn btn--primary" href="#trilha" data-event="hero_cta_click" data-cta-id="comece-por-aqui">Comece por aqui {ic('', 'arrow-down')}</a>
+        <a class="btn btn--secondary" href="{e(SITE['mentoring']['url'])}" {ext_attrs()} data-event="mentoring_click" data-placement="hero">Mentoria gratuita{EXT}</a>
       </div>
     </div>
   </div>
 </section>
-<section class="section container" aria-labelledby="livros-h">
-  <div class="section-head"><p class="eyebrow">Livros</p><h2 id="livros-h">Escritos para quem constrói carreira em tecnologia</h2></div>
-  {grid('', featured)}
+<section class="container" aria-label="Credenciais">{credentials()}</section>
+<section class="section container" id="trilha" aria-labelledby="trilha-h">
+  <div class="section-head"><p class="eyebrow">Sua trilha</p><h2 id="trilha-h">Em que momento da carreira você está?</h2><p>Escolha o ponto de partida. Cada trilha reúne o material certo para a sua etapa.</p></div>
+  <div class="grid grid--3">{''.join(path_card('', x) for x in PATHS)}</div>
   <p class="section-cta" style="margin-top:var(--space-5)"><a class="btn btn--ghost" href="conhecimento/" data-event="featured_click" data-item-id="conhecimento">Ver todo o conhecimento {ic('', 'arrow-right')}</a></p>
 </section>
+{about()}
+{testimonials('')}
 <section class="section container" aria-label="Mentoring">{mentoring('', 'home')}</section>
 <section class="section container" aria-labelledby="proj-h">
-  <div class="section-head"><p class="eyebrow">Projetos</p><h2 id="proj-h">Things I've built</h2></div>
+  <div class="section-head"><p class="eyebrow">Projetos</p><h2 id="proj-h">Também construo produtos</h2></div>
   {project_card('', proj, 'featured_click')}
 </section>
 <section class="section container" aria-labelledby="contato-h">
   <div class="section-head"><h2 id="contato-h">Vamos conversar</h2></div>
   <div class="grid grid--2">{''.join(link_card('', s) for s in social('contact'))}</div>
 </section>'''
-    pages['index.html'] = layout('home', 0, 'Paulo Leite — Engineering, Architecture, Leadership',
-        'Paulo Leite: engenheiro de software com 20+ anos de experiência. Livros, mentoria e projetos sobre código, liderança e inovação.', home, '', jsonld=home_jsonld(), head_extra=PRELOAD_HERO + '\n')
+    pages['index.html'] = layout('home', 0, 'Paulo Leite — Arquitete sua carreira em tecnologia',
+        'Paulo Leite, engenheiro com 20+ anos de experiência. Livros, SmartBooks e mentoria gratuita para quem está começando, quer crescer ou liderar em tecnologia.', home, '', jsonld=home_jsonld(), head_extra=PRELOAD_HERO + '\n')
 
     know = head('Conhecimento', 'Conhecimento', 'Livros, materiais e recomendações para evoluir em engenharia de software.') + f'''
 <div class="container"><nav class="anchor-nav" aria-label="Seções"><a class="btn btn--secondary" href="#livros">Livros</a><a class="btn btn--secondary" href="#smartbooks">SmartBooks</a><a class="btn btn--secondary" href="#recomendacoes">Recomendações</a></nav></div>
