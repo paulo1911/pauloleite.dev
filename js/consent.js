@@ -34,6 +34,7 @@
     s.async = true;
     s.src = 'https://www.googletagmanager.com/gtm.js?id=' + encodeURIComponent(gtm);
     document.head.appendChild(s);
+    document.dispatchEvent(new Event('pl:consent'));
   }
 
   document.addEventListener('DOMContentLoaded', function () {

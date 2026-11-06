@@ -207,7 +207,7 @@ def product_page(it):
         others = [byid[i] for i in pa['items'] if i != it['id'] and i in byid]
         if others:
             more = '<section class="section container" aria-labelledby="more-h"><div class="section-head"><p class="eyebrow">Na mesma trilha</p><h2 id="more-h">Continue por aqui</h2></div><div class="grid grid--3 grid--start">' + ''.join(smart_card('../../', o) if o['store'] == 'hotmart' else book_card('../../', o) for o in others) + '</div></section>'
-    body = f'''<nav class="container crumbs" aria-label="Trilha de navegação"><a href="../">Conhecimento</a><span aria-hidden="true"> / </span><span>{e(it['title'])}</span></nav>
+    body = f'''<nav class="container crumbs" aria-label="Trilha de navegação"><a href="../" data-event="nav_click" data-placement="breadcrumb">Conhecimento</a><span aria-hidden="true"> / </span><span>{e(it['title'])}</span></nav>
 <section class="container prod">
   <div class="prod__media">{cover}</div>
   <div class="prod__body">
@@ -366,7 +366,7 @@ def privacy_page():
 
 FILTERS = [('todos', 'Todos')] + [(x['id'], x['eyebrow']) for x in PATHS]
 def filter_bar():
-    btns = ''.join(f'<button type="button" class="btn btn--secondary" data-filter="{k}" aria-pressed="{"true" if k == "todos" else "false"}">{e(l)}</button>' for k, l in FILTERS)
+    btns = ''.join(f'<button type="button" class="btn btn--secondary" data-event="filter_select" data-filter="{k}" aria-pressed="{"true" if k == "todos" else "false"}">{e(l)}</button>' for k, l in FILTERS)
     return f'''<div class="container"><div class="filter" role="group" aria-label="Filtrar por etapa da carreira" hidden>{btns}</div>
 <div class="container filter-empty" id="filter-empty" role="status" hidden><div class="card"><p class="card__text">Ainda não tenho livro ou SmartBook específico para esta etapa. Comece pela <a href="../mentoria/">mentoria gratuita</a> e pelas recomendações de leitura mais abaixo.</p></div></div></div>'''
 
@@ -375,7 +375,7 @@ def head(eyebrow, h1, lead):
 
 def layout(key, depth, title, desc, body, path, jsonld='', index=True, head_extra='', og=None):
     p = '../' * depth if isinstance(depth, int) else depth  # str = prefixo absoluto (404)
-    nav = ''.join(f'<li><a href="{p}{h}"{" aria-current=&quot;page&quot;" if k == key else ""}>{t}</a></li>'.replace('&quot;', '"') for t, h, k in NAV)
+    nav = ''.join(f'<li><a href="{p}{h}"{" aria-current=&quot;page&quot;" if k == key else ""} data-event="nav_click" data-placement="header">{t}</a></li>'.replace('&quot;', '"') for t, h, k in NAV)
     ig, li_ = soc('instagram'), soc('linkedin')
     url = f"{SITE['domain']}/{path}"
     robots = 'index, follow, max-image-preview:large' if (SITE['indexable'] and index) else 'noindex, nofollow'
@@ -421,16 +421,16 @@ def layout(key, depth, title, desc, body, path, jsonld='', index=True, head_extr
 <link rel="preload" href="{p}assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
 {head_extra}<link rel="stylesheet" href="{p}css/site.min.css">
 </head>
-<body>
+<body{' data-page="404"' if path == '404.html' else ''}>
 <!-- GERADO por tools/build.py a partir de data/*.json — não edite à mão -->
 <a class="skip-link" href="#main">Pular para o conteúdo</a>
 <header class="site-header">
   <div class="container site-header__inner">
-    <a class="brand" href="{p or './'}">Paulo Leite<span>.dev</span></a>
+    <a class="brand" href="{p or './'}" data-event="nav_click" data-placement="brand">Paulo Leite<span>.dev</span></a>
     <nav class="nav" id="nav" aria-label="Principal">
       <ul>{nav}</ul>
     </nav>
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Abrir menu"><svg class="icon" aria-hidden="true" focusable="false"><use href="{p}assets/icons/sprite.svg#i-menu"/></svg></button>
+    <button class="nav-toggle" type="button" data-event="menu_toggle" aria-expanded="false" aria-controls="nav" aria-label="Abrir menu"><svg class="icon" aria-hidden="true" focusable="false"><use href="{p}assets/icons/sprite.svg#i-menu"/></svg></button>
   </div>
 </header>
 <main id="main">
@@ -440,9 +440,9 @@ def layout(key, depth, title, desc, body, path, jsonld='', index=True, head_extr
   <div class="container site-footer__inner">
     <span>© 2026 Paulo Leite · {e(SITE['tagline'])}</span>
     <ul class="site-footer__nav" aria-label="Links do rodapé">
-      <li><a href="{p or './'}privacidade/">Privacidade</a></li>{cookies_li}
-      <li><a href="{ig['url']}" {ext_attrs()} data-event="social_click" data-network="instagram">Instagram{EXT}</a></li>
-      <li><a href="{li_['url']}" {ext_attrs()} data-event="social_click" data-network="linkedin">LinkedIn{EXT}</a></li>
+      <li><a href="{p or './'}privacidade/" data-event="nav_click" data-placement="footer">Privacidade</a></li>{cookies_li}
+      <li><a href="{ig['url']}" {ext_attrs()} data-event="social_click" data-network="instagram" data-placement="footer">Instagram{EXT}</a></li>
+      <li><a href="{li_['url']}" {ext_attrs()} data-event="social_click" data-network="linkedin" data-placement="footer">LinkedIn{EXT}</a></li>
     </ul>
   </div>
 </footer>
@@ -557,7 +557,7 @@ def build():
     ig, li_ = soc('instagram'), soc('linkedin')
     proj = next(x for x in PROJECTS if x.get('featured'))
     pages = {}
-    home = f'''<section class="hero">
+    home = f'''<section class="hero" data-section="hero">
   <div class="container hero__inner">
     <div class="hero__photo"><picture><source type="image/webp" srcset="{srcset('webp').replace('{p}', '')}" sizes="{SIZES}"><img src="{PHOTO['base']}-768.jpg" srcset="{srcset('jpg').replace('{p}', '')}" sizes="{SIZES}" width="{PHOTO['width']}" height="{PHOTO['height']}" alt="{e(PHOTO['alt'])}" fetchpriority="high" decoding="async"></picture></div>
     <div>
@@ -595,7 +595,7 @@ def build():
 
     know = head('Conhecimento', 'Conhecimento', 'Livros, materiais e recomendações para evoluir em engenharia de software.') + f'''
 {filter_bar()}
-<div class="container"><nav class="anchor-nav" aria-label="Seções"><a class="btn btn--secondary" href="#livros">Livros</a><a class="btn btn--secondary" href="#smartbooks">SmartBooks</a><a class="btn btn--secondary" href="#recomendacoes">Recomendações</a></nav></div>
+<div class="container"><nav class="anchor-nav" aria-label="Seções"><a class="btn btn--secondary" href="#livros" data-event="section_nav_click" data-target="livros">Livros</a><a class="btn btn--secondary" href="#smartbooks" data-event="section_nav_click" data-target="smartbooks">SmartBooks</a><a class="btn btn--secondary" href="#recomendacoes" data-event="section_nav_click" data-target="recomendacoes">Recomendações</a></nav></div>
 <section class="section container" id="livros" data-filter-section aria-labelledby="l-h"><div class="section-head"><h2 id="l-h">Livros</h2><p>Publicados por Paulo Leite.</p></div>{grid('../', BOOKS)}</section>
 <section class="section container" id="smartbooks" data-filter-section aria-labelledby="s-h"><div class="section-head"><h2 id="s-h">SmartBooks</h2><p>Guias práticos para destravar a carreira em tecnologia.</p></div>{smart_grid('../', SMART)}</section>
 <section class="section container" id="recomendacoes" aria-labelledby="r-h"><div class="section-head"><h2 id="r-h">Recomendações</h2><p>Leituras e materiais que indico.</p></div>
@@ -625,7 +625,7 @@ def build():
         pages[f"conhecimento/{it['id']}/index.html"] = product_page(it)
 
     nf = head('Erro 404', 'Página não encontrada', 'O endereço que você acessou não existe ou foi movido.') + '''
-<section class="section container"><a class="btn btn--primary" href="/">Voltar ao início</a></section>'''
+<section class="section container"><a class="btn btn--primary" href="/" data-event="nav_click" data-placement="404">Voltar ao início</a></section>'''
     pages['404.html'] = layout(None, '/', 'Página não encontrada — Paulo Leite', 'Página não encontrada.', nf, '404.html', index=False)
 
     for f, h in pages.items():

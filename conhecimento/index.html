@@ -40,18 +40,18 @@
 <a class="skip-link" href="#main">Pular para o conteúdo</a>
 <header class="site-header">
   <div class="container site-header__inner">
-    <a class="brand" href="../">Paulo Leite<span>.dev</span></a>
+    <a class="brand" href="../" data-event="nav_click" data-placement="brand">Paulo Leite<span>.dev</span></a>
     <nav class="nav" id="nav" aria-label="Principal">
-      <ul><li><a href="../">Início</a></li><li><a href="../sobre/">Sobre</a></li><li><a href="../conhecimento/" aria-current="page">Conhecimento</a></li><li><a href="../mentoria/">Mentoria</a></li><li><a href="../projetos/">Projetos</a></li><li><a href="../conecte-se/">Conecte-se</a></li></ul>
+      <ul><li><a href="../" data-event="nav_click" data-placement="header">Início</a></li><li><a href="../sobre/" data-event="nav_click" data-placement="header">Sobre</a></li><li><a href="../conhecimento/" aria-current="page" data-event="nav_click" data-placement="header">Conhecimento</a></li><li><a href="../mentoria/" data-event="nav_click" data-placement="header">Mentoria</a></li><li><a href="../projetos/" data-event="nav_click" data-placement="header">Projetos</a></li><li><a href="../conecte-se/" data-event="nav_click" data-placement="header">Conecte-se</a></li></ul>
     </nav>
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Abrir menu"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-menu"/></svg></button>
+    <button class="nav-toggle" type="button" data-event="menu_toggle" aria-expanded="false" aria-controls="nav" aria-label="Abrir menu"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-menu"/></svg></button>
   </div>
 </header>
 <main id="main">
 <section class="page-head"><div class="container"><p class="eyebrow">Conhecimento</p><h1>Conhecimento</h1><p>Livros, materiais e recomendações para evoluir em engenharia de software.</p></div></section>
-<div class="container"><div class="filter" role="group" aria-label="Filtrar por etapa da carreira" hidden><button type="button" class="btn btn--secondary" data-filter="todos" aria-pressed="true">Todos</button><button type="button" class="btn btn--secondary" data-filter="comecando" aria-pressed="false">Estou começando</button><button type="button" class="btn btn--secondary" data-filter="crescendo" aria-pressed="false">Quero crescer</button><button type="button" class="btn btn--secondary" data-filter="liderando" aria-pressed="false">Quero liderar</button></div>
+<div class="container"><div class="filter" role="group" aria-label="Filtrar por etapa da carreira" hidden><button type="button" class="btn btn--secondary" data-event="filter_select" data-filter="todos" aria-pressed="true">Todos</button><button type="button" class="btn btn--secondary" data-event="filter_select" data-filter="comecando" aria-pressed="false">Estou começando</button><button type="button" class="btn btn--secondary" data-event="filter_select" data-filter="crescendo" aria-pressed="false">Quero crescer</button><button type="button" class="btn btn--secondary" data-event="filter_select" data-filter="liderando" aria-pressed="false">Quero liderar</button></div>
 <div class="container filter-empty" id="filter-empty" role="status" hidden><div class="card"><p class="card__text">Ainda não tenho livro ou SmartBook específico para esta etapa. Comece pela <a href="../mentoria/">mentoria gratuita</a> e pelas recomendações de leitura mais abaixo.</p></div></div></div>
-<div class="container"><nav class="anchor-nav" aria-label="Seções"><a class="btn btn--secondary" href="#livros">Livros</a><a class="btn btn--secondary" href="#smartbooks">SmartBooks</a><a class="btn btn--secondary" href="#recomendacoes">Recomendações</a></nav></div>
+<div class="container"><nav class="anchor-nav" aria-label="Seções"><a class="btn btn--secondary" href="#livros" data-event="section_nav_click" data-target="livros">Livros</a><a class="btn btn--secondary" href="#smartbooks" data-event="section_nav_click" data-target="smartbooks">SmartBooks</a><a class="btn btn--secondary" href="#recomendacoes" data-event="section_nav_click" data-target="recomendacoes">Recomendações</a></nav></div>
 <section class="section container" id="livros" data-filter-section aria-labelledby="l-h"><div class="section-head"><h2 id="l-h">Livros</h2><p>Publicados por Paulo Leite.</p></div><div class="grid grid--2"><article class="card card--interactive book" data-path="crescendo">
   <img class="book__cover" src="../assets/images/covers/system-design.webp" width="320" height="480" alt="Capa de System Design para Desenvolvedores" loading="lazy" decoding="async" fetchpriority="low">
   <div class="book__body">
@@ -98,9 +98,9 @@
   <div class="container site-footer__inner">
     <span>© 2026 Paulo Leite · Arquitete sua carreira em tecnologia.</span>
     <ul class="site-footer__nav" aria-label="Links do rodapé">
-      <li><a href="../privacidade/">Privacidade</a></li><li><button type="button" class="linklike" id="consent-open">Cookies</button></li>
-      <li><a href="https://www.instagram.com/pauloleite.dev" target="_blank" rel="noopener" data-event="social_click" data-network="instagram">Instagram<span class="visually-hidden"> (abre em nova aba)</span></a></li>
-      <li><a href="https://www.linkedin.com/in/paulorobertoleite" target="_blank" rel="noopener" data-event="social_click" data-network="linkedin">LinkedIn<span class="visually-hidden"> (abre em nova aba)</span></a></li>
+      <li><a href="../privacidade/" data-event="nav_click" data-placement="footer">Privacidade</a></li><li><button type="button" class="linklike" id="consent-open">Cookies</button></li>
+      <li><a href="https://www.instagram.com/pauloleite.dev" target="_blank" rel="noopener" data-event="social_click" data-network="instagram" data-placement="footer">Instagram<span class="visually-hidden"> (abre em nova aba)</span></a></li>
+      <li><a href="https://www.linkedin.com/in/paulorobertoleite" target="_blank" rel="noopener" data-event="social_click" data-network="linkedin" data-placement="footer">LinkedIn<span class="visually-hidden"> (abre em nova aba)</span></a></li>
     </ul>
   </div>
 </footer>

@@ -12,20 +12,40 @@
 - **Google Tag Manager com consentimento (LGPD):** `"gtm_id": "GTM-PWQFMS3W"` em `data/site.json`. O contêiner **só é carregado depois que o visitante aceita** o aviso de cookies (`js/consent.js`). Sem aceite, nenhum script do Google é carregado e `data-event` não registra nada. A escolha fica em `localStorage` (`pl_consent`); o botão "Cookies" no rodapé reabre o aviso, e recusar apaga os cookies `_ga*`.
 - **Consent Mode:** o padrão é `denied` (analytics, ads, user data, personalization); ao aceitar, só `analytics_storage` vira `granted`.
 - **O que configurar no GTM (painel do Google):** a tag do **GA4** dentro do contêiner (ID de medição `G-…`), disparando em "All Pages" ou no evento `gtm.js`. O snippet `<noscript>` do GTM **não** foi incluído de propósito: sem JavaScript não há como pedir consentimento.
-- **Eventos:** cada clique com `data-event` faz `dataLayer.push({event: '<nome>', params: {...}})`. No GTM, crie um acionador "Evento personalizado" por nome (tabela abaixo) e variáveis de camada de dados `params.book_id`, `params.store`, `params.placement`, etc.
-- `ga4_id` (gtag direto) continua suportado, mas sem aviso de cookies; prefira o GTM.
+- **Eventos (formato plano):** `dataLayer.push({ event: '<nome>', page_path, section_id, ...parâmetros })`. Só são registrados com consentimento. O e-mail nunca é enviado.
+- **Importar no GTM (recomendado):** `docs/gtm-container-eventos.json` (gerado por `python3 tools/gtm_container.py`). No GTM: Admin > Importar contêiner > escolher o arquivo > contêiner existente > **Mesclar** (renomear conflitos). Cria 20 variáveis `DLV - …`, o acionador `CE - Eventos do site` e a tag `GA4 - Eventos do site`. Confira o ID de medição na tag (`G-JF46WCSXS2`), use **Visualizar** (Preview), e só então publique.
+- **Se preferir manual:** acionador "Evento personalizado" com regex `^(<eventos separados por |>)$`, tag "Evento do Google Analytics: GA4" com nome do evento `{{Event}}` e cada parâmetro mapeado a uma variável de camada de dados com o mesmo nome.
 
-| Evento | Onde | Parâmetros |
+### Eventos
+| Evento | Quando dispara | Parâmetros principais |
 |---|---|---|
-| hero_cta_click | CTA do hero | cta_id |
-| book_click | botão de compra nas páginas de produto, recomendações | book_id, store, category?, placement |
-| product_click | cards de livros/SmartBooks (abrem a página do produto) | book_id, store, placement? |
-| newsletter_submit | formulário (quando ativo) | — |
-| mentoring_click | CTA ADPList | placement |
-| project_click | DogNAS em Projetos | project_id |
-| featured_click | destaques da home | project_id / item_id |
-| social_click | Instagram, LinkedIn | network |
-| contact_click | WhatsApp, e-mail | method |
+| `nav_click` | menu, logo, rodapé, breadcrumb, 404 | placement (`header`, `brand`, `footer`, `breadcrumb`, `404`), link_text, link_url |
+| `menu_toggle` | botão do menu no celular | state (`open`/`close`) |
+| `hero_cta_click` | "Comece por aqui" | cta_id |
+| `section_nav_click` | botões Livros/SmartBooks/Recomendações | target |
+| `filter_select` | filtro por etapa em Conhecimento | filter (`todos`, `comecando`, `crescendo`, `liderando`) |
+| `product_click` | cards de livro/SmartBook e trilhas (abrem a página do produto) | book_id, store, placement |
+| `book_click` | botão de compra e links de recomendações | book_id, store, placement, category |
+| `mentoring_click` | qualquer botão do ADPList | placement |
+| `project_click` / `featured_click` | DogNAS (Google Play, site, destaque na home) | project_id, placement |
+| `social_click` | Instagram, LinkedIn | network, placement |
+| `contact_click` | WhatsApp, e-mail | method |
+| `newsletter_submit` | envio do formulário (quando ativo) | — |
+| `reco_expand` | "Ver mais" das recomendações | category |
+| `faq_toggle` | abrir pergunta da FAQ (mentoria) | question |
+| `carousel_scroll` | primeira rolagem lateral dos depoimentos | section_id |
+| `scroll_depth` | 25, 50, 75 e 100% da página | depth |
+| `section_view` | seção cruza o centro da tela (1 vez por página) | section_id |
+| `outbound_click` | qualquer link externo sem evento próprio | link_domain, link_url |
+| `page_not_found` | página 404 | missing_path |
+
+Todos os eventos de clique levam também `link_text`, `link_url`, `link_domain` e `section_id` (nome legível da seção). Nomes e parâmetros seguem os limites do GA4 (nome ≤ 40, valor ≤ 100 caracteres).
+
+### No GA4 (Admin)
+1. **Dimensões personalizadas** (escopo Evento), para os parâmetros aparecerem nos relatórios: `placement`, `section_id`, `book_id`, `store`, `filter`, `network`, `method`, `project_id`, `link_text`, `link_domain`, `depth`, `target`, `question`, `category`, `cta_id`, `state`.
+2. **Eventos-chave** (conversões): `book_click`, `mentoring_click`, `contact_click`, `newsletter_submit`, `project_click`.
+3. **Medição aprimorada:** desligue "Cliques de saída" e "Rolagens" no fluxo de dados, pois `outbound_click` e `scroll_depth` já cobrem isso (evita contagem dupla).
+4. **Funil sugerido** (Explorar > Exploração de funil): `section_view` (trilha) → `product_click` → `book_click`; e `section_view` (mentoria) → `mentoring_click`.
 
 ## UTMs (tráfego do Instagram)
 Link da bio (cada link com UTMs próprios):
