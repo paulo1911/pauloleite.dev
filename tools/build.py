@@ -62,10 +62,9 @@ def soc(id_): return next(s for s in SOCIALS if s['id'] == id_)
 def offer_badge(it): return f'<span class="badge badge--offer">{e(it["offer"])}</span>' if it.get('offer') else ''
 
 def CONSENT_HTML(p):
-    return f'''<div class="consent" id="consent" role="dialog" aria-labelledby="consent-t" aria-describedby="consent-d" hidden>
-  <p class="consent__t" id="consent-t">Cookies de medição</p>
-  <p class="consent__d" id="consent-d">Uso o Google Analytics para entender quais conteúdos ajudam mais. Só ativo se você aceitar. <a href="{p or './'}privacidade/">Saiba mais</a></p>
-  <div class="consent__btns"><button type="button" class="btn btn--primary" data-consent="granted">Aceitar</button><button type="button" class="btn btn--secondary" data-consent="denied">Recusar</button></div>
+    return f'''<div class="consent" id="consent" role="dialog" aria-label="Aviso de cookies" aria-describedby="consent-d" hidden>
+  <p class="consent__d" id="consent-d"><strong>Cookies:</strong> a gente guarda estatísticas de visitas para melhorar sua experiência de navegação. Ao continuar, você concorda com nossa <a href="{p or './'}privacidade/">política de privacidade</a>.</p>
+  <div class="consent__btns"><button type="button" class="btn btn--primary" data-consent="granted">Concordar e Fechar</button><button type="button" class="btn btn--secondary" data-consent="denied" id="consent-deny" hidden>Recusar</button></div>
 </div>
 '''
 
