@@ -348,7 +348,10 @@ def about_page():
         jsonld=ld({"@type": "ProfilePage", "url": SITE['domain'] + "/sobre/", "name": "Sobre Paulo Leite", "inLanguage": "pt-BR", "dateModified": DATES.get('sobre/'), "mainEntity": person_node()}, breadcrumb(("Sobre", "sobre/"))))
 
 def privacy_page():
-    collect = ('<p>O site não pede cadastro. Com o seu consentimento, uso o Google Analytics (por meio do Google Tag Manager) para medir visitas e cliques: páginas acessadas, origem do acesso, tipo de dispositivo e cliques em botões. Esses dados são enviados à Google e usam cookies (como <code>_ga</code>). Sem o seu aceite, nenhum script do Google é carregado e nada é registrado. Você pode recusar ou mudar de ideia a qualquer momento pelo botão &ldquo;Cookies&rdquo; no rodapé; ao recusar, apago os cookies de medição.</p>' if SITE.get('gtm_id') else '<p>Hoje o site não pede cadastro, não usa cookies de rastreamento e não envia dados de navegação a ferramentas de terceiros. Se isso mudar, esta página será atualizada e, quando necessário, vou pedir o seu consentimento.</p>')
+    gc_p = '<p>Para saber quantas pessoas visitam o site e quais páginas são mais lidas, uso o GoatCounter, uma ferramenta de estatísticas que não usa cookies, não grava seu endereço IP e não cria perfil de visitante. Ela registra apenas dados agregados e anônimos, como a página acessada, a origem do acesso, o navegador, o tamanho da tela e os cliques em links e botões do site, e por isso funciona sem pedir consentimento.</p>' if SITE.get('goatcounter_code') else ''
+    nogtm = ('<p>O site não pede cadastro, não usa cookies de rastreamento e não envia dados de navegação a outras ferramentas de terceiros. Se isso mudar, esta página será atualizada e, quando necessário, vou pedir o seu consentimento.</p>' if gc_p else '<p>Hoje o site não pede cadastro, não usa cookies de rastreamento e não envia dados de navegação a ferramentas de terceiros. Se isso mudar, esta página será atualizada e, quando necessário, vou pedir o seu consentimento.</p>')
+    withgtm = '<p>O site não pede cadastro. Com o seu consentimento, uso também o Google Analytics (por meio do Google Tag Manager) para medir cliques e comportamento: páginas acessadas, origem do acesso, tipo de dispositivo e cliques em botões. Esses dados são enviados à Google e usam cookies (como <code>_ga</code>). Sem o seu aceite, nenhum script do Google é carregado e nada é registrado por ele. Você pode recusar ou mudar de ideia a qualquer momento pelo botão &ldquo;Cookies&rdquo; no rodapé; ao recusar, apago os cookies de medição.</p>'
+    collect = gc_p + (withgtm if SITE.get('gtm_id') else nogtm)
     news = '<h2>Newsletter</h2><p>Se você assinar a newsletter, seu e-mail é usado apenas para enviar o conteúdo que você pediu e fica guardado no serviço de envio de e-mails contratado. Você pode cancelar a qualquer momento pelo link no rodapé de cada mensagem.</p>' if NEWS.get('status') == 'published' and NEWS.get('action') else ''
     body = head('Privacidade', 'Política de privacidade', 'Como este site trata seus dados.') + f'''
 <section class="section container container--narrow legal">
@@ -383,6 +386,8 @@ def layout(key, depth, title, desc, body, path, jsonld='', index=True, head_extr
     gtm_attr = f' data-gtm-id="{e(gtm)}"' if gtm else ''
     consent = CONSENT_HTML(p) if gtm else ''
     cookies_li = '<li><button type="button" class="linklike" id="consent-open">Cookies</button></li>' if gtm else ''
+    gc = SITE.get('goatcounter_code')
+    gc_script = f'<script data-goatcounter="https://{e(gc)}.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>\n' if gc else ''
     ga = f' data-ga4-id="{SITE["ga4_id"]}"' if SITE.get('ga4_id') else ''
     html = f'''<!doctype html>
 <html lang="pt-BR">
@@ -446,7 +451,7 @@ def layout(key, depth, title, desc, body, path, jsonld='', index=True, head_extr
   </div>
 </footer>
 {consent}<script src="{p}js/site.min.js" defer{ga}{gtm_attr}></script>
-</body>
+{gc_script}</body>
 </html>
 '''
     return inline_sprite(html)

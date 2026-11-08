@@ -1,5 +1,6 @@
 // Eventos de engajamento. Tudo é empilhado em window.dataLayer (o GTM lê de lá).
-// REGRA LGPD: sem consentimento (window.__plConsent === 'granted', definido em consent.js) nada é registrado.
+// REGRA LGPD: o dataLayer (GTM/GA4, com cookies) só recebe eventos com consentimento (window.__plConsent === 'granted', definido em consent.js).
+// O GoatCounter (sem cookies, sem IP, agregado) recebe os mesmos eventos sempre, como "eventos" com caminho ev/<nome>/<detalhes>.
 // Formato: dataLayer.push({ event: '<nome>', <parametros planos> }). Nome e parâmetros em snake_case.
 (function () {
   window.dataLayer = window.dataLayer || [];
@@ -39,8 +40,43 @@
     return c.textContent;
   }
 
+  // ---- GoatCounter: cada evento vira um "evento" com caminho ev/<nome>/<detalhes> ----
+  // Os detalhes (parâmetros que entram no caminho) variam por evento; a página de origem vai como referrer,
+  // então no painel (clicar no evento > Referrers) aparece de qual página veio o clique.
+  var GC_KEYS = {
+    nav_click: ['placement', 'link_text'], menu_toggle: ['state'], hero_cta_click: ['cta_id'], section_nav_click: ['target'],
+    filter_select: ['filter'], product_click: ['book_id', 'store'], book_click: ['book_id', 'store'],
+    mentoring_click: ['placement'], project_click: ['project_id', 'placement'], featured_click: ['project_id', 'placement'],
+    social_click: ['network', 'placement'], contact_click: ['method'], reco_expand: ['category'], faq_toggle: ['question'],
+    carousel_scroll: ['page'], scroll_depth: ['page', 'depth'], section_view: ['page', 'section_id'],
+    outbound_click: ['link_domain'], page_not_found: ['missing_path']
+  };
+  var gcQueue = [], gcReady = false;
+  function gcSend(d) {
+    if (window.goatcounter && typeof window.goatcounter.count === 'function') { window.goatcounter.count(d); return; }
+    gcQueue.push(d);
+  }
+  (function () {
+    var tag = document.querySelector('script[data-goatcounter]');
+    if (!tag) return;
+    gcReady = true;
+    tag.addEventListener('load', function () { gcQueue.splice(0).forEach(gcSend); });
+  })();
+  function pageSlug() { return slug(location.pathname.replace(/^\/+|\/+$/g, '')) || 'home'; }
+  function gcTrack(name, params) {
+    if (!gcReady) return false;
+    var p = {}, k;
+    for (k in params) p[k] = params[k];
+    p.page = pageSlug();
+    var parts = (GC_KEYS[name] || []).map(function (key) { return slug(p[key]); }).filter(Boolean);
+    var title = name + (params.link_text ? ' · ' + clip(params.link_text, 60) : '') + ' · ' + p.page + (params.section_id ? ' › ' + params.section_id : '');
+    gcSend({ path: ['ev', name].concat(parts).join('/'), title: title, event: true, referrer: location.origin + location.pathname });
+    return true;
+  }
+
   function track(name, params) {
-    if (!granted()) return false;
+    var sentGc = gcTrack(name, params);
+    if (!granted()) return sentGc;
     var o = { event: name, page_path: location.pathname };
     Object.keys(params || {}).forEach(function (k) { if (params[k] !== '' && params[k] != null) o[k] = clip(params[k], 100); });
     window.dataLayer.push(o);
@@ -49,7 +85,6 @@
 
   // ---- Cliques ----
   document.addEventListener('click', function (ev) {
-    if (!granted()) return;
     var el = ev.target.closest('[data-event]');
     var link = ev.target.closest('a[href]');
     var params = {};

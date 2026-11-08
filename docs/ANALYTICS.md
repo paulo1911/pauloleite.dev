@@ -8,6 +8,7 @@
 - **Indexação controlada por `"indexable"` em `data/site.json`** (hoje `false` → meta `noindex, nofollow` e `robots.txt` com `Disallow: /`). No lançamento: mudar para `true`, rodar `python3 tools/build.py`. A 404 é sempre `noindex`.
 
 ## Analytics
+- **GoatCounter (visitas, sem cookies):** `"goatcounter_code": "pauloleite"` em `data/site.json` injeta `<script data-goatcounter="https://pauloleite.goatcounter.com/count" async src="https://gc.zgo.at/count.js">` em todas as páginas (inclusive 404). Não usa cookies nem guarda IP, então carrega **sem** aviso de consentimento e é independente do GTM. Painel: https://pauloleite.goatcounter.com. Para desativar, remova a chave e rode `python3 tools/build.py`. Nota: o GoatCounter ignora `localhost` por padrão; teste só em produção.
 - `js/analytics.js` escuta cliques em elementos com `data-event` e empilha em `window.dataLayer` (sem rede, sem cookies). Parâmetros = `data-*` em snake_case + `page_path`. O e-mail nunca é enviado.
 - **Google Tag Manager com consentimento (LGPD):** `"gtm_id": "GTM-K9ZTN386"` em `data/site.json`. O contêiner **só é carregado depois que o visitante aceita** o aviso de cookies (`js/consent.js`). Sem aceite, nenhum script do Google é carregado e `data-event` não registra nada. A escolha fica em `localStorage` (`pl_consent`); o botão "Cookies" no rodapé reabre o aviso, e recusar apaga os cookies `_ga*`.
 - **Consent Mode:** o padrão é `denied` (analytics, ads, user data, personalization); ao aceitar, só `analytics_storage` vira `granted`.
@@ -15,6 +16,15 @@
 - **Eventos (formato plano):** `dataLayer.push({ event: '<nome>', page_path, section_id, ...parâmetros })`. Só são registrados com consentimento. O e-mail nunca é enviado.
 - **Importar no GTM (recomendado):** `docs/gtm-container-eventos.json` (gerado por `python3 tools/gtm_container.py`). No GTM: Admin > Importar contêiner > escolher o arquivo > contêiner existente > **Mesclar** (renomear conflitos). Cria 20 variáveis `DLV - …`, o acionador `CE - Eventos do site` e a tag `GA4 - Eventos do site`. Confira o ID de medição na tag (`G-JF46WCSXS2`), use **Visualizar** (Preview), e só então publique.
 - **Se preferir manual:** acionador "Evento personalizado" com regex `^(<eventos separados por |>)$`, tag "Evento do Google Analytics: GA4" com nome do evento `{{Event}}` e cada parâmetro mapeado a uma variável de camada de dados com o mesmo nome.
+
+### GoatCounter: os mesmos eventos, sem consentimento
+`js/analytics.js` envia cada evento da tabela abaixo também ao GoatCounter (`goatcounter.count({event:true})`), **sempre**, pois ele não usa cookies nem IP. O GTM/GA4 continua só com consentimento.
+- **Caminho do evento:** `ev/<evento>/<detalhes>`, ex.: `ev/book_click/system-design/amazon`, `ev/mentoring_click/hero`, `ev/social_click/linkedin/footer`, `ev/section_view/home/trilha`, `ev/scroll_depth/home/50`.
+- **Página de origem:** vai como *referrer* do evento. No painel, clique no evento > Referrers para ver de qual página veio o clique.
+- **Título:** `evento · texto do link · página › seção`.
+- **Conversão (CTR):** cliques do evento ÷ visualizações da página (aba Pages, no mesmo período). Eventos de conversão: `ev/book_click/*`, `ev/product_click/*`, `ev/mentoring_click/*`, `ev/contact_click/*`, `ev/project_click/*`, `ev/social_click/*`. Use o filtro de caminho (`ev/book_click`) para somar.
+- Não enviamos URLs completas de saída nem e-mail/telefone: só o domínio de destino em `outbound_click`.
+- Eventos de rolagem/seção vistos antes do aceite dos cookies vão só ao GoatCounter (não são reenviados ao GTM).
 
 ### Eventos
 | Evento | Quando dispara | Parâmetros principais |
